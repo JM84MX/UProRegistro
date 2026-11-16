@@ -1,0 +1,221 @@
+<Window x:Class="UProAttendance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="clr-namespace:UProAttendance.Presentation"
+        Title="UPro Attendance" Width="1180" Height="704" MinWidth="680" MinHeight="420"
+        WindowStartupLocation="CenterScreen" Background="#FFFFFF" FontFamily="Segoe UI"
+        FontSize="14" Foreground="#171716" UseLayoutRounding="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Ink" Color="#171716"/>
+        <SolidColorBrush x:Key="Muted" Color="#615F5B"/>
+        <SolidColorBrush x:Key="Line" Color="#E7E4DF"/>
+        <SolidColorBrush x:Key="Surface" Color="#F8F7F4"/>
+        <Style x:Key="ButtonBase" TargetType="Button">
+            <Setter Property="MinHeight" Value="43"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonChrome" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonChrome" Property="BorderBrush" Value="#85817A"/>
+                                <Setter TargetName="ButtonChrome" Property="Opacity" Value="0.86"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonChrome" Property="Opacity" Value="0.70"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="ButtonChrome" Property="BorderBrush" Value="#76674E"/>
+                                <Setter TargetName="ButtonChrome" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonChrome" Property="Background" Value="#F4F3F0"/>
+                                <Setter TargetName="ButtonChrome" Property="BorderBrush" Value="#EBE9E4"/>
+                                <Setter Property="Foreground" Value="#74716C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonBase}"/>
+        <Style x:Key="Primary" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
+            <Setter Property="Background" Value="{StaticResource Ink}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Ink}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="Heading" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="43"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="Caption" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="21"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="HeaderRow" Height="72"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1">
+            <DockPanel Margin="34,0" MaxWidth="1080" LastChildFill="False">
+                <Image DockPanel.Dock="Left" Source="Assets/logo.png" Width="155" Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="U Professional Hairstudio"/>
+                <Button x:Name="NavButton" DockPanel.Dock="Right" VerticalAlignment="Center" MinHeight="38"
+                        Content="Administración  →" Click="Navigate"/>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid x:Name="ContentRoot" Margin="34,25,34,24" MaxWidth="1080" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="PageIntro" Margin="0,0,0,24">
+                    <TextBlock x:Name="TitleText" Text="Registro de asistencia" Style="{StaticResource Heading}"
+                               AutomationProperties.HeadingLevel="Level1"/>
+                    <TextBlock x:Name="Subtitle" Text="Identifica tu huella y elige Entrada o Salida."
+                               Style="{StaticResource Caption}" FontSize="15" Margin="1,7,0,0"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.32*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="ScannerCard" BorderBrush="{StaticResource Line}" CornerRadius="20" BorderThickness="1"
+                            Padding="18,23,18,22" MinHeight="375">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#FBFAF8"/>
+                                <GradientStop Offset="1" Color="#F3F0EA"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel VerticalAlignment="Center">
+                            <Viewbox x:Name="ScannerVisual" Height="198" Margin="0,0,0,19" HorizontalAlignment="Center">
+                                <Grid Width="218" Height="198">
+                                    <Border Width="148" Height="148" CornerRadius="74" Background="#FCFBF9"
+                                            BorderBrush="#E8E3DA" BorderThickness="1"/>
+                                    <Path Stroke="#A19A8C" StrokeThickness="1.3" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                          Data="M 40,42 L 40,24 L 59,24 M 159,24 L 178,24 L 178,42 M 40,156 L 40,174 L 59,174 M 159,174 L 178,174 L 178,156"/>
+                                    <ui:FingerprintArt x:Name="Fingerprint" Width="125" Height="125"
+                                                       IsHitTestVisible="False" Focusable="False"/>
+                                </Grid>
+                            </Viewbox>
+                            <TextBlock x:Name="Prompt" Text="Coloca tu dedo en el lector" TextAlignment="Center"
+                                       TextWrapping="Wrap" FontSize="24" FontWeight="SemiBold" AutomationProperties.LiveSetting="Polite"/>
+                            <TextBlock x:Name="ScanDetail" Text="Comprobando el estado del lector…" TextAlignment="Center"
+                                       Style="{StaticResource Caption}" Margin="0,6,0,0" AutomationProperties.LiveSetting="Polite"/>
+                            <StackPanel x:Name="ProgressPanel" Visibility="Collapsed" Margin="0,17,0,0" HorizontalAlignment="Center">
+                                <ProgressBar x:Name="SampleBar" Width="150" Minimum="0" Maximum="3" Height="4"
+                                             Background="#E4E0D8" Foreground="#222120" BorderThickness="0"
+                                             AutomationProperties.Name="Progreso de muestras aceptadas"/>
+                                <TextBlock x:Name="SampleCount" TextAlignment="Center" Style="{StaticResource Caption}" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" BorderBrush="{StaticResource Line}" CornerRadius="20" BorderThickness="1"
+                            Background="White" Padding="23,21">
+                        <Grid>
+                            <StackPanel x:Name="AttendancePanel" VerticalAlignment="Center">
+                                <TextBlock Text="Marcaje" FontSize="22" FontWeight="SemiBold"/>
+                                <Border CornerRadius="11" BorderBrush="{StaticResource Line}" BorderThickness="1"
+                                        Background="{StaticResource Surface}" Padding="14,12" Margin="0,12,0,13">
+                                    <StackPanel>
+                                        <TextBlock Text="Identificación" Foreground="{StaticResource Muted}" FontSize="12"/>
+                                        <TextBlock x:Name="IdentityText" Text="Esperando una huella" TextWrapping="Wrap"
+                                                   FontSize="17" FontWeight="SemiBold" Margin="0,3,0,0"/>
+                                        <TextBlock x:Name="FingerText" TextWrapping="Wrap" Foreground="{StaticResource Muted}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="8"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="EntryButton" Content="Entrada" Click="MarkEntry" IsEnabled="False" Style="{StaticResource Primary}"/>
+                                    <Button x:Name="ExitButton" Grid.Column="2" Content="Salida" Click="MarkExit" IsEnabled="False"/>
+                                </Grid>
+                                <TextBlock x:Name="AttendanceMessage" Text="La hora oficial la asigna UProApp."
+                                           Style="{StaticResource Caption}" Margin="0,11,0,0"
+                                           AutomationProperties.LiveSetting="Polite"/>
+                                <Button x:Name="ResumeButton" Content="Volver a identificar" Click="Resume"
+                                        IsEnabled="False" Visibility="Collapsed" HorizontalAlignment="Left" MinHeight="35" Margin="0,10,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel x:Name="EnrollmentPanel" Visibility="Collapsed" VerticalAlignment="Center">
+                                <TextBlock x:Name="AdminTitle" Text="Acceso administrativo" FontSize="21" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="AdminDetail" Style="{StaticResource Caption}" Margin="0,7,0,0"/>
+                                <Button x:Name="AuthorizeButton" Content="Verificar acceso" Style="{StaticResource Primary}"
+                                        Click="Authorize" Margin="0,14,0,0"/>
+                                <StackPanel x:Name="EnrollForm" Visibility="Collapsed" Margin="0,12,0,0">
+                                    <Label Content="Estilista" Target="{Binding ElementName=Employees}" Padding="0,0,0,4"/>
+                                    <ComboBox x:Name="Employees" DisplayMemberPath="Name" SelectionChanged="SelectionChanged"/>
+                                    <Label Content="Dedo" Target="{Binding ElementName=Fingers}" Padding="0,8,0,4"/>
+                                    <ComboBox x:Name="Fingers" DisplayMemberPath="Label" SelectionChanged="SelectionChanged"/>
+                                    <TextBlock x:Name="EnrollmentInventory" Style="{StaticResource Caption}" Margin="0,6,0,0"/>
+                                    <Grid Margin="0,12,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="8"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="EnrollButton" Content="Iniciar capturas" Style="{StaticResource Primary}"
+                                                Click="Enroll" IsEnabled="False"/>
+                                        <Button x:Name="CancelButton" Grid.Column="2" Content="Cancelar" Click="CancelEnrollment"
+                                                Visibility="Collapsed"/>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Background="#FCFBF9">
+            <WrapPanel Margin="34,0" MaxWidth="1080" MinHeight="48">
+                <StackPanel Orientation="Horizontal" Margin="0,12,24,12">
+                    <Ellipse x:Name="ReaderDot" Width="7" Height="7" Fill="#918D83" Margin="0,0,8,0"/>
+                    <TextBlock Text="SecuGen U20" FontWeight="SemiBold" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="ReaderText" Text="Comprobando…" Foreground="{StaticResource Muted}"
+                               AutomationProperties.LiveSetting="Polite"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,12,21,12">
+                    <Ellipse Width="7" Height="7" Fill="#918D83" Margin="0,0,8,0"/>
+                    <TextBlock Text="UProApp" FontWeight="SemiBold" Margin="0,0,8,0"/>
+                    <TextBlock Text="Sin integración" Foreground="{StaticResource Muted}"/>
+                </StackPanel>
+                <TextBlock x:Name="LabBadge" Text="Pruebas · datos de ejemplo en memoria"
+                           Foreground="#6B5026" VerticalAlignment="Center" Margin="0,4,0,4" Visibility="Collapsed"/>
+            </WrapPanel>
+        </Border>
+    </Grid>
+</Window>

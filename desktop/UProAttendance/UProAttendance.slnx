@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="App/UProAttendance.csproj" />
+  <Project Path="Core/UProAttendance.Core.csproj" />
+  <Project Path="Tests/UProAttendance.Tests.csproj" />
+</Solution>
