@@ -395,25 +395,36 @@ internal static class Program
         Equal(false, ((Border)show.FindName("CaptureAside")).IsVisible);
         Equal(false, ((TextBlock)show.FindName("ScanDetail")).IsVisible);
         Snapshot(show, Path.Combine(destination, "registro-de-asistencia.png"), 1);
-        show.PresentAttendance(AttendanceAction.Entry, "María", isLocal: true);
+        show.PresentAttendance(AttendanceAction.Entry, new Employee("ui-maria", "María"), isLocal: true);
         Equal("Entrada · Prueba", confirmation.Text);
+        Equal(TimeSpan.FromSeconds(30), MainWindow.FeedbackDuration);
+        Equal(true, show.IsFeedbackForEmployee("ui-maria"));
+        Equal(false, show.IsFeedbackForEmployee("ui-other"));
         Equal(true, prompt.Text.Contains("María", StringComparison.Ordinal));
         show.ShowAttendanceReader(FlowState.Capturing);
+        show.ShowAttendanceReader(FlowState.Matching);
+        show.ShowAttendanceReader(FlowState.WaitingForLift);
+        show.ShowAttendanceReader(FlowState.QualityRejected);
         Equal(true, confirmation.IsVisible);
+        Equal(true, prompt.Text.Contains("María", StringComparison.Ordinal));
         Snapshot(show, Path.Combine(destination, "bienvenida.png"), 1);
+        show.PresentAttendance(AttendanceAction.Entry, new Employee("ui-ana", "Ana"), isLocal: true);
+        Equal(true, show.IsFeedbackForEmployee("ui-ana"));
+        Equal(false, show.IsFeedbackForEmployee("ui-maria"));
+        Equal(true, prompt.Text.Contains("Ana", StringComparison.Ordinal));
         show.ShowAttendanceReader(FlowState.Capturing, keepFeedback: false);
         Equal(false, confirmation.IsVisible);
         Equal("Coloca tu dedo en el lector", prompt.Text);
 
         var navigation = (Button)show.FindName("NavButton");
         navigation.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        PumpUntil(() => ((Border)show.FindName("SignInPanel")).IsVisible);
-        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
-        ((Button)show.FindName("AuthorizeButton")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        PumpUntil(() => ((TextBlock)show.FindName("AdminDetail")).Text.StartsWith("Acceso pendiente", StringComparison.Ordinal));
+        PumpUntil(() => ((StackPanel)show.FindName("AdminHomePanel")).IsVisible);
+        PumpUntil(() => ((TextBlock)show.FindName("AdminHomeStatus")).Text.StartsWith("Acceso pendiente", StringComparison.Ordinal));
+        Equal(false, ((Button)show.FindName("SettingsButton")).IsEnabled);
+        Equal(false, ((Button)show.FindName("EmployeesButton")).IsEnabled);
         Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
         Equal(false, ((Border)show.FindName("EnrollForm")).IsVisible);
-        Snapshot(show, Path.Combine(destination, "acceso-administrativo.png"), 1);
+        Snapshot(show, Path.Combine(destination, "administracion-sin-acceso.png"), 1);
         show.Close();
         PumpUntil(() => !show.IsVisible);
 
@@ -421,9 +432,8 @@ internal static class Program
         show = new MainWindow(false, admin, admin);
         show.Show();
         Click(show, "NavButton");
-        PumpUntil(() => ((Border)show.FindName("SignInPanel")).IsVisible);
-        Click(show, "AuthorizeButton");
-        PumpUntil(() => ((StackPanel)show.FindName("AdminHomePanel")).IsVisible);
+        PumpUntil(() => ((StackPanel)show.FindName("AdminHomePanel")).IsVisible
+            && ((Button)show.FindName("SettingsButton")).IsEnabled);
         Equal(0, admin.RosterReads);
         Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
         Snapshot(show, Path.Combine(destination, "administracion.png"), 1);
