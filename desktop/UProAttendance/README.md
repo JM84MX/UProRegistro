@@ -1,14 +1,14 @@
 # UPro Attendance para Windows
 
-Aplicación WPF de escritorio para U Professional Hairstudio. Abre en **Registro de asistencia**. **Administración** protege el acceso a **Configuración** y **Alta de empleado**. La solución usa .NET 10 y el logotipo oficial `public/logo.png` de la copia local de UProApp. La interfaz toma como referencia `app/webpage`, `PublicHeader` y `PreconsultaCTA`.
+Aplicación WPF de escritorio para U Professional Hairstudio. Abre en **Registro de asistencia**. **Administración** muestra directamente **Configuración** y **Alta de empleado**, y comprueba la autorización sin una pantalla intermedia. La solución usa .NET 10 y el logotipo oficial `public/logo.png` de la copia local de UProApp. La interfaz toma como referencia `app/webpage`, `PublicHeader` y `PreconsultaCTA`.
 
 ## Marcaje automático
 
 Cada lectura identificada registra el siguiente movimiento de la estilista para el día de Ciudad de México. Con **Hay descanso hoy** desactivado, la secuencia es **Entrada → Salida**. Con el interruptor activado, es **Entrada → Inicio de descanso → Fin de descanso → Salida**. El lector espera que la persona retire el dedo antes de habilitar otro marcaje. Después de la salida, la jornada de esa estilista queda completada.
 
-La pantalla de espera muestra la huella y la instrucción para acercar el dedo. Tras registrar un movimiento, muestra brevemente su tipo y un mensaje personalizado para la estilista. En laboratorio, la confirmación lleva la etiqueta **Prueba**.
+La pantalla de espera muestra la huella y la instrucción para acercar el dedo. Tras registrar un movimiento, mantiene su tipo y un mensaje personalizado durante 30 segundos; otra estilista identificada puede sustituir el mensaje inmediatamente, pero una relectura de la misma estilista durante ese periodo no genera un segundo marcaje. En laboratorio, la confirmación lleva la etiqueta **Prueba**.
 
-El interruptor está disponible en **Administración → Verificar acceso → Configuración**. Cambia la jornada de quienes todavía no han iniciado su descanso ni registrado salida. Si una estilista ya empezó a descansar, su siguiente lectura sigue registrando el fin de descanso. En laboratorio, la configuración y los marcajes se conservan durante la sesión.
+El interruptor está disponible en **Administración → Configuración**. Cambia la jornada de quienes todavía no han iniciado su descanso ni registrado salida. Si una estilista ya empezó a descansar, su siguiente lectura sigue registrando el fin de descanso. En laboratorio, la configuración y los marcajes se conservan durante la sesión.
 
 Al abrir la aplicación, `IAppointmentHoursProvider` puede aportar el total diario de las citas para activar el descanso si supera seis horas. Con seis horas o menos queda desactivado. Un cambio manual prevalece ese día. El proveedor actual devuelve una agenda no disponible, por lo que el modo de laboratorio comienza sin descanso hasta activar el interruptor.
 
@@ -46,7 +46,7 @@ dotnet build UProAttendance.slnx -m:1 -nodeReuse:false
 .\App\bin\Debug\net10.0-windows\UProAttendance.exe --laboratorio
 ```
 
-1. En **Administración**, verifica el acceso y entra a **Alta de empleado**. Selecciona la estilista de prueba y el dedo, y pulsa **Iniciar captura**. Captura tres impresiones levantando el dedo entre muestras. El alta registra huellas para una estilista existente.
+1. En **Administración**, la autorización se comprueba automáticamente y, si se concede, puedes entrar a **Alta de empleado**. Selecciona la estilista de prueba y el dedo, y pulsa **Iniciar captura**. Captura tres impresiones levantando el dedo entre muestras. El alta registra huellas para una estilista existente.
 2. Ajusta **Hay descanso hoy** en **Configuración** y regresa a **Registro de asistencia**. Presenta un dedo enrolado y comprueba que la aplicación registre el movimiento correspondiente. Mantén el dedo apoyado tras ver la confirmación para comprobar que se registre un solo movimiento. Retíralo y vuelve a colocarlo para el siguiente. La hora local es provisional y los marcajes de laboratorio se mantienen en memoria durante la sesión.
 3. Para caracterizar el equipo, repite con posiciones centradas y ligeramente desplazadas. Registra intentos, coincidencias al primer intento y rechazos sin guardar imágenes o plantillas. Verifica un dedo sin enrolar, una muestra de otro dedo durante el enrolamiento, cancelación y desconexión.
 

@@ -197,16 +197,6 @@
                     </Border>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Border x:Name="SignInPanel" Visibility="Collapsed" Style="{StaticResource FormCard}">
-                        <StackPanel>
-                            <TextBlock Text="Acceso administrativo" FontSize="21" FontWeight="SemiBold"/>
-                            <TextBlock x:Name="AdminDetail" Style="{StaticResource Caption}" Margin="0,7,0,0"
-                                       AutomationProperties.LiveSetting="Polite"/>
-                            <Button x:Name="AuthorizeButton" Content="Verificar acceso" Style="{StaticResource Primary}"
-                                    HorizontalAlignment="Left" Click="Authorize" Margin="0,14,0,0"/>
-                        </StackPanel>
-                    </Border>
-
                     <StackPanel x:Name="AdminHomePanel" Visibility="Collapsed">
                         <UniformGrid Columns="2">
                             <Button x:Name="SettingsButton" Style="{StaticResource AdminCard}" Click="OpenSettings"
