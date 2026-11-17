@@ -357,8 +357,10 @@ public partial class MainWindow : Window
         catch (OperationCanceledException) when (lifetime.IsCancellationRequested)
         {
         }
-        catch (Exception error) when (error is UnauthorizedAccessException or HttpRequestException or TimeoutException)
+        catch (Exception error)
         {
+            // Never let an asynchronous authorization failure terminate the Windows UI.
+            System.Diagnostics.Trace.TraceError("Administrative authorization failed: {0}", error.GetType().Name);
             enrollmentSession?.Dispose();
             enrollmentSession = null;
             AdminHomeStatus.Text = "No se pudo verificar el acceso administrativo.";
