@@ -31,7 +31,12 @@ public sealed class FingerprintTemplate(byte[] ownedBytes) : IDisposable
 }
 
 public sealed record Capture(CaptureStatus Status, FingerprintTemplate? Template = null);
-public sealed record Employee(string Id, string Name);
+public enum EmployeePosition { Unknown, Stylist, Receptionist, Assistant, Apprentice, Manager, Accountant, Ceo, Owner }
+
+public sealed record Employee(string Id, string Name)
+{
+    public EmployeePosition Position { get; init; }
+}
 public sealed record Identification(Employee Employee, Finger Finger);
 public sealed record FingerEnrollment(Identification Identity, IReadOnlyList<FingerprintTemplate> Samples);
 

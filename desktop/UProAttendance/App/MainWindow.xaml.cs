@@ -8,6 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using UProAttendance.Core;
+using UProAttendance.Core.Editorial;
 using UProAttendance.Hardware;
 using UProAttendance.Presentation;
 
@@ -35,9 +36,11 @@ public partial class MainWindow : Window
     private readonly bool laboratory;
     private readonly CancellationTokenSource lifetime = new();
     private readonly AttendanceGreetings greetings = new();
+    private readonly EditorialMessages editorial;
     internal static readonly TimeSpan FeedbackDuration = TimeSpan.FromSeconds(30);
     private readonly DispatcherTimer feedbackTimer = new() { Interval = FeedbackDuration };
     private string? feedbackEmployeeId;
+    private long feedbackSequence;
     private Task? screenWork;
     private CancellationTokenSource? screenCancellation;
     private IEnrollmentSession? enrollmentSession;
@@ -56,7 +59,8 @@ public partial class MainWindow : Window
     {
     }
 
-    internal MainWindow(bool laboratory, IEnrollmentAuthorization? authorizationOverride, IEmployeeProvider? employeesOverride)
+    internal MainWindow(bool laboratory, IEnrollmentAuthorization? authorizationOverride, IEmployeeProvider? employeesOverride,
+        EditorialMessages? editorialOverride = null)
     {
         this.laboratory = laboratory;
         biometrics = new(gallery);
@@ -81,7 +85,13 @@ public partial class MainWindow : Window
 
         authorization = authorizationOverride ?? authorization;
         employees = employeesOverride ?? employees;
+        editorial = editorialOverride ?? LocalEditorialHistory.Create();
         InitializeComponent();
+        if (BuildStamp.Read(MexicoCity) is { } buildStamp)
+        {
+            DevelopmentBuildStamp.Text = buildStamp;
+            DevelopmentBuildStamp.Visibility = Visibility.Visible;
+        }
         feedbackTimer.Tick += (_, _) => ShowAttendanceReader(
             waitingForLift ? FlowState.WaitingForLift : FlowState.Capturing, keepFeedback: false);
         ShowPage(Screen.Attendance);
@@ -268,10 +278,11 @@ public partial class MainWindow : Window
                 var status = await Task.Run(SecuGenReader.Probe, cancellation);
                 cancellation.ThrowIfCancellationRequested();
                 PaintReader(status);
-                ShowScan(status.Status == ReaderStatus.Ready ? FlowState.Idle : FlowState.DeviceUnavailable,
-                    status.Status == ReaderStatus.Ready ? "Aún no hay huellas registradas" : "Lector no disponible",
-                    status.Status == ReaderStatus.Ready ? "Registra una huella desde Administración."
-                        : ReaderInstruction(status));
+                if (!feedbackTimer.IsEnabled)
+                    ShowScan(status.Status == ReaderStatus.Ready ? FlowState.Idle : FlowState.DeviceUnavailable,
+                        status.Status == ReaderStatus.Ready ? "Aún no hay huellas registradas" : "Lector no disponible",
+                        status.Status == ReaderStatus.Ready ? "Registra una huella desde Administración."
+                            : ReaderInstruction(status));
                 await Task.Delay(TimeSpan.FromSeconds(3), cancellation);
                 continue;
             }
@@ -567,7 +578,7 @@ public partial class MainWindow : Window
             : "Solo entrada y salida.";
     }
 
-    private async Task RecordIdentificationAsync(IdentificationResult identification, CancellationToken cancellation)
+    internal async Task RecordIdentificationAsync(IdentificationResult identification, CancellationToken cancellation)
     {
         cancellation.ThrowIfCancellationRequested();
         if (identification.Identity is not { } identity)
@@ -601,7 +612,7 @@ public partial class MainWindow : Window
 
             if (result.Status is SyncStatus.Confirmed or SyncStatus.LocalPending)
             {
-                PresentAttendance(request, identity.Employee, result);
+                _ = PresentAttendanceAsync(request, identity.Employee, result);
             }
             else if (result.Status == SyncStatus.OutcomeUnknown)
             {
@@ -622,7 +633,7 @@ public partial class MainWindow : Window
     internal bool IsFeedbackForEmployee(string employeeId) =>
         feedbackTimer.IsEnabled && feedbackEmployeeId == employeeId;
 
-    internal void PresentAttendance(AttendanceEvent attendanceEvent, Employee employee, AttendanceResult result)
+    internal async Task PresentAttendanceAsync(AttendanceEvent attendanceEvent, Employee employee, AttendanceResult result)
     {
         if (screen != Screen.Attendance
             || result is not ({ Status: SyncStatus.LocalPending } or { Status: SyncStatus.Confirmed, OfficialTime: not null }))
@@ -630,17 +641,18 @@ public partial class MainWindow : Window
 
         var action = attendanceEvent.Action;
         var local = result.Status == SyncStatus.LocalPending;
+        var sequence = ++feedbackSequence;
         feedbackEmployeeId = employee.Id;
         if (action is AttendanceAction.Entry or AttendanceAction.Exit)
         {
             var instant = local ? attendanceEvent.ObservedOnDevice : result.OfficialTime!.Value;
             var time = TimeZoneInfo.ConvertTime(instant, MexicoCity).ToString("HH:mm", CultureInfo.InvariantCulture);
             var receipt = local ? $"{ActionName(action)} de prueba · {time}" : $"{ActionName(action)} registrada · {time}";
-            var copy = greetings.NextConfirmation(action, employee.Name);
             ShowScan(FlowState.Success, "", "");
             ScanPanel.Visibility = Visibility.Collapsed;
             AttendanceReceipt.Visibility = Visibility.Visible;
-            AttendanceReceipt.Present(action == AttendanceAction.Exit, receipt, copy);
+            AttendanceReceipt.Present(action == AttendanceAction.Exit, receipt,
+                AttendanceGreetings.ConfirmationSalutation(action, employee.Name));
         }
         else
         {
@@ -650,6 +662,14 @@ public partial class MainWindow : Window
             ConfirmationLabel.Visibility = Visibility.Visible;
         }
         feedbackTimer.Start();
+
+        if (action is AttendanceAction.Entry or AttendanceAction.Exit)
+        {
+            // The accepted mark is already visible. I/O never delays the reader or the confirmation.
+            var message = await Task.Run(() => editorial.Select(attendanceEvent, employee, result));
+            if (message is not null && sequence == feedbackSequence && feedbackTimer.IsEnabled)
+                AttendanceReceipt.SetEditorialMessage(message, action == AttendanceAction.Entry ? "Diseñamos presencia." : null);
+        }
     }
 
     private static string ActionName(AttendanceAction action) => action switch

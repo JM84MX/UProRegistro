@@ -6,13 +6,11 @@ using System.Windows.Media.Animation;
 
 namespace UProAttendance.Presentation;
 
-internal sealed record ConfirmationCopy(string Salutation, string Message, string? Closing = null);
-
 public partial class AttendanceConfirmation : UserControl
 {
     public AttendanceConfirmation() => InitializeComponent();
 
-    internal void Present(bool departing, string receipt, ConfirmationCopy copy)
+    internal void Present(bool departing, string receipt, string salutation)
     {
         Surface.Background = (Brush)FindResource(departing ? "ExitBackground" : "EntryBackground");
         Surface.BorderBrush = (Brush)FindResource(departing ? "ExitBorder" : "EntryBorder");
@@ -20,10 +18,8 @@ public partial class AttendanceConfirmation : UserControl
         ExitSymbol.Visibility = departing ? Visibility.Visible : Visibility.Collapsed;
 
         Receipt.Text = receipt;
-        Salutation.Text = copy.Salutation;
-        Message.Text = copy.Message;
-        Closing.Text = copy.Closing;
-        Closing.Visibility = string.IsNullOrWhiteSpace(copy.Closing) ? Visibility.Collapsed : Visibility.Visible;
+        Salutation.Text = salutation;
+        SetEditorialMessage(null, null);
 
         BeginAnimation(OpacityProperty, null);
         if (SystemParameters.ClientAreaAnimation)
@@ -36,6 +32,16 @@ public partial class AttendanceConfirmation : UserControl
         }
 
         UIElementAutomationPeer.FromElement(Salutation)?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+    }
+
+    internal void SetEditorialMessage(string? message, string? closing)
+    {
+        Message.Text = message ?? "";
+        Message.Visibility = message is null ? Visibility.Collapsed : Visibility.Visible;
+        Closing.Text = closing ?? "";
+        Closing.Visibility = closing is null ? Visibility.Collapsed : Visibility.Visible;
+        if (message is not null)
+            UIElementAutomationPeer.FromElement(Message)?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
     }
 
     internal void SetCompactLayout(bool compact)

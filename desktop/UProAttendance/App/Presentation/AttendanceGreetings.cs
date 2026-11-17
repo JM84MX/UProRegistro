@@ -13,21 +13,13 @@ internal sealed class AttendanceGreetings
         return string.Format(CultureInfo.CurrentCulture, options[NextIndex(action, options.Count)], name);
     }
 
-    public ConfirmationCopy NextConfirmation(AttendanceAction action, string name)
+    public static string ConfirmationSalutation(AttendanceAction action, string name)
     {
-        var options = action switch
-        {
-            AttendanceAction.Entry => Entry,
-            AttendanceAction.Exit => Exit,
-            _ => throw new ArgumentOutOfRangeException(nameof(action))
-        };
-        var copy = options[NextIndex(action, options.Length)];
         var trimmed = name.AsSpan().Trim();
-        if (trimmed.IsEmpty)
-            return copy with { Salutation = action == AttendanceAction.Entry ? "Qué gusto verte." : "Gracias por hoy." };
         var separator = trimmed.IndexOfAny(" \t\r\n".AsSpan());
         var firstName = (separator < 0 ? trimmed : trimmed[..separator]).ToString();
-        return copy with { Salutation = string.Format(CultureInfo.CurrentCulture, copy.Salutation, firstName) };
+        var greeting = action == AttendanceAction.Entry ? "Qué gusto verte" : "Gracias por hoy";
+        return string.IsNullOrEmpty(firstName) ? $"{greeting}." : $"{greeting}, {firstName}.";
     }
 
     private int NextIndex(AttendanceAction action, int count)
@@ -47,14 +39,6 @@ internal sealed class AttendanceGreetings
         AttendanceAction.BreakEnd => BreakEnd,
         _ => throw new ArgumentOutOfRangeException(nameof(action))
     };
-
-    private static readonly ConfirmationCopy[] Entry =
-    [
-        new("Qué gusto verte, {0}.", "Que encuentres tiempo para disfrutar el día.", "Diseñamos presencia."),
-        new("Hola, {0}.", "Hay días en que lo más valioso es encontrar a alguien que se tome el tiempo de escucharte. Es bueno compartir este espacio contigo."),
-        new("Qué bueno que estés aquí, {0}.", "A veces, lo que para ti empieza como un día cualquiera es, para alguien que cruza esta puerta, un momento que va a recordar. Que hoy también te deje algo bonito.", "Diseñamos presencia."),
-        new("Nos da gusto recibirte, {0}.", "Ojalá hoy encuentres una conversación que te haga sonreír.")
-    ];
 
     private static readonly string[] BreakStart =
     [
@@ -102,13 +86,5 @@ internal sealed class AttendanceGreetings
         "De vuelta a la silla, {0}. Que la siguiente cita sea de las buenas.",
         "¡Seguimos, {0}! Que el resto del día tenga espacio para disfrutar.",
         "Que vuelvas con las manos descansadas y la cabeza fresca, {0}.",
-    ];
-
-    private static readonly ConfirmationCopy[] Exit =
-    [
-        new("Gracias por hoy, {0}.", "Que el resto del día sea tuyo.", "Buen camino a casa."),
-        new("Hasta pronto, {0}.", "Gracias por la atención que pusiste en los detalles. A veces son las cosas más sencillas las que más se quedan con alguien."),
-        new("Gracias por estar hoy, {0}.", "Quizá no todas las personas te dijeron cuánto valoraron tu atención. Aun así, el cuidado con el que las recibiste y las escuchaste pudo hacerles sentir que alguien les dedicó tiempo.", "Buen camino a casa."),
-        new("Nos vemos, {0}.", "Ojalá te lleves un buen recuerdo de hoy.")
     ];
 }

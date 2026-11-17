@@ -1,0 +1,5606 @@
+{
+  "schemaVersion": 1,
+  "locale": "es-MX",
+  "messages": [
+    {
+      "id": "UNI-ENTRY-001",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres belleza en los pequeños detalles."
+    },
+    {
+      "id": "UNI-ENTRY-002",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy no necesitas demostrarlo todo. Confía en lo que has aprendido."
+    },
+    {
+      "id": "UNI-ENTRY-003",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas una jornada tranquila y llena de buenos encuentros."
+    },
+    {
+      "id": "UNI-ENTRY-004",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Lo que sabes hoy es fruto de muchas horas que nadie vio."
+    },
+    {
+      "id": "UNI-ENTRY-005",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Trabaja a tu ritmo, con atención y confianza."
+    },
+    {
+      "id": "UNI-ENTRY-006",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu curiosidad acompañe a tu experiencia."
+    },
+    {
+      "id": "UNI-ENTRY-007",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy también puedes aprender de tus compañeras."
+    },
+    {
+      "id": "UNI-ENTRY-008",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Las manos que crean también merecen cuidado."
+    },
+    {
+      "id": "UNI-ENTRY-009",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy te acompañe la satisfacción de hacer las cosas bien."
+    },
+    {
+      "id": "UNI-ENTRY-010",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas mirar tu trabajo con orgullo y curiosidad."
+    },
+    {
+      "id": "UNI-ENTRY-011",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres inspiración sin perder tu esencia."
+    },
+    {
+      "id": "UNI-ENTRY-012",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Aquí hay espacio para preguntar, aprender y compartir."
+    },
+    {
+      "id": "UNI-ENTRY-013",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hacer una buena pregunta también es parte de saber."
+    },
+    {
+      "id": "UNI-ENTRY-014",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "La seguridad profesional también incluye reconocer cuándo pedir ayuda."
+    },
+    {
+      "id": "UNI-ENTRY-015",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy el tiempo te permita trabajar con serenidad."
+    },
+    {
+      "id": "UNI-ENTRY-016",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué gusto comenzar otra jornada contigo."
+    },
+    {
+      "id": "UNI-ENTRY-017",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy haya espacio para una sonrisa espontánea."
+    },
+    {
+      "id": "UNI-ENTRY-018",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes aportar algo tuyo sin dejar de escuchar a los demás."
+    },
+    {
+      "id": "UNI-ENTRY-019",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres satisfacción en aquello que haces con intención."
+    },
+    {
+      "id": "UNI-ENTRY-020",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas un día de buena luz y mejores conversaciones."
+    },
+    {
+      "id": "UNI-ENTRY-021",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy no partes de cero. Traes contigo todo lo aprendido."
+    },
+    {
+      "id": "UNI-ENTRY-022",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu jornada tenga momentos de calma entre cada servicio."
+    },
+    {
+      "id": "UNI-ENTRY-023",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Trabajar con otras personas es una oportunidad para aprender a mirar distinto."
+    },
+    {
+      "id": "UNI-ENTRY-024",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas sorprenderte con algo que creías conocer."
+    },
+    {
+      "id": "UNI-ENTRY-025",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Tu creatividad no necesita competir con la de nadie."
+    },
+    {
+      "id": "UNI-ENTRY-026",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que la confianza sea más fuerte que la prisa."
+    },
+    {
+      "id": "UNI-ENTRY-027",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No olvides que puedes apoyarte en tu equipo."
+    },
+    {
+      "id": "UNI-ENTRY-028",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas crear sin compararte."
+    },
+    {
+      "id": "UNI-ENTRY-029",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Aquí tu criterio tiene un lugar."
+    },
+    {
+      "id": "UNI-ENTRY-030",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que este día te trate bien."
+    },
+    {
+      "id": "UNI-ENTRY-031",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Que tengas un buen comienzo."
+    },
+    {
+      "id": "UNI-ENTRY-032",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Es bueno contar contigo una vez más."
+    },
+    {
+      "id": "UNI-ENTRY-033",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres algo que te haga sonreír."
+    },
+    {
+      "id": "UNI-ENTRY-034",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Una nueva jornada, sin necesidad de que sea perfecta."
+    },
+    {
+      "id": "UNI-ENTRY-035",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu café esté a punto y tu día transcurra con calma."
+    },
+    {
+      "id": "UNI-ENTRY-036",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy puede ser un día sencillo y bonito."
+    },
+    {
+      "id": "UNI-ENTRY-037",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas buenas conversaciones y momentos para ti."
+    },
+    {
+      "id": "UNI-ENTRY-038",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué gusto verte de nuevo."
+    },
+    {
+      "id": "UNI-ENTRY-039",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy te sientas acompañada."
+    },
+    {
+      "id": "UNI-ENTRY-040",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Tu presencia es bienvenida, más allá de tu agenda."
+    },
+    {
+      "id": "UNI-ENTRY-041",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que comiences el día con confianza."
+    },
+    {
+      "id": "UNI-ENTRY-042",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy también hay espacio para lo inesperado."
+    },
+    {
+      "id": "UNI-ENTRY-043",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas un día amable contigo misma."
+    },
+    {
+      "id": "UNI-ENTRY-044",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida a tu espacio de trabajo."
+    },
+    {
+      "id": "UNI-ENTRY-045",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que la jornada te regale algún momento agradable."
+    },
+    {
+      "id": "UNI-ENTRY-046",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Es un nuevo comienzo; lo de ayer no tiene que definirlo."
+    },
+    {
+      "id": "UNI-ENTRY-047",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que puedas disfrutar las cosas que haces bien."
+    },
+    {
+      "id": "UNI-ENTRY-048",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy, un paso a la vez también está bien."
+    },
+    {
+      "id": "UNI-ENTRY-049",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué alegría coincidir nuevamente."
+    },
+    {
+      "id": "UNI-ENTRY-050",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas una jornada ligera de ánimo."
+    },
+    {
+      "id": "UNI-ENTRY-051",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué bueno que llegaste."
+    },
+    {
+      "id": "UNI-ENTRY-052",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy la vida te sorprenda para bien."
+    },
+    {
+      "id": "UNI-ENTRY-053",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Espero que hayas tenido un bonito comienzo de día."
+    },
+    {
+      "id": "UNI-ENTRY-054",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy tengas tiempo de saborear tu café."
+    },
+    {
+      "id": "UNI-ENTRY-055",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá el trayecto hasta aquí haya sido agradable."
+    },
+    {
+      "id": "UNI-ENTRY-056",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Un gusto compartir contigo otra parte de la semana."
+    },
+    {
+      "id": "UNI-ENTRY-057",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres algo bueno en medio de la rutina."
+    },
+    {
+      "id": "UNI-ENTRY-058",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy no tienes que ser la mejor versión de ti. Basta con ser tú."
+    },
+    {
+      "id": "UNI-ENTRY-059",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que puedas reconocer lo que necesitas y expresarlo con libertad."
+    },
+    {
+      "id": "UNI-ENTRY-060",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy alguien te haga reír de verdad."
+    },
+    {
+      "id": "UNI-ENTRY-061",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu día tenga más encuentros amables que contratiempos."
+    },
+    {
+      "id": "UNI-ENTRY-062",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Aquí también puedes encontrar apoyo."
+    },
+    {
+      "id": "UNI-ENTRY-063",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No tienes que llegar con todas las respuestas."
+    },
+    {
+      "id": "UNI-ENTRY-064",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que algo pequeño te alegre la mañana."
+    },
+    {
+      "id": "UNI-ENTRY-065",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Cada día tiene su propio ritmo. Encuentra el tuyo."
+    },
+    {
+      "id": "UNI-ENTRY-066",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué bonito que podamos volver a encontrarnos."
+    },
+    {
+      "id": "UNI-ENTRY-067",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy haya momentos que quieras recordar."
+    },
+    {
+      "id": "UNI-ENTRY-068",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hayas dormido bien."
+    },
+    {
+      "id": "UNI-ENTRY-069",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu música favorita te acompañe en algún momento del día."
+    },
+    {
+      "id": "UNI-ENTRY-070",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy mereces el mismo respeto que cualquier otro día."
+    },
+    {
+      "id": "UNI-ENTRY-071",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que el entusiasmo llegue a su tiempo, sin forzarlo."
+    },
+    {
+      "id": "UNI-ENTRY-072",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hay días para avanzar y días para sostener lo que ya existe."
+    },
+    {
+      "id": "UNI-ENTRY-073",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que no te falten razones para sentirte en confianza."
+    },
+    {
+      "id": "UNI-ENTRY-074",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "El modo en que nos tratamos también construye nuestro lugar de trabajo."
+    },
+    {
+      "id": "UNI-ENTRY-075",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Tu presencia cuenta, incluso en los días más ordinarios."
+    },
+    {
+      "id": "UNI-ENTRY-076",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas pedir lo que necesitas con confianza."
+    },
+    {
+      "id": "UNI-ENTRY-077",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá tengas noticias bonitas de alguien querido."
+    },
+    {
+      "id": "UNI-ENTRY-078",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No todo lo que importa se puede medir."
+    },
+    {
+      "id": "UNI-ENTRY-079",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que el día te encuentre con espacio para respirar."
+    },
+    {
+      "id": "UNI-ENTRY-080",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes empezar de nuevo sin borrar lo que has vivido."
+    },
+    {
+      "id": "UNI-ENTRY-081",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas conversaciones que te dejen una buena sensación."
+    },
+    {
+      "id": "UNI-ENTRY-082",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Es agradable tenerte de vuelta."
+    },
+    {
+      "id": "UNI-ENTRY-083",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que puedas disfrutar de una comida tranquila."
+    },
+    {
+      "id": "UNI-ENTRY-084",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "La vida tiene mucho más que ofrecer que una lista de pendientes."
+    },
+    {
+      "id": "UNI-ENTRY-085",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy tengas algún instante de verdadera calma."
+    },
+    {
+      "id": "UNI-ENTRY-086",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres compañía cuando la quieras y silencio cuando lo necesites."
+    },
+    {
+      "id": "UNI-ENTRY-087",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "También se vale llegar con pocas palabras."
+    },
+    {
+      "id": "UNI-ENTRY-088",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy algo te recuerde cuánto has crecido."
+    },
+    {
+      "id": "UNI-ENTRY-089",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida a un día que aún está por escribirse."
+    },
+    {
+      "id": "UNI-ENTRY-090",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy te sorprenda una buena carcajada."
+    },
+    {
+      "id": "UNI-ENTRY-091",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No eres únicamente aquello que haces para ganarte la vida."
+    },
+    {
+      "id": "UNI-ENTRY-092",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que puedas confiar en tu voz, aun cuando sea diferente."
+    },
+    {
+      "id": "UNI-ENTRY-093",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy aprendas algo que te entusiasme."
+    },
+    {
+      "id": "UNI-ENTRY-094",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que la amabilidad empiece también por cómo te hablas."
+    },
+    {
+      "id": "UNI-ENTRY-095",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Aquí no tienes que saberlo todo para ser parte del equipo."
+    },
+    {
+      "id": "UNI-ENTRY-096",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que disfrutes algún pequeño lujo cotidiano."
+    },
+    {
+      "id": "UNI-ENTRY-097",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "La rutina también puede contener momentos preciosos."
+    },
+    {
+      "id": "UNI-ENTRY-098",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres razones para agradecerte a ti misma."
+    },
+    {
+      "id": "UNI-ENTRY-099",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy tienes derecho a sentir lo que sientes."
+    },
+    {
+      "id": "UNI-ENTRY-100",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que el día te permita disfrutar de lo inesperado."
+    },
+    {
+      "id": "UNI-ENTRY-101",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué bien volver a compartir este espacio."
+    },
+    {
+      "id": "UNI-ENTRY-102",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu jornada no te haga olvidar tus propios proyectos."
+    },
+    {
+      "id": "UNI-ENTRY-103",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá puedas escuchar una buena historia hoy."
+    },
+    {
+      "id": "UNI-ENTRY-104",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No todos los comienzos tienen que ser llenos de energía."
+    },
+    {
+      "id": "UNI-ENTRY-105",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que haya una pausa agradable entre tantas cosas por hacer."
+    },
+    {
+      "id": "UNI-ENTRY-106",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy también cuenta tu tranquilidad."
+    },
+    {
+      "id": "UNI-ENTRY-107",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres personas con quienes puedas hablar con naturalidad."
+    },
+    {
+      "id": "UNI-ENTRY-108",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "A veces lo mejor de un día es algo que no estaba planeado."
+    },
+    {
+      "id": "UNI-ENTRY-109",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu mañana tenga un momento de sol."
+    },
+    {
+      "id": "UNI-ENTRY-110",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Que todo vaya bien."
+    },
+    {
+      "id": "UNI-ENTRY-111",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy te sientas libre de aportar tu punto de vista."
+    },
+    {
+      "id": "UNI-ENTRY-112",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá el día te deje un recuerdo sencillo y bonito."
+    },
+    {
+      "id": "UNI-ENTRY-113",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "No hay una única manera de tener un buen día."
+    },
+    {
+      "id": "UNI-ENTRY-114",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas reconocer tus límites sin sentir culpa."
+    },
+    {
+      "id": "UNI-ENTRY-115",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "La confianza también se construye cuando podemos ser honestas."
+    },
+    {
+      "id": "UNI-ENTRY-116",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres alegría en una conversación cualquiera."
+    },
+    {
+      "id": "UNI-ENTRY-117",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Es bueno tener un lugar donde podamos aprender unas de otras."
+    },
+    {
+      "id": "UNI-ENTRY-118",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu jornada tenga espacio para la espontaneidad."
+    },
+    {
+      "id": "UNI-ENTRY-119",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy no necesitas compararte con quien eras ayer."
+    },
+    {
+      "id": "UNI-ENTRY-120",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que puedas cuidar lo importante sin apresurarlo."
+    },
+    {
+      "id": "UNI-ENTRY-121",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy te llegue un mensaje que estabas esperando."
+    },
+    {
+      "id": "UNI-ENTRY-122",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas momentos para mirar por la ventana."
+    },
+    {
+      "id": "UNI-ENTRY-123",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "La vida cambia también en los días que parecen iguales."
+    },
+    {
+      "id": "UNI-ENTRY-124",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Que disfrutes este encuentro con tus compañeras."
+    },
+    {
+      "id": "UNI-ENTRY-125",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas celebrar una pequeña buena noticia."
+    },
+    {
+      "id": "UNI-ENTRY-126",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Tu tiempo tiene valor dentro y fuera de aquí."
+    },
+    {
+      "id": "UNI-ENTRY-127",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que no te falte una palabra amable cuando la necesites."
+    },
+    {
+      "id": "UNI-ENTRY-128",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hay algo especial en volver a empezar tantas veces."
+    },
+    {
+      "id": "UNI-ENTRY-129",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy el mundo te trate con un poco de gentileza."
+    },
+    {
+      "id": "UNI-ENTRY-130",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres facilidad en lo que parecía complicado."
+    },
+    {
+      "id": "UNI-ENTRY-131",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Puedes tener tus propios sueños mientras compartimos los nuestros."
+    },
+    {
+      "id": "UNI-ENTRY-132",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy recuerdes alguna de las cosas que amas."
+    },
+    {
+      "id": "UNI-ENTRY-133",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Nos alegra que estés de vuelta."
+    },
+    {
+      "id": "UNI-ENTRY-134",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tu día tenga un buen sabor de boca."
+    },
+    {
+      "id": "UNI-ENTRY-135",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes cambiar de opinión al descubrir algo nuevo."
+    },
+    {
+      "id": "UNI-ENTRY-136",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que el respeto mutuo haga más ligero el día."
+    },
+    {
+      "id": "UNI-ENTRY-137",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá encuentres algún instante para estar contigo."
+    },
+    {
+      "id": "UNI-ENTRY-138",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que hoy tengas la libertad de decir que no sabes algo."
+    },
+    {
+      "id": "UNI-ENTRY-139",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Una jornada compartida también puede ser una buena conversación."
+    },
+    {
+      "id": "UNI-ENTRY-140",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que el día no se te escape sin un momento de disfrute."
+    },
+    {
+      "id": "UNI-ENTRY-141",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Hay un lugar para tu manera de ser."
+    },
+    {
+      "id": "UNI-ENTRY-142",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que tengas un buen día, incluso si no resulta como lo imaginaste."
+    },
+    {
+      "id": "UNI-ENTRY-143",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy puedas dar y recibir una sonrisa sincera."
+    },
+    {
+      "id": "UNI-ENTRY-144",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Lo que estás construyendo en tu vida merece su propio tiempo."
+    },
+    {
+      "id": "UNI-ENTRY-145",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que las cosas sencillas te hagan compañía."
+    },
+    {
+      "id": "UNI-ENTRY-146",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Hoy también puedes dejarte sorprender por ti misma."
+    },
+    {
+      "id": "UNI-ENTRY-147",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que encuentres serenidad en medio del movimiento."
+    },
+    {
+      "id": "UNI-ENTRY-148",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Qué gusto que nuestros horarios vuelvan a coincidir."
+    },
+    {
+      "id": "UNI-ENTRY-149",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Que este comienzo sea agradable, sin grandes expectativas."
+    },
+    {
+      "id": "UNI-ENTRY-150",
+      "profiles": [
+        "all"
+      ],
+      "event": "entry",
+      "text": "Ojalá hoy tengas algo bonito que esperar al salir."
+    },
+    {
+      "id": "UNI-EXIT-001",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Tu jornada termina. Ahora el tiempo vuelve a ser tuyo."
+    },
+    {
+      "id": "UNI-EXIT-002",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas un buen camino a casa."
+    },
+    {
+      "id": "UNI-EXIT-003",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No necesitas llevarte todos los pendientes contigo."
+    },
+    {
+      "id": "UNI-EXIT-004",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá hoy hayas encontrado algún momento del que sentirte orgullosa."
+    },
+    {
+      "id": "UNI-EXIT-005",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por formar parte de este día."
+    },
+    {
+      "id": "UNI-EXIT-006",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las horas que siguen sean tuyas."
+    },
+    {
+      "id": "UNI-EXIT-007",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Lo que no salió como esperabas también puede enseñarte algo mañana."
+    },
+    {
+      "id": "UNI-EXIT-008",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que descanses de las decisiones y disfrutes lo sencillo."
+    },
+    {
+      "id": "UNI-EXIT-009",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas llevarte lo bonito y dejar aquí lo pesado."
+    },
+    {
+      "id": "UNI-EXIT-010",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hasta pronto. Que encuentres calma al salir."
+    },
+    {
+      "id": "UNI-EXIT-011",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "El trabajo silencioso también merece reconocimiento."
+    },
+    {
+      "id": "UNI-EXIT-012",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá lo que queda del día te devuelva energía."
+    },
+    {
+      "id": "UNI-EXIT-013",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas mirar el día con amabilidad, no solo con exigencia."
+    },
+    {
+      "id": "UNI-EXIT-014",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá tu camino a casa sea tranquilo."
+    },
+    {
+      "id": "UNI-EXIT-015",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Mañana habrá otras oportunidades. Por hoy, descansa."
+    },
+    {
+      "id": "UNI-EXIT-016",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres un momento para hacer algo que disfrutes."
+    },
+    {
+      "id": "UNI-EXIT-017",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No hace falta revisar mentalmente cada detalle del día."
+    },
+    {
+      "id": "UNI-EXIT-018",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy también cuenta lo que aprendiste, no solo lo que lograste."
+    },
+    {
+      "id": "UNI-EXIT-019",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que la última conversación del día no tenga que ser sobre trabajo."
+    },
+    {
+      "id": "UNI-EXIT-020",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el descanso de hoy no tenga condiciones."
+    },
+    {
+      "id": "UNI-EXIT-021",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No todas las jornadas son iguales; todas merecen un cierre."
+    },
+    {
+      "id": "UNI-EXIT-022",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que al salir encuentres un aire distinto."
+    },
+    {
+      "id": "UNI-EXIT-023",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá hayas sentido apoyo cuando lo necesitaste."
+    },
+    {
+      "id": "UNI-EXIT-024",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por compartir esta jornada con nosotras."
+    },
+    {
+      "id": "UNI-EXIT-025",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas disfrutar un momento sin horarios ni citas."
+    },
+    {
+      "id": "UNI-EXIT-026",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "La paciencia que ofreciste a otras personas también te corresponde."
+    },
+    {
+      "id": "UNI-EXIT-027",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por compartir el día con tus compañeras."
+    },
+    {
+      "id": "UNI-EXIT-028",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que lo que venga ahora te haga bien."
+    },
+    {
+      "id": "UNI-EXIT-029",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Un día complejo no borra todo lo que sabes hacer."
+    },
+    {
+      "id": "UNI-EXIT-030",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tus próximas horas estén llenas de cosas tuyas."
+    },
+    {
+      "id": "UNI-EXIT-031",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "El cuidado que das merece encontrar un camino de vuelta hacia ti."
+    },
+    {
+      "id": "UNI-EXIT-032",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas descanso, conversación o silencio, según lo que necesites."
+    },
+    {
+      "id": "UNI-EXIT-033",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que esta despedida sea el comienzo de un buen momento personal."
+    },
+    {
+      "id": "UNI-EXIT-034",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy no tienes que resolver lo de mañana."
+    },
+    {
+      "id": "UNI-EXIT-035",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá recuerdes algún gesto amable que recibiste hoy."
+    },
+    {
+      "id": "UNI-EXIT-036",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Tu descanso no necesita justificarse con productividad."
+    },
+    {
+      "id": "UNI-EXIT-037",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las preocupaciones del trabajo se queden aquí por hoy."
+    },
+    {
+      "id": "UNI-EXIT-038",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tu regreso esté acompañado de tranquilidad."
+    },
+    {
+      "id": "UNI-EXIT-039",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Si hoy fue un gran día, disfrútalo. Si fue difícil, déjalo terminar."
+    },
+    {
+      "id": "UNI-EXIT-040",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres una forma agradable de cerrar el día."
+    },
+    {
+      "id": "UNI-EXIT-041",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el resto del día tenga un ritmo elegido por ti."
+    },
+    {
+      "id": "UNI-EXIT-042",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá vuelvas a casa con una historia bonita que contar."
+    },
+    {
+      "id": "UNI-EXIT-043",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No hace falta que cada jornada sea extraordinaria."
+    },
+    {
+      "id": "UNI-EXIT-044",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el cansancio encuentre un lugar donde descansar."
+    },
+    {
+      "id": "UNI-EXIT-045",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Puedes dejar descansar también tus expectativas de hoy."
+    },
+    {
+      "id": "UNI-EXIT-046",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que la jornada que termina no ocupe todo tu día."
+    },
+    {
+      "id": "UNI-EXIT-047",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres tiempo para aquello que te inspira sin esfuerzo."
+    },
+    {
+      "id": "UNI-EXIT-048",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Lo pendiente puede esperar su momento."
+    },
+    {
+      "id": "UNI-EXIT-049",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas una salida tranquila y un regreso seguro."
+    },
+    {
+      "id": "UNI-EXIT-050",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por hoy. Hasta pronto."
+    },
+    {
+      "id": "UNI-EXIT-051",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de tu familia al llegar a casa."
+    },
+    {
+      "id": "UNI-EXIT-052",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas tiempo para abrazar a alguien querido."
+    },
+    {
+      "id": "UNI-EXIT-053",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá te espere una buena cena."
+    },
+    {
+      "id": "UNI-EXIT-054",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que hoy puedas ponerte cómoda y olvidarte del reloj."
+    },
+    {
+      "id": "UNI-EXIT-055",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta esa canción que siempre te pone de buenas."
+    },
+    {
+      "id": "UNI-EXIT-056",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres un ratito para tu libro, tu serie o lo que más te guste."
+    },
+    {
+      "id": "UNI-EXIT-057",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas dormir profundamente."
+    },
+    {
+      "id": "UNI-EXIT-058",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el regreso a casa sea seguro y agradable."
+    },
+    {
+      "id": "UNI-EXIT-059",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Si hay una mascota esperándote en casa, disfruta mucho ese reencuentro."
+    },
+    {
+      "id": "UNI-EXIT-060",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ahora comienza una parte del día que puedes elegir para ti."
+    },
+    {
+      "id": "UNI-EXIT-061",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que te acompañe una buena conversación fuera del trabajo."
+    },
+    {
+      "id": "UNI-EXIT-062",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá tengas tiempo para hacer eso que llevas días posponiendo por gusto."
+    },
+    {
+      "id": "UNI-EXIT-063",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que esta despedida dé paso a un momento feliz."
+    },
+    {
+      "id": "UNI-EXIT-064",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy no tienes que ganarte el derecho a descansar."
+    },
+    {
+      "id": "UNI-EXIT-065",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres compañía en las personas que quieres."
+    },
+    {
+      "id": "UNI-EXIT-066",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta el placer de hacer nada por un rato."
+    },
+    {
+      "id": "UNI-EXIT-067",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por compartir con nosotros una parte de tu vida."
+    },
+    {
+      "id": "UNI-EXIT-068",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las próximas horas te permitan recuperar tu propio ritmo."
+    },
+    {
+      "id": "UNI-EXIT-069",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá tengas un paseo agradable."
+    },
+    {
+      "id": "UNI-EXIT-070",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que te reciban con cariño dondequiera que vayas."
+    },
+    {
+      "id": "UNI-EXIT-071",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "La casa, los amigos y los sueños también merecen tu presencia."
+    },
+    {
+      "id": "UNI-EXIT-072",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que hoy puedas reírte de algo sin importancia."
+    },
+    {
+      "id": "UNI-EXIT-073",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de un momento que no tenga que ser útil."
+    },
+    {
+      "id": "UNI-EXIT-074",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá el tráfico te dé una tregua."
+    },
+    {
+      "id": "UNI-EXIT-075",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres un lugar cómodo para descansar los pies."
+    },
+    {
+      "id": "UNI-EXIT-076",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hasta pronto. Que disfrutes una buena comida."
+    },
+    {
+      "id": "UNI-EXIT-077",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas hablar con alguien que te haga sentir en casa."
+    },
+    {
+      "id": "UNI-EXIT-078",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy el salón se queda atrás. Tu vida sigue."
+    },
+    {
+      "id": "UNI-EXIT-079",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas un rato para tus propias ideas."
+    },
+    {
+      "id": "UNI-EXIT-080",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá el resto del día sea más ligero de lo que imaginabas."
+    },
+    {
+      "id": "UNI-EXIT-081",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Cuida mucho de ti al volver."
+    },
+    {
+      "id": "UNI-EXIT-082",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas disfrutar de una ducha tranquila."
+    },
+    {
+      "id": "UNI-EXIT-083",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por haber compartido tu tiempo con el equipo."
+    },
+    {
+      "id": "UNI-EXIT-084",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas oportunidad de mirar el cielo sin prisa."
+    },
+    {
+      "id": "UNI-EXIT-085",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá al llegar puedas escuchar las voces que extrañabas."
+    },
+    {
+      "id": "UNI-EXIT-086",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tu próximo compromiso sea algo que te ilusione."
+    },
+    {
+      "id": "UNI-EXIT-087",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de la libertad de elegir qué hacer ahora."
+    },
+    {
+      "id": "UNI-EXIT-088",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que esta pausa te sepa a hogar."
+    },
+    {
+      "id": "UNI-EXIT-089",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No es necesario convertir el descanso en otro proyecto."
+    },
+    {
+      "id": "UNI-EXIT-090",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas un momento para disfrutar de tu propia compañía."
+    },
+    {
+      "id": "UNI-EXIT-091",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá hoy encuentres un motivo para celebrar fuera de aquí."
+    },
+    {
+      "id": "UNI-EXIT-092",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las próximas horas sean buenas contigo."
+    },
+    {
+      "id": "UNI-EXIT-093",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hasta luego. Disfruta de lo que te espera."
+    },
+    {
+      "id": "UNI-EXIT-094",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres espacio para tus amistades y tus afectos."
+    },
+    {
+      "id": "UNI-EXIT-095",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "A veces cerrar el día es simplemente dejar que termine."
+    },
+    {
+      "id": "UNI-EXIT-096",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas escuchar música sin estar pendiente de nada más."
+    },
+    {
+      "id": "UNI-EXIT-097",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de las pequeñas costumbres que hacen tuyo el día."
+    },
+    {
+      "id": "UNI-EXIT-098",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Si tienes ganas de salir, que sea una buena salida. Si prefieres quedarte, que sea un buen descanso."
+    },
+    {
+      "id": "UNI-EXIT-099",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas compartir una sobremesa sin mirar la hora."
+    },
+    {
+      "id": "UNI-EXIT-100",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas una buena llegada a casa."
+    },
+    {
+      "id": "UNI-EXIT-101",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hay cosas que solo necesitan tu presencia, no tu esfuerzo."
+    },
+    {
+      "id": "UNI-EXIT-102",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que hoy recibas un poco del cariño que mereces."
+    },
+    {
+      "id": "UNI-EXIT-103",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Nos vemos pronto. Que estés muy bien."
+    },
+    {
+      "id": "UNI-EXIT-104",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tu mente encuentre un paisaje distinto al de la jornada."
+    },
+    {
+      "id": "UNI-EXIT-105",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá te regales algo sencillo que te guste."
+    },
+    {
+      "id": "UNI-EXIT-106",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que mañana te preocupe mañana."
+    },
+    {
+      "id": "UNI-EXIT-107",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de ese espacio en el que puedes ser simplemente tú."
+    },
+    {
+      "id": "UNI-EXIT-108",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas acostarte con tranquilidad cuando llegue el momento."
+    },
+    {
+      "id": "UNI-EXIT-109",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hasta pronto. Gracias por coincidir con nosotros."
+    },
+    {
+      "id": "UNI-EXIT-110",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas tiempo de llamar a alguien importante para ti."
+    },
+    {
+      "id": "UNI-EXIT-111",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá tu día continúe con algo que te haga ilusión."
+    },
+    {
+      "id": "UNI-EXIT-112",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el silencio, si lo buscas, te haga buena compañía."
+    },
+    {
+      "id": "UNI-EXIT-113",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "No hace falta que puedas con todo para merecer una buena despedida."
+    },
+    {
+      "id": "UNI-EXIT-114",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que hoy te quede energía para aquello que amas."
+    },
+    {
+      "id": "UNI-EXIT-115",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta tu regreso, cualquiera que sea tu destino."
+    },
+    {
+      "id": "UNI-EXIT-116",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá te espere un momento de complicidad y risas."
+    },
+    {
+      "id": "UNI-EXIT-117",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el fin de la jornada sea también el fin de la prisa."
+    },
+    {
+      "id": "UNI-EXIT-118",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por el tiempo de hoy. Lo que viene te pertenece."
+    },
+    {
+      "id": "UNI-EXIT-119",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres una buena excusa para salir a caminar."
+    },
+    {
+      "id": "UNI-EXIT-120",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas disfrutar del aire fresco."
+    },
+    {
+      "id": "UNI-EXIT-121",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas una conversación en la que no necesites explicar demasiado."
+    },
+    {
+      "id": "UNI-EXIT-122",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de tu hogar, sea cual sea la forma que tenga para ti."
+    },
+    {
+      "id": "UNI-EXIT-123",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que el cansancio no te quite la posibilidad de algún gusto sencillo."
+    },
+    {
+      "id": "UNI-EXIT-124",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas reencontrarte con una afición que te hace feliz."
+    },
+    {
+      "id": "UNI-EXIT-125",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las tareas de casa te dejen también un tiempo propio."
+    },
+    {
+      "id": "UNI-EXIT-126",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Buen camino. Nos dará gusto encontrarte otra vez."
+    },
+    {
+      "id": "UNI-EXIT-127",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que hoy puedas estar presente para quienes forman parte de tu vida."
+    },
+    {
+      "id": "UNI-EXIT-128",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá tengas un rato sin notificaciones."
+    },
+    {
+      "id": "UNI-EXIT-129",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que al llegar a casa puedas sentirte completamente en tu espacio."
+    },
+    {
+      "id": "UNI-EXIT-130",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy ha terminado el trabajo; no hace falta que termine la alegría."
+    },
+    {
+      "id": "UNI-EXIT-131",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres una manera de consentirte sin gastar nada."
+    },
+    {
+      "id": "UNI-EXIT-132",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de una charla, de un té o de un buen silencio."
+    },
+    {
+      "id": "UNI-EXIT-133",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá encuentres algo divertido que contar."
+    },
+    {
+      "id": "UNI-EXIT-134",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que este cierre tenga la sencillez de un hasta luego."
+    },
+    {
+      "id": "UNI-EXIT-135",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Si hoy necesitas descansar más de lo habitual, que puedas hacerlo."
+    },
+    {
+      "id": "UNI-EXIT-136",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que las personas que quieres estén bien."
+    },
+    {
+      "id": "UNI-EXIT-137",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá el próximo abrazo llegue pronto."
+    },
+    {
+      "id": "UNI-EXIT-138",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas un trayecto sin sobresaltos."
+    },
+    {
+      "id": "UNI-EXIT-139",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de esos pequeños planes que nadie más necesita entender."
+    },
+    {
+      "id": "UNI-EXIT-140",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que puedas reconocer lo bueno sin negar lo difícil."
+    },
+    {
+      "id": "UNI-EXIT-141",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hoy no es necesario llevar el día entero en la cabeza."
+    },
+    {
+      "id": "UNI-EXIT-142",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que te quede tiempo para mirar algo hermoso."
+    },
+    {
+      "id": "UNI-EXIT-143",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Hasta la próxima. Que la vida te sonría un poquito."
+    },
+    {
+      "id": "UNI-EXIT-144",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tu descanso tenga el ritmo que tú elijas."
+    },
+    {
+      "id": "UNI-EXIT-145",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Ojalá hoy puedas hacer algo solo porque te divierte."
+    },
+    {
+      "id": "UNI-EXIT-146",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que encuentres una buena razón para apagar el teléfono."
+    },
+    {
+      "id": "UNI-EXIT-147",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Disfruta de tus afectos, de tus espacios y de tus momentos."
+    },
+    {
+      "id": "UNI-EXIT-148",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Que tengas una despedida tranquila y un bonito reencuentro con tu mundo."
+    },
+    {
+      "id": "UNI-EXIT-149",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Lo que sientes al salir también merece ser escuchado."
+    },
+    {
+      "id": "UNI-EXIT-150",
+      "profiles": [
+        "all"
+      ],
+      "event": "exit",
+      "text": "Gracias por estar. Que lo que sigue sea bueno para ti."
+    },
+    {
+      "id": "STY-ENTRY-001",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Qué gusto tenerte aquí. Que hoy disfrutes lo que sabes hacer."
+    },
+    {
+      "id": "STY-ENTRY-002",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy tienes la oportunidad de mirar a alguien con nuevos ojos."
+    },
+    {
+      "id": "STY-ENTRY-003",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una buena transformación comienza con una buena escucha."
+    },
+    {
+      "id": "STY-ENTRY-004",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El talento también se expresa en la paciencia."
+    },
+    {
+      "id": "STY-ENTRY-005",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu manera de ver el cabello es parte de tu identidad profesional."
+    },
+    {
+      "id": "STY-ENTRY-006",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Cada persona que se sienta frente a ti trae una historia distinta."
+    },
+    {
+      "id": "STY-ENTRY-007",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Qué bonito es poder crear con las manos."
+    },
+    {
+      "id": "STY-ENTRY-008",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La técnica abre posibilidades; tu sensibilidad les da sentido."
+    },
+    {
+      "id": "STY-ENTRY-009",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu criterio es tan importante como tus herramientas."
+    },
+    {
+      "id": "STY-ENTRY-010",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hay días en los que un pequeño cambio significa mucho para alguien."
+    },
+    {
+      "id": "STY-ENTRY-011",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una conversación atenta puede ser el comienzo de un gran resultado."
+    },
+    {
+      "id": "STY-ENTRY-012",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy es una buena ocasión para descubrir algo nuevo en tu oficio."
+    },
+    {
+      "id": "STY-ENTRY-013",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La elegancia también nace de saber cuándo no intervenir."
+    },
+    {
+      "id": "STY-ENTRY-014",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que el espejo de hoy refleje decisiones tomadas con cuidado."
+    },
+    {
+      "id": "STY-ENTRY-015",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu experiencia se construye un encuentro a la vez."
+    },
+    {
+      "id": "STY-ENTRY-016",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No hay dos cabellos iguales ni dos historias idénticas."
+    },
+    {
+      "id": "STY-ENTRY-017",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que cada trabajo tenga espacio para tu creatividad."
+    },
+    {
+      "id": "STY-ENTRY-018",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La belleza no siempre requiere grandes cambios."
+    },
+    {
+      "id": "STY-ENTRY-019",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "A veces, el mejor resultado es el que parece natural desde siempre."
+    },
+    {
+      "id": "STY-ENTRY-020",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes hacer de lo cotidiano algo cuidadosamente personal."
+    },
+    {
+      "id": "STY-ENTRY-021",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Un diagnóstico bien hecho es una forma de cuidar."
+    },
+    {
+      "id": "STY-ENTRY-022",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu mirada profesional puede abrir posibilidades que alguien no había considerado."
+    },
+    {
+      "id": "STY-ENTRY-023",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hay mucho de ti en la delicadeza de tus acabados."
+    },
+    {
+      "id": "STY-ENTRY-024",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que tengas tiempo para observar antes de decidir."
+    },
+    {
+      "id": "STY-ENTRY-025",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El conocimiento se vuelve arte cuando encuentra una intención."
+    },
+    {
+      "id": "STY-ENTRY-026",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Cada cita es una oportunidad de conocer, no solo de transformar."
+    },
+    {
+      "id": "STY-ENTRY-027",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La precisión y la calidez pueden convivir en el mismo gesto."
+    },
+    {
+      "id": "STY-ENTRY-028",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu oficio tiene espacio para la serenidad."
+    },
+    {
+      "id": "STY-ENTRY-029",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Bienvenida a otro día de crear posibilidades."
+    },
+    {
+      "id": "STY-ENTRY-030",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No todo cambio necesita ser espectacular para ser valioso."
+    },
+    {
+      "id": "STY-ENTRY-031",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu talento no se mide por la prisa con la que trabajas."
+    },
+    {
+      "id": "STY-ENTRY-032",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La confianza crece con cada decisión consciente."
+    },
+    {
+      "id": "STY-ENTRY-033",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy puede surgir una idea que mañana forme parte de tu estilo."
+    },
+    {
+      "id": "STY-ENTRY-034",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que tus manos encuentren su propio ritmo."
+    },
+    {
+      "id": "STY-ENTRY-035",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La creatividad también consiste en respetar los límites del cabello."
+    },
+    {
+      "id": "STY-ENTRY-036",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No necesitas seguir todas las tendencias para crear algo memorable."
+    },
+    {
+      "id": "STY-ENTRY-037",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu conocimiento merece la misma confianza que depositan en ti."
+    },
+    {
+      "id": "STY-ENTRY-038",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Lo extraordinario puede esconderse en un corte sencillo."
+    },
+    {
+      "id": "STY-ENTRY-039",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una clienta no es un lienzo vacío; trae consigo su identidad."
+    },
+    {
+      "id": "STY-ENTRY-040",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu sensibilidad ayuda a convertir una técnica en una propuesta personal."
+    },
+    {
+      "id": "STY-ENTRY-041",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Cada mechón merece atención, pero tú también."
+    },
+    {
+      "id": "STY-ENTRY-042",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La belleza que permanece suele comenzar con decisiones discretas."
+    },
+    {
+      "id": "STY-ENTRY-043",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu oficio es más rico por todo lo que has vivido y aprendido."
+    },
+    {
+      "id": "STY-ENTRY-044",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que disfrutes tanto el proceso como el resultado."
+    },
+    {
+      "id": "STY-ENTRY-045",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No hace falta cambiarlo todo para hacer una diferencia."
+    },
+    {
+      "id": "STY-ENTRY-046",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de escuchar es una herramienta que no cabe en un estuche."
+    },
+    {
+      "id": "STY-ENTRY-047",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una buena propuesta respeta tanto el cabello como a quien lo lleva."
+    },
+    {
+      "id": "STY-ENTRY-048",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Cada fórmula cuenta una historia de observación y conocimiento."
+    },
+    {
+      "id": "STY-ENTRY-049",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu formación está presente incluso en las decisiones más pequeñas."
+    },
+    {
+      "id": "STY-ENTRY-050",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El estilo propio se descubre, no se impone."
+    },
+    {
+      "id": "STY-ENTRY-051",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El espejo es solo una parte de la experiencia."
+    },
+    {
+      "id": "STY-ENTRY-052",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Un resultado duradero empieza por cuidar lo que ya existe."
+    },
+    {
+      "id": "STY-ENTRY-053",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La experiencia enseña a distinguir entre lo posible y lo conveniente."
+    },
+    {
+      "id": "STY-ENTRY-054",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo no comienza con las tijeras, sino con tu atención."
+    },
+    {
+      "id": "STY-ENTRY-055",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Cada cabello tiene sus posibilidades; descubrirlas es parte del oficio."
+    },
+    {
+      "id": "STY-ENTRY-056",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La belleza también está en lo que decidimos preservar."
+    },
+    {
+      "id": "STY-ENTRY-057",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una buena decisión técnica puede ser un gesto de respeto."
+    },
+    {
+      "id": "STY-ENTRY-058",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hay belleza en un proceso bien pensado."
+    },
+    {
+      "id": "STY-ENTRY-059",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El cuidado empieza mucho antes del acabado final."
+    },
+    {
+      "id": "STY-ENTRY-060",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes ser fiel a tu criterio y abierta a nuevas ideas."
+    },
+    {
+      "id": "STY-ENTRY-061",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo merece tiempo, atención y buenas herramientas."
+    },
+    {
+      "id": "STY-ENTRY-062",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La técnica es conocimiento convertido en gesto."
+    },
+    {
+      "id": "STY-ENTRY-063",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy disfrutes resolver un pequeño reto."
+    },
+    {
+      "id": "STY-ENTRY-064",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una consulta es también una oportunidad para entender otra perspectiva."
+    },
+    {
+      "id": "STY-ENTRY-065",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El detalle que parece pequeño puede sostener todo un resultado."
+    },
+    {
+      "id": "STY-ENTRY-066",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy es un buen día para seguir construyendo tu oficio."
+    },
+    {
+      "id": "STY-ENTRY-067",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que encuentres equilibrio entre precisión y espontaneidad."
+    },
+    {
+      "id": "STY-ENTRY-068",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu experiencia no elimina la incertidumbre; te ayuda a trabajar con ella."
+    },
+    {
+      "id": "STY-ENTRY-069",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una mirada fresca puede renovar hasta el servicio más conocido."
+    },
+    {
+      "id": "STY-ENTRY-070",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El respeto por la salud del cabello también es creatividad."
+    },
+    {
+      "id": "STY-ENTRY-071",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu aportación forma parte de una obra compartida."
+    },
+    {
+      "id": "STY-ENTRY-072",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El conocimiento que compartes también deja huella."
+    },
+    {
+      "id": "STY-ENTRY-073",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres complicidad en el trabajo en equipo."
+    },
+    {
+      "id": "STY-ENTRY-074",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La excelencia tiene muchas formas, y la tuya es una de ellas."
+    },
+    {
+      "id": "STY-ENTRY-075",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una buena compañera también inspira desde su propia manera de trabajar."
+    },
+    {
+      "id": "STY-ENTRY-076",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que cada persona encuentre aquí espacio para ser ella misma."
+    },
+    {
+      "id": "STY-ENTRY-077",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes acompañar un cambio sin decidir por quien lo vive."
+    },
+    {
+      "id": "STY-ENTRY-078",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hay historias que empiezan con una pregunta bien hecha."
+    },
+    {
+      "id": "STY-ENTRY-079",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que el cuidado de hoy sea mutuo."
+    },
+    {
+      "id": "STY-ENTRY-080",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu oficio une ciencia, creatividad y trato humano."
+    },
+    {
+      "id": "STY-ENTRY-081",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No sabemos qué traerá el día, pero podemos recibirlo con atención."
+    },
+    {
+      "id": "STY-ENTRY-082",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres belleza fuera y dentro del espejo."
+    },
+    {
+      "id": "STY-ENTRY-083",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "La paciencia es parte de la maestría, no una señal de lentitud."
+    },
+    {
+      "id": "STY-ENTRY-084",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una propuesta honesta vale más que una promesa imposible."
+    },
+    {
+      "id": "STY-ENTRY-085",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que puedas disfrutar la libertad de trabajar con criterio."
+    },
+    {
+      "id": "STY-ENTRY-086",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hoy el aprendizaje puede llegar de donde menos lo esperas."
+    },
+    {
+      "id": "STY-ENTRY-087",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo puede ayudar a alguien a sentirse más cerca de sí misma."
+    },
+    {
+      "id": "STY-ENTRY-088",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que tus decisiones de hoy nazcan de la claridad."
+    },
+    {
+      "id": "STY-ENTRY-089",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El talento crece cuando tiene espacio para respirar."
+    },
+    {
+      "id": "STY-ENTRY-090",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Hay valor en el trabajo cuidadoso, incluso cuando nadie lo comenta."
+    },
+    {
+      "id": "STY-ENTRY-091",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy tengas motivos para sentirte satisfecha con tu oficio."
+    },
+    {
+      "id": "STY-ENTRY-092",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Una cita puede ser un pequeño paréntesis en la vida de alguien."
+    },
+    {
+      "id": "STY-ENTRY-093",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Tu presencia puede hacer que ese momento sea más amable."
+    },
+    {
+      "id": "STY-ENTRY-094",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy te permitas reconocer cuánto has avanzado."
+    },
+    {
+      "id": "STY-ENTRY-095",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Aquí creamos juntas, cada una desde su experiencia."
+    },
+    {
+      "id": "STY-ENTRY-096",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que tus manos encuentren hoy nuevas formas de crear."
+    },
+    {
+      "id": "STY-ENTRY-097",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "No olvides que tu sensibilidad también es conocimiento."
+    },
+    {
+      "id": "STY-ENTRY-098",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "El día comienza; las posibilidades todavía están abiertas."
+    },
+    {
+      "id": "STY-ENTRY-099",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Que hoy disfrutes estar aquí, sin olvidar lo que te espera fuera."
+    },
+    {
+      "id": "STY-ENTRY-100",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Nos alegra compartir este día contigo."
+    },
+    {
+      "id": "STY-EXIT-001",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por el cuidado que pusiste en tu trabajo."
+    },
+    {
+      "id": "STY-EXIT-002",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Quizá hoy alguien se miró al espejo de una manera distinta gracias a ti."
+    },
+    {
+      "id": "STY-EXIT-003",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por compartir tu conocimiento y tu creatividad."
+    },
+    {
+      "id": "STY-EXIT-004",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tus manos merecen descansar después de crear."
+    },
+    {
+      "id": "STY-EXIT-005",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hay detalles de tu trabajo que quizá alguien recuerde durante mucho tiempo."
+    },
+    {
+      "id": "STY-EXIT-006",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy hiciste espacio para historias distintas a la tuya. Gracias."
+    },
+    {
+      "id": "STY-EXIT-007",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu valor no termina ni comienza frente al espejo."
+    },
+    {
+      "id": "STY-EXIT-008",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por darle tiempo al detalle."
+    },
+    {
+      "id": "STY-EXIT-009",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "No todos los logros necesitan una fotografía."
+    },
+    {
+      "id": "STY-EXIT-010",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por otro día de decisiones tomadas con cuidado."
+    },
+    {
+      "id": "STY-EXIT-011",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu creatividad merece momentos en los que no tenga que producir nada."
+    },
+    {
+      "id": "STY-EXIT-012",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy termina una página más de tu historia profesional."
+    },
+    {
+      "id": "STY-EXIT-013",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer de tu oficio una forma de atención."
+    },
+    {
+      "id": "STY-EXIT-014",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hay cambios que se notan en el cabello y otros en la manera de caminar."
+    },
+    {
+      "id": "STY-EXIT-015",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu esfuerzo es importante incluso cuando no se ve en el resultado."
+    },
+    {
+      "id": "STY-EXIT-016",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por respetar las posibilidades de cada cabello."
+    },
+    {
+      "id": "STY-EXIT-017",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por prestar atención a historias que merecían ser escuchadas."
+    },
+    {
+      "id": "STY-EXIT-018",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu oficio puede dejar recuerdos más duraderos que un peinado."
+    },
+    {
+      "id": "STY-EXIT-019",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por contribuir con tu manera particular de crear."
+    },
+    {
+      "id": "STY-EXIT-020",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Las pausas también forman parte de una trayectoria profesional."
+    },
+    {
+      "id": "STY-EXIT-021",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu talento no desaparece cuando cierras tu estación."
+    },
+    {
+      "id": "STY-EXIT-022",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hay aprendizajes que solo se entienden después de descansar."
+    },
+    {
+      "id": "STY-EXIT-023",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu presencia ha sido parte de nuestra historia de hoy."
+    },
+    {
+      "id": "STY-EXIT-024",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los gestos que no quedaron registrados en ninguna ficha."
+    },
+    {
+      "id": "STY-EXIT-025",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy puedes cerrar la puerta sin cerrar tus posibilidades."
+    },
+    {
+      "id": "STY-EXIT-026",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por una jornada más de oficio compartido."
+    },
+    {
+      "id": "STY-EXIT-027",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu trabajo puede habitar en la confianza que alguien se lleva."
+    },
+    {
+      "id": "STY-EXIT-028",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Por hoy, guarda las herramientas y recupera tu espacio."
+    },
+    {
+      "id": "STY-EXIT-029",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cada decisión que buscó cuidar antes que impresionar."
+    },
+    {
+      "id": "STY-EXIT-030",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Una cita termina, pero lo aprendido permanece."
+    },
+    {
+      "id": "STY-EXIT-031",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por todo lo que aportas más allá de la técnica."
+    },
+    {
+      "id": "STY-EXIT-032",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que al salir puedas mirarte con la misma atención que ofreces a otras personas."
+    },
+    {
+      "id": "STY-EXIT-033",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por seguir construyendo tu manera de hacer belleza."
+    },
+    {
+      "id": "STY-EXIT-034",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que puedas disfrutar de no tener que atender a nadie por un rato."
+    },
+    {
+      "id": "STY-EXIT-035",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Lo que creaste hoy lleva algo de tu mirada."
+    },
+    {
+      "id": "STY-EXIT-036",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hay belleza también en saber terminar una jornada."
+    },
+    {
+      "id": "STY-EXIT-037",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los momentos de atención que ofreciste."
+    },
+    {
+      "id": "STY-EXIT-038",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu aprendizaje no exige perfección para ser real."
+    },
+    {
+      "id": "STY-EXIT-039",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ser parte de un trabajo que hacemos entre todas."
+    },
+    {
+      "id": "STY-EXIT-040",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "A veces lo más valioso de un servicio no cabe en una foto."
+    },
+    {
+      "id": "STY-EXIT-041",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy termina el horario, no tu capacidad de seguir creciendo."
+    },
+    {
+      "id": "STY-EXIT-042",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar tanto lo visible como lo invisible."
+    },
+    {
+      "id": "STY-EXIT-043",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que tengas un momento para respirar lejos del tocador."
+    },
+    {
+      "id": "STY-EXIT-044",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por traer tu experiencia a este espacio."
+    },
+    {
+      "id": "STY-EXIT-045",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "El trabajo hecho con atención merece ser reconocido sin exageraciones."
+    },
+    {
+      "id": "STY-EXIT-046",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por construir confianza a través de tu oficio."
+    },
+    {
+      "id": "STY-EXIT-047",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu creatividad también se alimenta de vivir fuera del salón."
+    },
+    {
+      "id": "STY-EXIT-048",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer equipo desde tu propia forma de ser."
+    },
+    {
+      "id": "STY-EXIT-049",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas reconocer tu progreso sin exigirte más por hoy."
+    },
+    {
+      "id": "STY-EXIT-050",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu trabajo importa. Tu vida fuera de él también."
+    },
+    {
+      "id": "STY-EXIT-051",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por una jornada más de creación y aprendizaje."
+    },
+    {
+      "id": "STY-EXIT-052",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hasta mañana, si volvemos a coincidir."
+    },
+    {
+      "id": "STY-EXIT-053",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Cuídate mucho en el camino."
+    },
+    {
+      "id": "STY-EXIT-054",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que disfrutes lo que queda del día."
+    },
+    {
+      "id": "STY-EXIT-055",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Nos vemos en la próxima jornada."
+    },
+    {
+      "id": "STY-EXIT-056",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que llegues bien a donde vayas."
+    },
+    {
+      "id": "STY-EXIT-057",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ojalá te espere algo bonito al salir."
+    },
+    {
+      "id": "STY-EXIT-058",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que tengas un descanso reparador."
+    },
+    {
+      "id": "STY-EXIT-059",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ha sido bueno contar contigo hoy."
+    },
+    {
+      "id": "STY-EXIT-060",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hasta pronto. Disfruta tu tiempo."
+    },
+    {
+      "id": "STY-EXIT-061",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que encuentres una razón para sonreír fuera de aquí."
+    },
+    {
+      "id": "STY-EXIT-062",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por acompañarnos un día más."
+    },
+    {
+      "id": "STY-EXIT-063",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que el camino sea amable contigo."
+    },
+    {
+      "id": "STY-EXIT-064",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ahora toca hacer espacio para ti."
+    },
+    {
+      "id": "STY-EXIT-065",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que tengas un buen cierre de jornada."
+    },
+    {
+      "id": "STY-EXIT-066",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Nos despedimos por hoy. Cuídate."
+    },
+    {
+      "id": "STY-EXIT-067",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Disfruta tu tarde, tu noche o simplemente tu libertad."
+    },
+    {
+      "id": "STY-EXIT-068",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que descanses a tu manera."
+    },
+    {
+      "id": "STY-EXIT-069",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Qué gusto haber coincidido hoy."
+    },
+    {
+      "id": "STY-EXIT-070",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Buen regreso. Que todo vaya bien."
+    },
+    {
+      "id": "STY-EXIT-071",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu aportación no se reduce al número de servicios realizados."
+    },
+    {
+      "id": "STY-EXIT-072",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cada ocasión en la que compartiste una idea."
+    },
+    {
+      "id": "STY-EXIT-073",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Quizá alguien recordó sentirse escuchada, incluso más que su nuevo color."
+    },
+    {
+      "id": "STY-EXIT-074",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que puedas quedarte con la satisfacción de un pequeño detalle bien resuelto."
+    },
+    {
+      "id": "STY-EXIT-075",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy también tuvieron valor las veces que decidiste pedir apoyo."
+    },
+    {
+      "id": "STY-EXIT-076",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer espacio para la identidad de otras personas."
+    },
+    {
+      "id": "STY-EXIT-077",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que ahora puedas dedicarte a aquello que te hace sentir tú."
+    },
+    {
+      "id": "STY-EXIT-078",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ningún resultado define por completo a quien lo realizó."
+    },
+    {
+      "id": "STY-EXIT-079",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ojalá el cuidado de tus manos continúe ahora contigo."
+    },
+    {
+      "id": "STY-EXIT-080",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "El buen oficio se construye con días brillantes y días ordinarios."
+    },
+    {
+      "id": "STY-EXIT-081",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por las veces que tuviste paciencia con un proceso."
+    },
+    {
+      "id": "STY-EXIT-082",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que el descanso te encuentre sin pendientes urgentes."
+    },
+    {
+      "id": "STY-EXIT-083",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hay experiencias que se quedan con alguien sin que llegues a saberlo."
+    },
+    {
+      "id": "STY-EXIT-084",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Por hoy, tu estación puede esperar."
+    },
+    {
+      "id": "STY-EXIT-085",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por poner tu sensibilidad al servicio de tu conocimiento."
+    },
+    {
+      "id": "STY-EXIT-086",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que te acompañe la tranquilidad de haber terminado tu jornada."
+    },
+    {
+      "id": "STY-EXIT-087",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "La persona que eres es mucho más que el trabajo que haces."
+    },
+    {
+      "id": "STY-EXIT-088",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy puede terminar sin que tengas que sacar una conclusión."
+    },
+    {
+      "id": "STY-EXIT-089",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por compartir un poco de tu mundo creativo con nosotras."
+    },
+    {
+      "id": "STY-EXIT-090",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que encuentres alegría en algo que no necesite ser perfecto."
+    },
+    {
+      "id": "STY-EXIT-091",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Los momentos de pausa también cuidan aquello que amas hacer."
+    },
+    {
+      "id": "STY-EXIT-092",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Tu forma de crear tiene un valor que no depende de los aplausos."
+    },
+    {
+      "id": "STY-EXIT-093",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que puedas volver a las cosas y personas que quieres."
+    },
+    {
+      "id": "STY-EXIT-094",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los pequeños cuidados que sostienen una experiencia."
+    },
+    {
+      "id": "STY-EXIT-095",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ojalá mañana encuentres nuevas ganas, después de descansar hoy."
+    },
+    {
+      "id": "STY-EXIT-096",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que este final de jornada sea suave contigo."
+    },
+    {
+      "id": "STY-EXIT-097",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Hoy hubo una oportunidad de aprender, incluso en lo inesperado."
+    },
+    {
+      "id": "STY-EXIT-098",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Gracias por haber sido parte de lo que construimos."
+    },
+    {
+      "id": "STY-EXIT-099",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Ahora puedes dedicar tu atención a tu propia historia."
+    },
+    {
+      "id": "STY-EXIT-100",
+      "profiles": [
+        "stylist"
+      ],
+      "event": "exit",
+      "text": "Que llegues a casa con calma. Nos dará gusto volver a verte."
+    },
+    {
+      "id": "REC-ENTRY-001",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La experiencia de una clienta puede comenzar mucho antes de que cruce nuestra puerta."
+    },
+    {
+      "id": "REC-ENTRY-002",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu voz puede ser el primer motivo para confiar en nosotros."
+    },
+    {
+      "id": "REC-ENTRY-003",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Un saludo atento puede cambiar la forma en que alguien llega al salón."
+    },
+    {
+      "id": "REC-ENTRY-004",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de organizar también es una forma de cuidar."
+    },
+    {
+      "id": "REC-ENTRY-005",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Cada nombre en la agenda representa a una persona con su propia historia."
+    },
+    {
+      "id": "REC-ENTRY-006",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes hacer que alguien se sienta esperada, no simplemente atendida."
+    },
+    {
+      "id": "REC-ENTRY-007",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La primera impresión de Upro también lleva tu manera de ser."
+    },
+    {
+      "id": "REC-ENTRY-008",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una respuesta clara puede devolver tranquilidad a quien tiene dudas."
+    },
+    {
+      "id": "REC-ENTRY-009",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu criterio ayuda a que el trabajo de todas encuentre su ritmo."
+    },
+    {
+      "id": "REC-ENTRY-010",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hay elegancia en hacer sencillo lo que parecía complicado."
+    },
+    {
+      "id": "REC-ENTRY-011",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy disfrutes esos pequeños encuentros que hacen especial tu oficio."
+    },
+    {
+      "id": "REC-ENTRY-012",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una bienvenida sincera vale más que cualquier frase ensayada."
+    },
+    {
+      "id": "REC-ENTRY-013",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo une las distintas partes de una misma experiencia."
+    },
+    {
+      "id": "REC-ENTRY-014",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "A veces una pregunta atenta es todo lo que alguien necesita para sentirse comprendida."
+    },
+    {
+      "id": "REC-ENTRY-015",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La agenda organiza el tiempo; tu sensibilidad ayuda a cuidar a las personas."
+    },
+    {
+      "id": "REC-ENTRY-016",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes abrir una conversación que se convierta en una relación de confianza."
+    },
+    {
+      "id": "REC-ENTRY-017",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que encuentres satisfacción al resolver algo que parecía difícil."
+    },
+    {
+      "id": "REC-ENTRY-018",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de escuchar tiene un valor propio."
+    },
+    {
+      "id": "REC-ENTRY-019",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una clienta también recuerda cómo se sintió antes de sentarse en el tocador."
+    },
+    {
+      "id": "REC-ENTRY-020",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Recibir a alguien es hacerle saber que su llegada importa."
+    },
+    {
+      "id": "REC-ENTRY-021",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Detrás de una jornada que fluye hay muchas decisiones que merecen reconocimiento."
+    },
+    {
+      "id": "REC-ENTRY-022",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu atención es parte de la identidad de Upro."
+    },
+    {
+      "id": "REC-ENTRY-023",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas trabajar con claridad, sin cargar con las prisas de los demás."
+    },
+    {
+      "id": "REC-ENTRY-024",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una buena orientación puede evitar muchas preocupaciones."
+    },
+    {
+      "id": "REC-ENTRY-025",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu manera de comunicar puede acercar a las personas."
+    },
+    {
+      "id": "REC-ENTRY-026",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "No todas las soluciones necesitan ser inmediatas para ser buenas."
+    },
+    {
+      "id": "REC-ENTRY-027",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy habrá oportunidades para crear confianza desde una conversación sencilla."
+    },
+    {
+      "id": "REC-ENTRY-028",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La cortesía se vuelve especial cuando es genuina."
+    },
+    {
+      "id": "REC-ENTRY-029",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu voz tiene un lugar importante en las decisiones del equipo."
+    },
+    {
+      "id": "REC-ENTRY-030",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una agenda bien pensada respeta tanto a las clientas como a tus compañeras."
+    },
+    {
+      "id": "REC-ENTRY-031",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas encontrar equilibrio entre atender y atenderte."
+    },
+    {
+      "id": "REC-ENTRY-032",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Acompañar una duda también forma parte de una gran experiencia."
+    },
+    {
+      "id": "REC-ENTRY-033",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hay mucho talento en anticipar una necesidad sin invadir."
+    },
+    {
+      "id": "REC-ENTRY-034",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo tiene una dimensión humana que ningún calendario puede mostrar."
+    },
+    {
+      "id": "REC-ENTRY-035",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes regalar tranquilidad con una explicación comprensible."
+    },
+    {
+      "id": "REC-ENTRY-036",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una recepción cálida no necesita grandes gestos."
+    },
+    {
+      "id": "REC-ENTRY-037",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Cada conversación es distinta, aunque la pregunta parezca la misma."
+    },
+    {
+      "id": "REC-ENTRY-038",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu experiencia te ayuda a distinguir lo urgente de lo importante."
+    },
+    {
+      "id": "REC-ENTRY-039",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que las conversaciones de hoy fluyan con respeto en ambas direcciones."
+    },
+    {
+      "id": "REC-ENTRY-040",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Un detalle recordado puede hacer sentir a alguien realmente conocida."
+    },
+    {
+      "id": "REC-ENTRY-041",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La claridad también es una forma de hospitalidad."
+    },
+    {
+      "id": "REC-ENTRY-042",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu manera de recibir contribuye a la serenidad del espacio."
+    },
+    {
+      "id": "REC-ENTRY-043",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes facilitar un encuentro que alguien lleva tiempo esperando."
+    },
+    {
+      "id": "REC-ENTRY-044",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La confianza comienza muchas veces con un mensaje bien respondido."
+    },
+    {
+      "id": "REC-ENTRY-045",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy encuentres apoyo para las decisiones que no te corresponde tomar sola."
+    },
+    {
+      "id": "REC-ENTRY-046",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu habilidad para coordinar merece tanto respeto como cualquier destreza técnica."
+    },
+    {
+      "id": "REC-ENTRY-047",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una pequeña previsión puede evitar una gran incomodidad."
+    },
+    {
+      "id": "REC-ENTRY-048",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "No necesitas resolverlo todo para ofrecer una atención valiosa."
+    },
+    {
+      "id": "REC-ENTRY-049",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que tu trato amable encuentre también amabilidad de regreso."
+    },
+    {
+      "id": "REC-ENTRY-050",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "El tiempo que dedicas a comprender una petición tiene sentido."
+    },
+    {
+      "id": "REC-ENTRY-051",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una buena recepción no solo orienta: ayuda a que alguien se sienta cómoda."
+    },
+    {
+      "id": "REC-ENTRY-052",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de mantener el orden puede dar espacio a la creatividad de otras personas."
+    },
+    {
+      "id": "REC-ENTRY-053",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy una palabra tuya puede hacer más fácil el día de alguien."
+    },
+    {
+      "id": "REC-ENTRY-054",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que tus conversaciones tengan la claridad que tú también mereces recibir."
+    },
+    {
+      "id": "REC-ENTRY-055",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "El cuidado de los tiempos es una manera de respetar a todos."
+    },
+    {
+      "id": "REC-ENTRY-056",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu papel no es invisible: está presente en cómo se vive cada visita."
+    },
+    {
+      "id": "REC-ENTRY-057",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "A veces el mejor servicio es eliminar una preocupación antes de que crezca."
+    },
+    {
+      "id": "REC-ENTRY-058",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes encontrar nuevas formas de hacer más amable una rutina."
+    },
+    {
+      "id": "REC-ENTRY-059",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una respuesta honesta inspira más confianza que una promesa apresurada."
+    },
+    {
+      "id": "REC-ENTRY-060",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que puedas disfrutar la satisfacción de una coordinación bien lograda."
+    },
+    {
+      "id": "REC-ENTRY-061",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu atención permite que otras personas se concentren en su propio trabajo."
+    },
+    {
+      "id": "REC-ENTRY-062",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La serenidad de una recepción empieza por poder trabajar con serenidad."
+    },
+    {
+      "id": "REC-ENTRY-063",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy tienes espacio para sugerir cambios que faciliten la jornada."
+    },
+    {
+      "id": "REC-ENTRY-064",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una bienvenida también puede ser el inicio de una historia nueva."
+    },
+    {
+      "id": "REC-ENTRY-065",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "El tacto con el que explicas un límite habla de tu profesionalismo."
+    },
+    {
+      "id": "REC-ENTRY-066",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que cada conversación te permita seguir siendo tú."
+    },
+    {
+      "id": "REC-ENTRY-067",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu criterio importa, incluso en las decisiones pequeñas de la agenda."
+    },
+    {
+      "id": "REC-ENTRY-068",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una voz amable puede hacer que una espera se sienta diferente."
+    },
+    {
+      "id": "REC-ENTRY-069",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La organización cobra sentido cuando facilita la vida de las personas."
+    },
+    {
+      "id": "REC-ENTRY-070",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes ayudar a que una clienta llegue con menos incertidumbre."
+    },
+    {
+      "id": "REC-ENTRY-071",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que encuentres alegría en conocer a alguien nuevo."
+    },
+    {
+      "id": "REC-ENTRY-072",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo es más que contestar mensajes: es construir encuentros."
+    },
+    {
+      "id": "REC-ENTRY-073",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hay conversaciones breves que merecen toda nuestra atención."
+    },
+    {
+      "id": "REC-ENTRY-074",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una buena despedida de una clienta empieza por una buena bienvenida."
+    },
+    {
+      "id": "REC-ENTRY-075",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La gentileza puede ser auténtica incluso en un día difícil."
+    },
+    {
+      "id": "REC-ENTRY-076",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy tengas espacio para escuchar sin sentir que el tiempo te persigue."
+    },
+    {
+      "id": "REC-ENTRY-077",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de recordar detalles ayuda a dar continuidad a cada historia."
+    },
+    {
+      "id": "REC-ENTRY-078",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Coordinar tiempos también requiere creatividad."
+    },
+    {
+      "id": "REC-ENTRY-079",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes hacer más comprensible una decisión para quien no conoce el salón."
+    },
+    {
+      "id": "REC-ENTRY-080",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu presencia sostiene una parte importante del ambiente que queremos crear."
+    },
+    {
+      "id": "REC-ENTRY-081",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que puedas afrontar los imprevistos con el respaldo de tus compañeras."
+    },
+    {
+      "id": "REC-ENTRY-082",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una clienta puede olvidar una explicación, pero recordar cómo fue recibida."
+    },
+    {
+      "id": "REC-ENTRY-083",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hay belleza en encontrar el espacio adecuado para cada encuentro."
+    },
+    {
+      "id": "REC-ENTRY-084",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu trabajo crea puentes entre las necesidades de personas diferentes."
+    },
+    {
+      "id": "REC-ENTRY-085",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy puedas decir con tranquilidad lo que es posible y lo que no."
+    },
+    {
+      "id": "REC-ENTRY-086",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La hospitalidad también incluye cuidar los límites propios."
+    },
+    {
+      "id": "REC-ENTRY-087",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una agenda ordenada puede regalar calma a muchas personas."
+    },
+    {
+      "id": "REC-ENTRY-088",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy tienes la oportunidad de escuchar algo que no estaba en el guion."
+    },
+    {
+      "id": "REC-ENTRY-089",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu manera de recibir a quienes regresan forma parte de su historia con Upro."
+    },
+    {
+      "id": "REC-ENTRY-090",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "La confianza también nace de cumplir lo que comunicamos."
+    },
+    {
+      "id": "REC-ENTRY-091",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que hoy disfrutes de alguna conversación espontánea en recepción."
+    },
+    {
+      "id": "REC-ENTRY-092",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una solución sencilla puede ser el resultado de mucho criterio."
+    },
+    {
+      "id": "REC-ENTRY-093",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu capacidad de conectar información hace posible una atención más personal."
+    },
+    {
+      "id": "REC-ENTRY-094",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "El primer contacto con una clienta es también un encuentro entre dos personas."
+    },
+    {
+      "id": "REC-ENTRY-095",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que encuentres formas de hacer equipo sin dejar de cuidar tu espacio."
+    },
+    {
+      "id": "REC-ENTRY-096",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Una explicación precisa puede cuidar tanto como una bienvenida cálida."
+    },
+    {
+      "id": "REC-ENTRY-097",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Tu oficio requiere sensibilidad para tratar con lo que no estaba previsto."
+    },
+    {
+      "id": "REC-ENTRY-098",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Hoy puedes contribuir a que el salón sea un lugar más humano para todas."
+    },
+    {
+      "id": "REC-ENTRY-099",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Que tu jornada en recepción tenga momentos de satisfacción y serenidad."
+    },
+    {
+      "id": "REC-ENTRY-100",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "entry",
+      "text": "Bienvenida. Gracias por ser parte de los encuentros que empiezan aquí."
+    },
+    {
+      "id": "REC-EXIT-001",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar tantos detalles que otras personas quizá no llegaron a notar."
+    },
+    {
+      "id": "REC-EXIT-002",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Quizá alguien se sintió bienvenida desde el primer momento gracias a ti."
+    },
+    {
+      "id": "REC-EXIT-003",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "La agenda puede cerrarse por hoy; tus propios planes merecen ahora su espacio."
+    },
+    {
+      "id": "REC-EXIT-004",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ayudar a que tantas historias encontraran su momento."
+    },
+    {
+      "id": "REC-EXIT-005",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hay personas que recuerdan la calidez con la que fueron recibidas. Tu trabajo forma parte de ese recuerdo."
+    },
+    {
+      "id": "REC-EXIT-006",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que ahora puedas disfrutar de conversaciones que no necesiten una respuesta profesional."
+    },
+    {
+      "id": "REC-EXIT-007",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por dar claridad cuando había dudas."
+    },
+    {
+      "id": "REC-EXIT-008",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "El orden de una jornada no siempre se nota. Su ausencia sí. Gracias por tu aportación."
+    },
+    {
+      "id": "REC-EXIT-009",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Ojalá puedas recordar alguna conversación agradable de hoy."
+    },
+    {
+      "id": "REC-EXIT-010",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Por hoy, deja descansar la agenda y dedica tiempo a lo que quieres."
+    },
+    {
+      "id": "REC-EXIT-011",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por prestar atención tanto a las clientas como a tus compañeras."
+    },
+    {
+      "id": "REC-EXIT-012",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu presencia en recepción importa más allá de los mensajes que contestaste."
+    },
+    {
+      "id": "REC-EXIT-013",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hay decisiones pequeñas que facilitan el día entero de alguien. Gracias por pensar en ellas."
+    },
+    {
+      "id": "REC-EXIT-014",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que al salir no tengas que seguir coordinando los tiempos de nadie."
+    },
+    {
+      "id": "REC-EXIT-015",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por contribuir a que la experiencia de Upro comience con confianza."
+    },
+    {
+      "id": "REC-EXIT-016",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hay historias que se quedan en recepción y también merecen ser escuchadas."
+    },
+    {
+      "id": "REC-EXIT-017",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tus próximos mensajes sean de personas con quienes disfrutas conversar."
+    },
+    {
+      "id": "REC-EXIT-018",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar las palabras con las que representamos al salón."
+    },
+    {
+      "id": "REC-EXIT-019",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "El trabajo de organizar termina aquí por hoy. Disfruta la libertad de improvisar."
+    },
+    {
+      "id": "REC-EXIT-020",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Quizá un gesto amable tuyo acompañe a alguien durante el resto de su día."
+    },
+    {
+      "id": "REC-EXIT-021",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por dar un lugar a cada encuentro."
+    },
+    {
+      "id": "REC-EXIT-022",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que puedas dejar atrás el sonido de las notificaciones de trabajo."
+    },
+    {
+      "id": "REC-EXIT-023",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu responsabilidad no incluye resolver todos los imprevistos del mundo."
+    },
+    {
+      "id": "REC-EXIT-024",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por aportar tu perspectiva a lo que hacemos juntas."
+    },
+    {
+      "id": "REC-EXIT-025",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tu regreso tenga menos horarios y más momentos elegidos por ti."
+    },
+    {
+      "id": "REC-EXIT-026",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Las personas que hacen que todo fluya también merecen detenerse."
+    },
+    {
+      "id": "REC-EXIT-027",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por la atención que dedicaste a las preguntas de hoy."
+    },
+    {
+      "id": "REC-EXIT-028",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "No necesitas repasar cada conversación para cerrar bien el día."
+    },
+    {
+      "id": "REC-EXIT-029",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que ahora alguien tenga tiempo para escucharte a ti."
+    },
+    {
+      "id": "REC-EXIT-030",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por la parte de la experiencia que construyes antes de cada servicio."
+    },
+    {
+      "id": "REC-EXIT-031",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Una agenda llena no dice todo sobre el valor de tu trabajo."
+    },
+    {
+      "id": "REC-EXIT-032",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que el teléfono deje de marcar el ritmo de tus próximas horas."
+    },
+    {
+      "id": "REC-EXIT-033",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ayudar a encontrar soluciones cuando los planes cambiaron."
+    },
+    {
+      "id": "REC-EXIT-034",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "A veces el mayor logro de recepción es que nadie tenga que preocuparse por un detalle."
+    },
+    {
+      "id": "REC-EXIT-035",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que disfrutes de una charla en la que no tengas que coordinar nada."
+    },
+    {
+      "id": "REC-EXIT-036",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer del primer contacto algo más que una formalidad."
+    },
+    {
+      "id": "REC-EXIT-037",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu voz merece descanso después de tantas conversaciones."
+    },
+    {
+      "id": "REC-EXIT-038",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que te reciban con la misma consideración que procuras ofrecer."
+    },
+    {
+      "id": "REC-EXIT-039",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar la continuidad de las visitas al salón."
+    },
+    {
+      "id": "REC-EXIT-040",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hoy puedes salir sin seguir pensando en la agenda de mañana."
+    },
+    {
+      "id": "REC-EXIT-041",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "El trato humano no se resume en el número de citas confirmadas."
+    },
+    {
+      "id": "REC-EXIT-042",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer espacio para las necesidades del equipo."
+    },
+    {
+      "id": "REC-EXIT-043",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tus propios compromisos te encuentren con tiempo y calma."
+    },
+    {
+      "id": "REC-EXIT-044",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Una respuesta respetuosa tiene valor incluso cuando no termina en una cita."
+    },
+    {
+      "id": "REC-EXIT-045",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ocuparte de lo que sucede entre un servicio y otro."
+    },
+    {
+      "id": "REC-EXIT-046",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que ahora puedas disfrutar el placer de no tener que anticiparte a nada."
+    },
+    {
+      "id": "REC-EXIT-047",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu capacidad de poner orden no te obliga a mantenerlo todo bajo control."
+    },
+    {
+      "id": "REC-EXIT-048",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ayudar a sostener un ambiente agradable desde la entrada."
+    },
+    {
+      "id": "REC-EXIT-049",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Ojalá hoy encuentres alguna razón para sonreír que no tenga relación con la agenda."
+    },
+    {
+      "id": "REC-EXIT-050",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu tiempo de descanso no es un espacio disponible para nuevas citas."
+    },
+    {
+      "id": "REC-EXIT-051",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los detalles que hacen más fácil la llegada de alguien."
+    },
+    {
+      "id": "REC-EXIT-052",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que ahora puedas hablar de tus propias inquietudes y alegrías."
+    },
+    {
+      "id": "REC-EXIT-053",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "No todos los días de recepción transcurren como se planearon. Eso no les quita valor."
+    },
+    {
+      "id": "REC-EXIT-054",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por formar parte del vínculo que construimos con cada clienta."
+    },
+    {
+      "id": "REC-EXIT-055",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que el próximo saludo que recibas sea uno que te haga ilusión."
+    },
+    {
+      "id": "REC-EXIT-056",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu trabajo es importante aunque gran parte de él ocurra lejos del espejo."
+    },
+    {
+      "id": "REC-EXIT-057",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por contribuir a que los tiempos de todas se encuentren."
+    },
+    {
+      "id": "REC-EXIT-058",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que puedas despedirte del día sin tener que justificar cada decisión."
+    },
+    {
+      "id": "REC-EXIT-059",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hay calidez en una explicación dada con paciencia. Gracias por cultivarla."
+    },
+    {
+      "id": "REC-EXIT-060",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Cierra la agenda. Abre espacio para tus propios gustos."
+    },
+    {
+      "id": "REC-EXIT-061",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por las veces que ayudaste a aclarar una situación."
+    },
+    {
+      "id": "REC-EXIT-062",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que el silencio fuera de recepción sea una compañía agradable."
+    },
+    {
+      "id": "REC-EXIT-063",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hoy también cuentan aquellas conversaciones que no terminaron como esperabas."
+    },
+    {
+      "id": "REC-EXIT-064",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por tu papel en la experiencia que compartimos."
+    },
+    {
+      "id": "REC-EXIT-065",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que encuentres tiempo para escuchar algo que elegiste tú."
+    },
+    {
+      "id": "REC-EXIT-066",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu manera de orientar a las personas aporta humanidad a nuestros procesos."
+    },
+    {
+      "id": "REC-EXIT-067",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar el tiempo de quienes nos visitan."
+    },
+    {
+      "id": "REC-EXIT-068",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que al salir puedas dejar de estar pendiente del reloj."
+    },
+    {
+      "id": "REC-EXIT-069",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "La coordinación es un arte cotidiano que merece ser reconocido."
+    },
+    {
+      "id": "REC-EXIT-070",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los momentos en que tu criterio ayudó a encontrar una alternativa."
+    },
+    {
+      "id": "REC-EXIT-071",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que lo que sigue no dependa de una confirmación ni de un recordatorio."
+    },
+    {
+      "id": "REC-EXIT-072",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu valor no cambia cuando dejas de estar disponible para los demás."
+    },
+    {
+      "id": "REC-EXIT-073",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por hacer equipo desde un lugar tan importante como la recepción."
+    },
+    {
+      "id": "REC-EXIT-074",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tengas oportunidad de disfrutar de aquello que no cabe en una agenda."
+    },
+    {
+      "id": "REC-EXIT-075",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Una bienvenida amable puede permanecer mucho después de una visita."
+    },
+    {
+      "id": "REC-EXIT-076",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por cuidar la comunicación entre las personas que hacemos Upro."
+    },
+    {
+      "id": "REC-EXIT-077",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que el final de tu turno te devuelva espacio para la espontaneidad."
+    },
+    {
+      "id": "REC-EXIT-078",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "El día no tiene que quedar perfectamente organizado para poder terminar."
+    },
+    {
+      "id": "REC-EXIT-079",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por los momentos de escucha que ofreciste."
+    },
+    {
+      "id": "REC-EXIT-080",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que fuera de aquí puedas elegir cuándo mirar el teléfono."
+    },
+    {
+      "id": "REC-EXIT-081",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "La experiencia de cada clienta está hecha de muchos encuentros. Gracias por ser parte de ellos."
+    },
+    {
+      "id": "REC-EXIT-082",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ayudar a que las preguntas encuentren respuestas honestas."
+    },
+    {
+      "id": "REC-EXIT-083",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que hoy puedas compartir con alguien una historia distinta a la del trabajo."
+    },
+    {
+      "id": "REC-EXIT-084",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu esfuerzo no necesita volverse visible para merecer respeto."
+    },
+    {
+      "id": "REC-EXIT-085",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ayudar a cuidar los límites y tiempos del equipo."
+    },
+    {
+      "id": "REC-EXIT-086",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que la próxima conversación pueda girar en torno a lo que a ti te gusta."
+    },
+    {
+      "id": "REC-EXIT-087",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Las citas de mañana tendrán su propio día. Este ya terminó."
+    },
+    {
+      "id": "REC-EXIT-088",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por tu manera de dar la bienvenida a quienes nos eligen."
+    },
+    {
+      "id": "REC-EXIT-089",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que las horas que siguen tengan menos planes obligatorios."
+    },
+    {
+      "id": "REC-EXIT-090",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "El trabajo de recepción también deja huella en la confianza de las personas."
+    },
+    {
+      "id": "REC-EXIT-091",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por sostener el diálogo cuando surgieron situaciones inesperadas."
+    },
+    {
+      "id": "REC-EXIT-092",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que ahora puedas recibir atención sin tener que ofrecerla primero."
+    },
+    {
+      "id": "REC-EXIT-093",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu paciencia merece un descanso, no una nueva prueba."
+    },
+    {
+      "id": "REC-EXIT-094",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por aportar claridad a nuestra forma de trabajar."
+    },
+    {
+      "id": "REC-EXIT-095",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tus pensamientos puedan viajar ahora hacia lugares que te entusiasmen."
+    },
+    {
+      "id": "REC-EXIT-096",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "A veces una visita agradable empieza con algo tan sencillo como que alguien recuerde un nombre."
+    },
+    {
+      "id": "REC-EXIT-097",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Gracias por ser parte del cuidado que se vive desde nuestra puerta."
+    },
+    {
+      "id": "REC-EXIT-098",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Que tu día continúe lejos de las responsabilidades de recepción."
+    },
+    {
+      "id": "REC-EXIT-099",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Tu contribución va más allá de hacer que las cosas funcionen: ayuda a que las personas se encuentren."
+    },
+    {
+      "id": "REC-EXIT-100",
+      "profiles": [
+        "receptionist"
+      ],
+      "event": "exit",
+      "text": "Hasta pronto. Gracias por compartir tu manera de recibir al mundo."
+    }
+  ]
+}

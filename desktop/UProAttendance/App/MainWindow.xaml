@@ -122,6 +122,7 @@
             <RowDefinition x:Name="HeaderRow" Height="72"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1">
@@ -275,5 +276,9 @@
                            Foreground="#6B5026" VerticalAlignment="Center" Margin="0,4,0,4" Visibility="Collapsed"/>
             </WrapPanel>
         </Border>
+
+        <TextBlock x:Name="DevelopmentBuildStamp" Grid.Row="3" Visibility="Collapsed"
+                   HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"
+                   FontSize="11" Foreground="{StaticResource Muted}" Margin="16,2,16,8"/>
     </Grid>
 </Window>

@@ -12,6 +12,28 @@ El interruptor está disponible en **Administración → Configuración**. Cambi
 
 Al abrir la aplicación, `IAppointmentHoursProvider` puede aportar el total diario de las citas para activar el descanso si supera seis horas. Con seis horas o menos queda desactivado. Un cambio manual prevalece ese día. El proveedor actual devuelve una agenda no disponible, por lo que el modo de laboratorio comienza sin descanso hasta activar el interruptor.
 
+## Compilaciones de desarrollo
+
+Antes de entregar una versión nueva, incrementa el cuarto número de `Version` en `App/UProAttendance.csproj` y actualiza `DevelopmentChangeSummary` con una descripción breve del cambio. Al compilar, la aplicación incorpora la fecha y hora UTC al ejecutable. La etiqueta inferior muestra esa hora en la zona de Ciudad de México. Una recompilación de la misma versión conserva el número y actualiza la hora. Usa `-p:ShowDevelopmentBuildStamp=false` si necesitas generar una compilación sin la etiqueta.
+
+## Catálogo e historial editorial
+
+El JSON original en `Core/Editorial/Upro_catalogo_mensajes.json` se incorpora en `UProAttendance.Core.dll` en Debug, Release y publicación. Para una actualización editorial, conserva los IDs de los mensajes editados y asigna IDs nuevos a los mensajes nuevos. La prueba de inventario documenta el hash y la distribución de esta entrega y se actualiza junto con el catálogo.
+
+La carpeta de historial pertenece al usuario de Windows que ejecuta la aplicación. La misma cuenta comparte su historial entre ejecuciones normales y elevadas. Una cuenta distinta de Windows tiene su propia carpeta.
+
+- Laboratorio: `%LOCALAPPDATA%\UProRegistro\Editorial\Laboratorio\history.json`.
+- Operación: `%LOCALAPPDATA%\UProRegistro\Editorial\Operacion\history.json`.
+
+La carpeta restringe el acceso al SID de esa cuenta y a SYSTEM. El historial JSON tiene su propio `schemaVersion` y conserva las asignaciones con ID de empleado, evento, ID de mensaje, ciclo, orden e ID de marcaje. Se guarda primero en un archivo temporal junto al original y se reemplaza bajo un bloqueo exclusivo. `history.backup.json` conserva la última copia anterior cuando hay un reemplazo. Las nuevas compilaciones usan la misma carpeta.
+
+Si falla el catálogo o el historial, la aplicación muestra el saludo y la confirmación del marcaje. El diagnóstico `editorial-error.log` guarda la clase del error y su fecha cuando la carpeta es accesible. Si Windows impide escribir en ella, el diagnóstico se emite mediante la traza de la aplicación. Para recuperar un historial dañado:
+
+1. Cierra todas las instancias y conserva una copia de `history.json` y `history.backup.json` dentro de la carpeta protegida que corresponda.
+2. Revisa el respaldo de la misma carpeta. Puedes comprobar que es JSON legible en PowerShell con `Get-Content -Raw -LiteralPath '.\history.backup.json' | ConvertFrom-Json`.
+3. Si es la última copia válida disponible, restáurala con `Copy-Item -LiteralPath '.\history.backup.json' -Destination '.\history.json' -Force`. El respaldo puede quedar una asignación atrás. Si falta o también está dañado, conserva los archivos para revisión.
+4. Abre la aplicación. Validará la estructura y los ciclos antes de volver a seleccionar mensajes. Los datos de un registro de asistencia permanecen independientes de esta recuperación.
+
 ## Ejecutar en la Huawei
 
 1. Instala **.NET Desktop Runtime 10 para Windows x64**. Para compilar, instala el SDK .NET 10. La solución se verificó con SDK 10.0.302 y runtime Windows Desktop 10.0.10.

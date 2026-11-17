@@ -5,7 +5,21 @@
     <UseWPF>true</UseWPF>
     <PlatformTarget Condition="'$(PlatformTarget)' == ''">x64</PlatformTarget>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Increase the fourth version component and update the summary for each development delivery. -->
+    <Version>1.0.0.2</Version>
+    <DevelopmentChangeSummary>Catálogo e historial de mensajes</DevelopmentChangeSummary>
+    <ShowDevelopmentBuildStamp Condition="'$(ShowDevelopmentBuildStamp)' == ''">true</ShowDevelopmentBuildStamp>
   </PropertyGroup>
+  <ItemGroup Condition="'$(ShowDevelopmentBuildStamp)' == 'true'">
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>DevelopmentBuildUtc</_Parameter1>
+      <_Parameter2>$([System.DateTime]::UtcNow.ToString('O'))</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>DevelopmentChangeSummary</_Parameter1>
+      <_Parameter2>$(DevelopmentChangeSummary)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="UProAttendance.Tests" />
     <ProjectReference Include="../Core/UProAttendance.Core.csproj" />

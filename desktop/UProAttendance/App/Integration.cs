@@ -23,7 +23,12 @@ internal sealed class UnconfiguredUproApp : IEnrollmentAuthorization, IEmployeeP
 internal sealed class Laboratory : IEnrollmentAuthorization, IEmployeeProvider, IAttendanceGateway
 {
     private readonly Employee[] employees =
-        [new("lab-01", "Estilista de prueba A"), new("lab-02", "Estilista de prueba B")];
+    [
+        new("lab-01", "Estilista de prueba A") { Position = EmployeePosition.Stylist },
+        new("lab-02", "Estilista de prueba B") { Position = EmployeePosition.Stylist },
+        new("lab-03", "Recepción de prueba") { Position = EmployeePosition.Receptionist },
+        new("lab-04", "Asistente de prueba") { Position = EmployeePosition.Assistant }
+    ];
 
     public Task<IEnrollmentSession?> AuthenticateAsync(CancellationToken cancellation)
     {

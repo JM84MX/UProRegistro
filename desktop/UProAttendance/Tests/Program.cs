@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using UProAttendance;
 using UProAttendance.Core;
+using UProAttendance.Core.Editorial;
 using UProAttendance.Hardware;
 using UProAttendance.Presentation;
 
@@ -51,7 +52,8 @@ internal static class Program
                 ("Appointment threshold is strict and manual settings are respected", AppointmentThreshold),
                 ("Turning off breaks preserves a break already started", BreakAlreadyStarted),
                 ("A pending automatic punch is retried with its original ID", DailyRetry),
-                ("Entry and exit use first names and distinct messages, and break greetings are preserved", GreetingCatalog)
+                ("Confirmation salutations use first names and break greetings are preserved", GreetingCatalog),
+                .. EditorialTests.All
             ];
 
             foreach (var (name, test) in tests)
@@ -291,16 +293,9 @@ internal static class Program
 
         foreach (var action in new[] { AttendanceAction.Entry, AttendanceAction.Exit })
         {
-            ConfirmationCopy? previous = null;
-            for (var i = 0; i < 12; i++)
-            {
-                var greeting = greetings.NextConfirmation(action, "  María\tGarcía  ");
-                Equal(true, greeting.Salutation.Contains("María", StringComparison.Ordinal));
-                Equal(false, greeting.Salutation.Contains("García", StringComparison.Ordinal));
-                Equal(false, greeting.Message.Contains("María", StringComparison.Ordinal));
-                Equal(false, greeting == previous);
-                previous = greeting;
-            }
+            var greeting = AttendanceGreetings.ConfirmationSalutation(action, "  María\tGarcía  ");
+            Equal(true, greeting.Contains("María", StringComparison.Ordinal));
+            Equal(false, greeting.Contains("García", StringComparison.Ordinal));
         }
     }
 
@@ -397,7 +392,9 @@ internal static class Program
         Directory.CreateDirectory(destination);
         _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
         SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext());
-        var show = new MainWindow(false);
+        using var store = new TemporaryEditorialStore();
+        var catalog = MessageCatalog.LoadBundled();
+        var show = new MainWindow(false, null, null, store.Service(catalog));
         show.Show();
         PumpUntil(() => ((TextBlock)show.FindName("ReaderText")).Text != "Comprobando…");
         Equal("Registro de asistencia", ((TextBlock)show.FindName("TitleText")).Text);
@@ -410,9 +407,11 @@ internal static class Program
         Equal(false, ((Border)show.FindName("StatusBar")).IsVisible);
         Equal(false, ((Border)show.FindName("CaptureAside")).IsVisible);
         Equal(false, ((TextBlock)show.FindName("ScanDetail")).IsVisible);
+        var buildStamp = AssertBuildStamp(show);
+        Console.WriteLine(buildStamp is null ? "PASS Development build label hidden" : $"PASS Development build label {buildStamp}");
         Snapshot(show, Path.Combine(destination, "registro-de-asistencia.png"), 1);
-        var danna = new Employee("ui-danna", "Danna Ruiz");
-        var sandy = new Employee("ui-sandy", "Sandy Morales");
+        var danna = new Employee("ui-danna", "Danna Ruiz") { Position = EmployeePosition.Stylist };
+        var sandy = new Employee("ui-sandy", "Sandy Morales") { Position = EmployeePosition.Receptionist };
         var longName = new Employee("ui-long", "Mariana-Alejandra-del-Carmen Martínez");
         var observedEntry = new DateTimeOffset(2026, 11, 16, 15, 0, 0, TimeSpan.Zero);
         var observedExit = observedEntry.AddHours(9);
@@ -421,25 +420,37 @@ internal static class Program
         var entry = new AttendanceEvent(Guid.NewGuid(), danna.Id, AttendanceAction.Entry, observedEntry);
         var exit = new AttendanceEvent(Guid.NewGuid(), sandy.Id, AttendanceAction.Exit, observedExit);
 
-        show.PresentAttendance(entry, danna, new(SyncStatus.OutcomeUnknown));
-        show.PresentAttendance(entry, danna, new(SyncStatus.Unavailable));
-        show.PresentAttendance(entry, danna, new(SyncStatus.Confirmed));
+        FinishPresentation(show.PresentAttendanceAsync(entry, danna, new(SyncStatus.OutcomeUnknown)));
+        FinishPresentation(show.PresentAttendanceAsync(entry, danna, new(SyncStatus.Unavailable)));
+        FinishPresentation(show.PresentAttendanceAsync(entry, danna, new(SyncStatus.Confirmed)));
         Equal(false, confirmation.IsVisible);
+        Equal(0, store.Rows().Length);
 
-        CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-corta.png", maximumLength: 50);
+        var shortEntry = CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-corta.png", maximumLength: 50);
         Equal("Entrada de prueba · 09:00", receipt.Text);
         Equal(TimeSpan.FromSeconds(30), MainWindow.FeedbackDuration);
         Equal(true, show.IsFeedbackForEmployee(danna.Id));
         Equal(false, show.IsFeedbackForEmployee(sandy.Id));
         Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
         Equal(false, salutation.Text.Contains("Ruiz", StringComparison.Ordinal));
+        var count = store.Rows().Length;
+        FinishPresentation(show.PresentAttendanceAsync(shortEntry, danna, local));
+        Equal(count, store.Rows().Length);
+        var selectedMessage = store.Rows()[^1].GetProperty("messageId").GetString();
+        Equal(catalog.Messages.Single(message => message.Id == selectedMessage).Text,
+            ((TextBlock)confirmation.FindName("Message")).Text);
+        FinishPresentation(show.RecordIdentificationAsync(
+            new(IdentificationStatus.Accepted, new(danna, Finger.RightIndex)), default));
+        FinishPresentation(show.RecordIdentificationAsync(new(IdentificationStatus.NoMatch), default));
+        Equal(count, store.Rows().Length);
+        Equal(true, show.IsFeedbackForEmployee(danna.Id));
         show.ShowAttendanceReader(FlowState.Capturing);
         show.ShowAttendanceReader(FlowState.Matching);
         show.ShowAttendanceReader(FlowState.WaitingForLift);
         show.ShowAttendanceReader(FlowState.QualityRejected);
         Equal(true, confirmation.IsVisible);
         Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
-        CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-larga.png", minimumLength: 120);
+        CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-larga.png", minimumLength: 72);
 
         CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-corta.png", maximumLength: 50);
         Equal("Salida registrada · 18:04", receipt.Text);
@@ -448,16 +459,19 @@ internal static class Program
         Equal(true, salutation.Text.Contains("Sandy", StringComparison.Ordinal));
         Equal(false, salutation.Text.Contains("Danna", StringComparison.Ordinal));
         Equal(true, ((Grid)confirmation.FindName("ExitSymbol")).IsVisible);
-        CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-larga.png", minimumLength: 120);
+        var longExit = CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-larga.png", minimumLength: 75);
 
         show.WindowState = WindowState.Maximized;
         PumpUntil(() => show.WindowState == WindowState.Maximized && show.ActualWidth > 1000);
-        CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "ventana-maximizada.png", minimumLength: 120);
+        FinishPresentation(show.PresentAttendanceAsync(longExit, sandy, officialExit));
+        PumpUntil(() => confirmation.Opacity >= 0.999);
+        Snapshot(show, Path.Combine(destination, "ventana-maximizada.png"), 1);
         show.WindowState = WindowState.Normal;
         show.Width = 790;
         show.Height = 515;
         CaptureConfirmation(show, confirmation, entry with { EmployeeId = longName.Id }, longName, local,
-            destination, "ventana-compacta.png", minimumLength: 120);
+            destination, "ventana-compacta.png", minimumLength: 72);
+        Equal(buildStamp, AssertBuildStamp(show));
         Equal(true, salutation.Text.Contains("Mariana-Alejandra-del-Carmen", StringComparison.Ordinal));
         Equal(false, salutation.Text.Contains("Martínez", StringComparison.Ordinal));
         show.ShowAttendanceReader(FlowState.Capturing, keepFeedback: false);
@@ -474,10 +488,12 @@ internal static class Program
         Equal(false, ((Button)show.FindName("EmployeesButton")).IsEnabled);
         Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
         Equal(false, ((Border)show.FindName("EnrollForm")).IsVisible);
+        Equal(buildStamp, AssertBuildStamp(show));
         Snapshot(show, Path.Combine(destination, "administracion-sin-acceso.png"), 1);
         show.Close();
         PumpUntil(() => !show.IsVisible);
 
+        CheckEditorialFallbackAndReplacement(store, catalog, entry, danna, local, exit, sandy, officialExit);
         var admin = new TestAdmin();
         show = new MainWindow(false, admin, admin);
         show.Show();
@@ -538,23 +554,94 @@ internal static class Program
         Console.WriteLine("PASS WPF navigation, authorization, separate settings and enrollment, and snapshots");
     }
 
-    private static void CaptureConfirmation(MainWindow window, AttendanceConfirmation view, AttendanceEvent attendance,
+    private static string? AssertBuildStamp(MainWindow window)
+    {
+        window.UpdateLayout();
+        var label = (TextBlock)window.FindName("DevelopmentBuildStamp");
+        var stamp = BuildStamp.Read(TimeZoneInfo.FindSystemTimeZoneById("America/Mexico_City"));
+        Equal(stamp is not null, label.IsVisible);
+        if (stamp is null)
+            return null;
+
+        Equal(stamp, label.Text);
+        var root = (Grid)window.Content;
+        var corner = label.TranslatePoint(new Point(label.ActualWidth, label.ActualHeight), root);
+        Equal(true, Math.Abs(root.ActualWidth - corner.X - label.Margin.Right) < 2);
+        Equal(true, Math.Abs(root.ActualHeight - corner.Y - label.Margin.Bottom) < 2);
+        return stamp;
+    }
+
+    private static AttendanceEvent CaptureConfirmation(MainWindow window, AttendanceConfirmation view, AttendanceEvent attendance,
         Employee employee, AttendanceResult result, string destination, string file, int minimumLength = 0,
         int maximumLength = int.MaxValue)
     {
         var message = (TextBlock)view.FindName("Message");
-        for (var attempt = 0; attempt < 64; attempt++)
+        for (var attempt = 0; attempt < 250; attempt++)
         {
-            window.PresentAttendance(attendance, employee, result);
-            if (message.Text.Length >= minimumLength && message.Text.Length <= maximumLength)
+            var mark = attendance with { Id = Guid.NewGuid() };
+            FinishPresentation(window.PresentAttendanceAsync(mark, employee, result));
+            if (message.Text.Length > 0 && message.Text.Length >= minimumLength && message.Text.Length <= maximumLength)
             {
                 PumpUntil(() => view.Opacity >= 0.999);
                 Equal(true, view.IsVisible);
                 Snapshot(window, Path.Combine(destination, file), 1);
-                return;
+                return mark;
             }
         }
         throw new InvalidOperationException("No confirmation text matched the requested length.");
+    }
+
+    private static void FinishPresentation(Task pending)
+    {
+        PumpUntil(() => pending.IsCompleted);
+        pending.GetAwaiter().GetResult();
+    }
+
+    private static void CheckEditorialFallbackAndReplacement(TemporaryEditorialStore store, MessageCatalog catalog,
+        AttendanceEvent entry, Employee first, AttendanceResult local, AttendanceEvent exit, Employee second, AttendanceResult official)
+    {
+        using var release = new ManualResetEventSlim();
+        var service = new EditorialMessages(() => catalog, environment =>
+        {
+            if (environment == EditorialEnvironment.Laboratory)
+            {
+                release.Wait(TimeSpan.FromSeconds(5));
+                throw new IOException("Test-only editorial write failure.");
+            }
+            return new MessageHistory(store.DirectoryFor(environment));
+        }, (_, _) => { }, _ => 0);
+        var window = new MainWindow(false, null, null, service);
+        window.Show();
+        PumpUntil(() => ((TextBlock)window.FindName("ReaderText")).Text != "Comprobando…");
+        var view = (AttendanceConfirmation)window.FindName("AttendanceReceipt");
+        var message = (TextBlock)view.FindName("Message");
+        var firstConfirmation = window.PresentAttendanceAsync(entry, first, local);
+        try
+        {
+            Equal(true, window.IsFeedbackForEmployee(first.Id));
+            Equal(false, message.IsVisible);
+            Equal("Entrada de prueba · 09:00", ((TextBlock)view.FindName("Receipt")).Text);
+            FinishPresentation(window.PresentAttendanceAsync(exit, second, official));
+            Equal(false, firstConfirmation.IsCompleted);
+            Equal(true, window.IsFeedbackForEmployee(second.Id));
+            Equal(true, message.IsVisible);
+            var latestText = message.Text;
+            release.Set();
+            FinishPresentation(firstConfirmation);
+            Equal(latestText, message.Text);
+
+            FinishPresentation(window.PresentAttendanceAsync(entry, first, local));
+            Equal(true, window.IsFeedbackForEmployee(first.Id));
+            Equal("Entrada de prueba · 09:00", ((TextBlock)view.FindName("Receipt")).Text);
+            Equal(false, message.IsVisible);
+        }
+        finally
+        {
+            release.Set();
+            FinishPresentation(firstConfirmation);
+            window.Close();
+            PumpUntil(() => !window.IsVisible);
+        }
     }
 
     private static void Click(Window window, string button) =>

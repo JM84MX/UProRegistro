@@ -2,4 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Editorial/Upro_catalogo_mensajes.json"
+                      LogicalName="UProAttendance.Catalog.Upro_catalogo_mensajes.json" />
+  </ItemGroup>
 </Project>

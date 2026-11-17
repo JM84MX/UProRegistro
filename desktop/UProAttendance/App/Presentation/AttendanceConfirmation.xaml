@@ -42,7 +42,8 @@
                        TextAlignment="Center" Foreground="#25201B" MaxWidth="850"
                        AutomationProperties.HeadingLevel="Level1" AutomationProperties.LiveSetting="Polite"/>
             <TextBlock x:Name="Message" FontSize="27" FontWeight="Light" LineHeight="38" TextWrapping="Wrap"
-                       TextAlignment="Center" Foreground="#423B34" MaxWidth="850" Margin="0,10,0,0"/>
+                       TextAlignment="Center" Foreground="#423B34" MaxWidth="850" Margin="0,10,0,0"
+                       AutomationProperties.LiveSetting="Polite"/>
             <TextBlock x:Name="Closing" FontFamily="Georgia" FontStyle="Italic" FontSize="16" LineHeight="23"
                        TextWrapping="Wrap" TextAlignment="Center" Foreground="#716353" MaxWidth="850" Margin="0,20,0,0"/>
         </StackPanel>
