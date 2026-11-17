@@ -34,7 +34,9 @@ public partial class MainWindow : Window
     private readonly bool laboratory;
     private readonly CancellationTokenSource lifetime = new();
     private readonly AttendanceGreetings greetings = new();
-    private readonly DispatcherTimer feedbackTimer = new() { Interval = TimeSpan.FromSeconds(3) };
+    internal static readonly TimeSpan FeedbackDuration = TimeSpan.FromSeconds(30);
+    private readonly DispatcherTimer feedbackTimer = new() { Interval = FeedbackDuration };
+    private string? feedbackEmployeeId;
     private Task? screenWork;
     private CancellationTokenSource? screenCancellation;
     private IEnrollmentSession? enrollmentSession;
@@ -166,7 +168,7 @@ public partial class MainWindow : Window
         NavButton.IsEnabled = false;
         try
         {
-            if (screen is Screen.Attendance or Screen.SignIn or Screen.AdminHome or Screen.Capture)
+            if (screen is Screen.Attendance or Screen.AdminHome or Screen.Capture)
                 await DrainScreenAsync();
             if (closing)
                 return;
@@ -174,14 +176,13 @@ public partial class MainWindow : Window
             switch (screen)
             {
                 case Screen.Attendance:
-                    AdminDetail.Text = laboratory
-                        ? "Verifica el acceso con una sesión de administrador de Windows."
-                        : "Verifica el acceso con el proveedor autorizado de UProApp.";
-                    ShowPage(Screen.SignIn);
+                    ShowPage(Screen.AdminHome);
+                    SettingsButton.IsEnabled = EmployeesButton.IsEnabled = false;
+                    AdminHomeStatus.Text = "Verificando acceso administrativo…";
+                    AdminHomeStatus.Visibility = Visibility.Visible;
                     StartScreenWork(ReaderMonitorAsync);
-                    AuthorizeButton.Focus();
+                    await VerifyAdministrationAsync();
                     break;
-                case Screen.SignIn:
                 case Screen.AdminHome:
                     enrollmentSession?.Dispose();
                     enrollmentSession = null;
@@ -225,7 +226,6 @@ public partial class MainWindow : Window
         ScannerCard.Background = attendanceScreen ? Brushes.Transparent : (Brush)FindResource("ScannerSurface");
         ScannerCard.BorderThickness = new Thickness(attendanceScreen ? 0 : 1);
         SetCompactLayout((ActualHeight > 0 ? ActualHeight : Height) < 620);
-        SignInPanel.Visibility = next == Screen.SignIn ? Visibility.Visible : Visibility.Collapsed;
         AdminHomePanel.Visibility = next == Screen.AdminHome ? Visibility.Visible : Visibility.Collapsed;
         SettingsPanel.Visibility = next == Screen.Settings ? Visibility.Visible : Visibility.Collapsed;
         EnrollForm.Visibility = next == Screen.Employee ? Visibility.Visible : Visibility.Collapsed;
@@ -234,7 +234,7 @@ public partial class MainWindow : Window
         (TitleText.Text, Subtitle.Text, NavButton.Content) = next switch
         {
             Screen.Attendance => ("Registro de asistencia", "", "Administración  →"),
-            Screen.SignIn or Screen.AdminHome => ("Administración", "", "←  Registro de asistencia"),
+            Screen.AdminHome => ("Administración", "", "←  Registro de asistencia"),
             Screen.Settings => ("Configuración", "", "←  Administración"),
             Screen.Employee => ("Alta de empleado", "Selecciona una estilista existente para registrar sus huellas.", "←  Administración"),
             _ => ("Registrar huella", "", "←  Alta de empleado")
@@ -275,7 +275,8 @@ public partial class MainWindow : Window
 
             try
             {
-                ShowScan(FlowState.Idle, "Preparando el lector", "");
+                if (!feedbackTimer.IsEnabled)
+                    ShowScan(FlowState.Idle, "Preparando el lector", "");
                 await workflow.WatchAttendanceAsync(windowSource!.Handle,
                     state => PostToScreen(cancellation, () => ShowAttendanceReader(state)),
                     result => Dispatcher.InvokeAsync(() => RecordIdentificationAsync(result, cancellation)).Task.Unwrap(),
@@ -284,7 +285,8 @@ public partial class MainWindow : Window
             catch (ReaderFailure failure)
             {
                 PaintReader(failure.Reader);
-                ShowScan(FlowState.DeviceUnavailable, "Lector no disponible", ReaderInstruction(failure.Reader));
+                if (!feedbackTimer.IsEnabled)
+                    ShowScan(FlowState.DeviceUnavailable, "Lector no disponible", ReaderInstruction(failure.Reader));
                 await Task.Delay(TimeSpan.FromSeconds(2), cancellation);
             }
         }
@@ -292,13 +294,20 @@ public partial class MainWindow : Window
 
     internal void ShowAttendanceReader(FlowState state, bool keepFeedback = true)
     {
+        if (keepFeedback && feedbackTimer.IsEnabled)
+        {
+            if (state is FlowState.Matching or FlowState.WaitingForLift)
+                waitingForLift = true;
+            else if (state == FlowState.Capturing)
+                waitingForLift = false;
+            return;
+        }
+
         switch (state)
         {
             case FlowState.Capturing:
                 waitingForLift = false;
                 PaintReader(new(ReaderStatus.Ready));
-                if (keepFeedback && feedbackTimer.IsEnabled)
-                    return;
                 PaintProgress(0);
                 ShowScan(state, "Coloca tu dedo en el lector", "");
                 break;
@@ -318,50 +327,41 @@ public partial class MainWindow : Window
         }
     }
 
-    private async void Authorize(object sender, RoutedEventArgs e)
+    private async Task VerifyAdministrationAsync()
     {
-        if (closing || navigating || screen != Screen.SignIn)
-            return;
-
-        navigating = true;
-        AuthorizeButton.IsEnabled = false;
-        NavButton.IsEnabled = false;
         try
         {
             var token = lifetime.Token;
             var session = await authorization.AuthenticateAsync(token);
             if (session is null)
             {
-                AdminDetail.Text = laboratory
+                AdminHomeStatus.Text = laboratory
                     ? "Acceso denegado. El laboratorio requiere una sesión elevada de administrador de Windows."
-                    : "Acceso pendiente. UProApp aún no tiene un proveedor autorizado para este equipo.";
+                    : "Acceso pendiente. Todavía no está configurado el proveedor de autorización de UProApp.";
                 return;
             }
 
             if (!session.IsActive || token.IsCancellationRequested)
+            {
                 session.Dispose();
-            token.ThrowIfCancellationRequested();
-            if (!session.IsActive)
+                token.ThrowIfCancellationRequested();
                 throw new UnauthorizedAccessException();
+            }
 
+            enrollmentSession?.Dispose();
             enrollmentSession = session;
             AdminHomeStatus.Visibility = Visibility.Collapsed;
-            ShowPage(Screen.AdminHome);
+            SettingsButton.IsEnabled = EmployeesButton.IsEnabled = true;
             SettingsButton.Focus();
         }
-        catch (OperationCanceledException) when (closing)
+        catch (OperationCanceledException) when (lifetime.IsCancellationRequested)
         {
         }
-        catch (UnauthorizedAccessException)
+        catch (Exception error) when (error is UnauthorizedAccessException or HttpRequestException or TimeoutException)
         {
             enrollmentSession?.Dispose();
             enrollmentSession = null;
-            AdminDetail.Text = "No se pudo verificar el acceso administrativo.";
-        }
-        finally
-        {
-            navigating = false;
-            AuthorizeButton.IsEnabled = NavButton.IsEnabled = !closing;
+            AdminHomeStatus.Text = "No se pudo verificar el acceso administrativo.";
         }
     }
 
@@ -567,12 +567,18 @@ public partial class MainWindow : Window
         cancellation.ThrowIfCancellationRequested();
         if (identification.Identity is not { } identity)
         {
+            if (feedbackTimer.IsEnabled)
+                return;
             ShowScan(FlowState.Failed, "No se identificó la huella",
                 identification.Status == IdentificationStatus.Ambiguous
                     ? "Retira el dedo y vuelve a colocarlo para verificar la coincidencia."
                     : "Retira el dedo y prueba con uno registrado.");
             return;
         }
+
+        // Prevent an accidental second punch while the same employee's greeting is visible.
+        if (IsFeedbackForEmployee(identity.Employee.Id))
+            return;
 
         var observedAt = DateTimeOffset.Now;
         var day = SalonDay(observedAt);
@@ -590,7 +596,7 @@ public partial class MainWindow : Window
 
             if (result.Status is SyncStatus.Confirmed or SyncStatus.LocalPending)
             {
-                PresentAttendance(request.Action, identity.Employee.Name, result.Status == SyncStatus.LocalPending);
+                PresentAttendance(request.Action, identity.Employee, result.Status == SyncStatus.LocalPending);
             }
             else if (result.Status == SyncStatus.OutcomeUnknown)
             {
@@ -608,10 +614,14 @@ public partial class MainWindow : Window
         }
     }
 
-    internal void PresentAttendance(AttendanceAction action, string employeeName, bool isLocal)
+    internal bool IsFeedbackForEmployee(string employeeId) =>
+        feedbackTimer.IsEnabled && feedbackEmployeeId == employeeId;
+
+    internal void PresentAttendance(AttendanceAction action, Employee employee, bool isLocal)
     {
         PaintProgress(Biometrics.SampleCount);
-        ShowScan(FlowState.Success, greetings.Next(action, employeeName), "");
+        ShowScan(FlowState.Success, greetings.Next(action, employee.Name), "");
+        feedbackEmployeeId = employee.Id;
         ConfirmationLabel.Text = isLocal ? $"{ActionName(action)} · Prueba" : ActionName(action);
         ConfirmationLabel.Visibility = Visibility.Visible;
         feedbackTimer.Start();
@@ -700,5 +710,5 @@ public partial class MainWindow : Window
     }
 
     private sealed record FingerOption(Finger Finger, string Label);
-    private enum Screen { Attendance, SignIn, AdminHome, Settings, Employee, Capture }
+    private enum Screen { Attendance, AdminHome, Settings, Employee, Capture }
 }
