@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -114,6 +115,7 @@ public partial class MainWindow : Window
         ScannerVisual.Height = attendanceScreen ? (compact ? 230 : 320) : (compact ? 132 : 198);
         ScannerVisual.Margin = new Thickness(0, 0, 0, compact ? 6 : 19);
         Prompt.FontSize = attendanceScreen ? (compact ? 24 : 30) : 24;
+        AttendanceReceipt.SetCompactLayout(compact);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -214,6 +216,7 @@ public partial class MainWindow : Window
     {
         feedbackTimer.Stop();
         ConfirmationLabel.Visibility = Visibility.Collapsed;
+        AttendanceReceipt.Visibility = Visibility.Collapsed;
         screen = next;
         var attendanceScreen = next == Screen.Attendance;
         var showsScanner = next is Screen.Attendance or Screen.Capture;
@@ -598,7 +601,7 @@ public partial class MainWindow : Window
 
             if (result.Status is SyncStatus.Confirmed or SyncStatus.LocalPending)
             {
-                PresentAttendance(request.Action, identity.Employee, result.Status == SyncStatus.LocalPending);
+                PresentAttendance(request, identity.Employee, result);
             }
             else if (result.Status == SyncStatus.OutcomeUnknown)
             {
@@ -619,13 +622,33 @@ public partial class MainWindow : Window
     internal bool IsFeedbackForEmployee(string employeeId) =>
         feedbackTimer.IsEnabled && feedbackEmployeeId == employeeId;
 
-    internal void PresentAttendance(AttendanceAction action, Employee employee, bool isLocal)
+    internal void PresentAttendance(AttendanceEvent attendanceEvent, Employee employee, AttendanceResult result)
     {
-        PaintProgress(Biometrics.SampleCount);
-        ShowScan(FlowState.Success, greetings.Next(action, employee.Name), "");
+        if (screen != Screen.Attendance
+            || result is not ({ Status: SyncStatus.LocalPending } or { Status: SyncStatus.Confirmed, OfficialTime: not null }))
+            return;
+
+        var action = attendanceEvent.Action;
+        var local = result.Status == SyncStatus.LocalPending;
         feedbackEmployeeId = employee.Id;
-        ConfirmationLabel.Text = isLocal ? $"{ActionName(action)} · Prueba" : ActionName(action);
-        ConfirmationLabel.Visibility = Visibility.Visible;
+        if (action is AttendanceAction.Entry or AttendanceAction.Exit)
+        {
+            var instant = local ? attendanceEvent.ObservedOnDevice : result.OfficialTime!.Value;
+            var time = TimeZoneInfo.ConvertTime(instant, MexicoCity).ToString("HH:mm", CultureInfo.InvariantCulture);
+            var receipt = local ? $"{ActionName(action)} de prueba · {time}" : $"{ActionName(action)} registrada · {time}";
+            var copy = greetings.NextConfirmation(action, employee.Name);
+            ShowScan(FlowState.Success, "", "");
+            ScanPanel.Visibility = Visibility.Collapsed;
+            AttendanceReceipt.Visibility = Visibility.Visible;
+            AttendanceReceipt.Present(action == AttendanceAction.Exit, receipt, copy);
+        }
+        else
+        {
+            PaintProgress(Biometrics.SampleCount);
+            ShowScan(FlowState.Success, greetings.NextBreak(action, employee.Name), "");
+            ConfirmationLabel.Text = local ? $"{ActionName(action)} · Prueba" : ActionName(action);
+            ConfirmationLabel.Visibility = Visibility.Visible;
+        }
         feedbackTimer.Start();
     }
 
@@ -677,12 +700,17 @@ public partial class MainWindow : Window
     {
         feedbackTimer.Stop();
         ConfirmationLabel.Visibility = Visibility.Collapsed;
+        if (AttendanceReceipt.Visibility == Visibility.Visible)
+        {
+            AttendanceReceipt.Visibility = Visibility.Collapsed;
+            ScanPanel.Visibility = Visibility.Visible;
+        }
         State = state;
         var changed = Prompt.Text != title;
         Prompt.Text = title;
         ScanDetail.Text = detail;
         ScanDetail.Visibility = string.IsNullOrEmpty(detail) ? Visibility.Collapsed : Visibility.Visible;
-        if (changed)
+        if (changed && !string.IsNullOrEmpty(title))
             UIElementAutomationPeer.FromElement(Prompt)?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
     }
 

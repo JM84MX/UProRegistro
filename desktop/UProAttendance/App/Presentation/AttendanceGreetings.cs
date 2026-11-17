@@ -1,3 +1,4 @@
+using System.Globalization;
 using UProAttendance.Core;
 
 namespace UProAttendance.Presentation;
@@ -6,48 +7,53 @@ internal sealed class AttendanceGreetings
 {
     private readonly Dictionary<AttendanceAction, int> previous = [];
 
-    public string Next(AttendanceAction action, string name)
+    public string NextBreak(AttendanceAction action, string name)
     {
-        var options = Templates(action);
-        var index = Random.Shared.Next(options.Count - (previous.ContainsKey(action) ? 1 : 0));
-        if (previous.TryGetValue(action, out var last) && index >= last)
+        var options = BreakTemplates(action);
+        return string.Format(CultureInfo.CurrentCulture, options[NextIndex(action, options.Count)], name);
+    }
+
+    public ConfirmationCopy NextConfirmation(AttendanceAction action, string name)
+    {
+        var options = action switch
+        {
+            AttendanceAction.Entry => Entry,
+            AttendanceAction.Exit => Exit,
+            _ => throw new ArgumentOutOfRangeException(nameof(action))
+        };
+        var copy = options[NextIndex(action, options.Length)];
+        var trimmed = name.AsSpan().Trim();
+        if (trimmed.IsEmpty)
+            return copy with { Salutation = action == AttendanceAction.Entry ? "Qué gusto verte." : "Gracias por hoy." };
+        var separator = trimmed.IndexOfAny(" \t\r\n".AsSpan());
+        var firstName = (separator < 0 ? trimmed : trimmed[..separator]).ToString();
+        return copy with { Salutation = string.Format(CultureInfo.CurrentCulture, copy.Salutation, firstName) };
+    }
+
+    private int NextIndex(AttendanceAction action, int count)
+    {
+        var hasPrevious = previous.TryGetValue(action, out var last);
+        var index = Random.Shared.Next(hasPrevious ? count - 1 : count);
+        if (hasPrevious && index >= last)
             index++;
 
         previous[action] = index;
-        return string.Format(System.Globalization.CultureInfo.CurrentCulture, options[index], name);
+        return index;
     }
 
-    internal static IReadOnlyList<string> Templates(AttendanceAction action) => action switch
+    internal static IReadOnlyList<string> BreakTemplates(AttendanceAction action) => action switch
     {
-        AttendanceAction.Entry => Entry,
         AttendanceAction.BreakStart => BreakStart,
         AttendanceAction.BreakEnd => BreakEnd,
-        AttendanceAction.Exit => Exit,
         _ => throw new ArgumentOutOfRangeException(nameof(action))
     };
 
-    private static readonly string[] Entry =
+    private static readonly ConfirmationCopy[] Entry =
     [
-        "¡Hola, {0}! Que tengas un gran día.",
-        "Qué gusto verte, {0}. Hoy puedes alegrarle el día a alguien.",
-        "¡Bienvenida, {0}! Que hoy te sobren ideas y buenos momentos.",
-        "Hola, {0}. Hoy alguien saldrá de tu silla sintiéndose un poquito más como quiere.",
-        "¡Qué bueno que llegaste, {0}! Que sea un día de buenos cambios.",
-        "¡Que arranque bien el día, {0}! Confía en tu ojo y en tus manos.",
-        "¡Buen día, {0}! Ojalá hoy te toque un cambio de look de esos que se recuerdan.",
-        "Hola, {0}. Una buena consulta puede ser el comienzo de algo bonito.",
-        "¡Bienvenida, {0}! Que cada cita te dé un motivo para sonreír.",
-        "¡Hola, {0}! Que hoy haya tiempo para crear, escuchar y disfrutar.",
-        "Buen día, {0}. Tu manera de cuidar los detalles se nota.",
-        "¡Qué gusto verte, {0}! Hoy puedes sorprenderte con lo que haces.",
-        "Hola, {0}. Ojalá disfrutes tanto el proceso como el resultado.",
-        "¡Bienvenida, {0}! Empieza con calma y haz espacio para las buenas ideas.",
-        "Hola, {0}. Hoy es un buen día para probar algo nuevo.",
-        "¡Buen día, {0}! A veces, el mejor cambio empieza escuchando.",
-        "¡Hola, {0}! Que hoy salgan cortes bonitos y conversaciones que se disfrutan.",
-        "Hola, {0}. Que te acompañen la paciencia, la creatividad y un buen café.",
-        "¡Qué gusto que estés aquí, {0}! Que disfrutes lo que vas a crear.",
-        "¡Bienvenida, {0}! Que al final del día tengas algo bonito que contar.",
+        new("Qué gusto verte, {0}.", "Que encuentres tiempo para disfrutar el día.", "Diseñamos presencia."),
+        new("Hola, {0}.", "Hay días en que lo más valioso es encontrar a alguien que se tome el tiempo de escucharte. Es bueno compartir este espacio contigo."),
+        new("Qué bueno que estés aquí, {0}.", "A veces, lo que para ti empieza como un día cualquiera es, para alguien que cruza esta puerta, un momento que va a recordar. Que hoy también te deje algo bonito.", "Diseñamos presencia."),
+        new("Nos da gusto recibirte, {0}.", "Ojalá hoy encuentres una conversación que te haga sonreír.")
     ];
 
     private static readonly string[] BreakStart =
@@ -98,27 +104,11 @@ internal sealed class AttendanceGreetings
         "Que vuelvas con las manos descansadas y la cabeza fresca, {0}.",
     ];
 
-    private static readonly string[] Exit =
+    private static readonly ConfirmationCopy[] Exit =
     [
-        "¡Gracias por hoy, {0}! Que descanses.",
-        "¡Hasta luego, {0}! Que llegues bien a casa.",
-        "Buen trabajo hoy, {0}. Ahora disfruta lo que queda de tu día.",
-        "Nos vemos, {0}. Ojalá tengas una noche tranquila.",
-        "¡Hasta la próxima, {0}! Gracias por el cuidado de cada cita.",
-        "Que tengas un buen camino de vuelta, {0}.",
-        "Gracias por el día, {0}. Disfruta el tiempo para ti.",
-        "¡Que descanses, {0}! Deja las tijeras y suelta los hombros.",
-        "Buen cierre de jornada, {0}. Que te espere algo bonito.",
-        "Hasta luego, {0}. Seguro hubo algún momento que valió la pena.",
-        "¡Nos vemos pronto, {0}! Que termines bien el día.",
-        "Gracias por ponerle tu toque al día, {0}.",
-        "Que tengas una vuelta a casa tranquila, {0}.",
-        "Buen descanso, {0}. Mañana la silla vuelve a estar lista.",
-        "Ya acabaste por hoy, {0}. Disfruta tu rato libre.",
-        "Que te lleves lo mejor del día, {0}. ¡Hasta pronto!",
-        "Gracias por la paciencia y los detalles de hoy, {0}.",
-        "Hasta la próxima, {0}. Ojalá puedas hacer algo que te guste.",
-        "Que la noche te dé tiempo para descansar, {0}.",
-        "Gracias por estar hoy, {0}. Cuídate y que llegues bien.",
+        new("Gracias por hoy, {0}.", "Que el resto del día sea tuyo.", "Buen camino a casa."),
+        new("Hasta pronto, {0}.", "Gracias por la atención que pusiste en los detalles. A veces son las cosas más sencillas las que más se quedan con alguien."),
+        new("Gracias por estar hoy, {0}.", "Quizá no todas las personas te dijeron cuánto valoraron tu atención. Aun así, el cuidado con el que las recibiste y las escuchaste pudo hacerles sentir que alguien les dedicó tiempo.", "Buen camino a casa."),
+        new("Nos vemos, {0}.", "Ojalá te lleves un buen recuerdo de hoy.")
     ];
 }

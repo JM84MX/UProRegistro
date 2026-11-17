@@ -51,7 +51,7 @@ internal static class Program
                 ("Appointment threshold is strict and manual settings are respected", AppointmentThreshold),
                 ("Turning off breaks preserves a break already started", BreakAlreadyStarted),
                 ("A pending automatic punch is retried with its original ID", DailyRetry),
-                ("Every attendance action has 20 unique, personalized messages", GreetingCatalog)
+                ("Entry and exit use first names and distinct messages, and break greetings are preserved", GreetingCatalog)
             ];
 
             foreach (var (name, test) in tests)
@@ -275,15 +275,29 @@ internal static class Program
     private static void GreetingCatalog()
     {
         var greetings = new AttendanceGreetings();
-        foreach (var action in Enum.GetValues<AttendanceAction>())
+        foreach (var action in new[] { AttendanceAction.BreakStart, AttendanceAction.BreakEnd })
         {
-            var templates = AttendanceGreetings.Templates(action);
+            var templates = AttendanceGreetings.BreakTemplates(action);
             Equal(20, templates.Distinct(StringComparer.Ordinal).Count());
             string? previous = null;
             for (var i = 0; i < 30; i++)
             {
-                var greeting = greetings.Next(action, "María");
+                var greeting = greetings.NextBreak(action, "María");
                 Equal(true, greeting.Contains("María", StringComparison.Ordinal));
+                Equal(false, greeting == previous);
+                previous = greeting;
+            }
+        }
+
+        foreach (var action in new[] { AttendanceAction.Entry, AttendanceAction.Exit })
+        {
+            ConfirmationCopy? previous = null;
+            for (var i = 0; i < 12; i++)
+            {
+                var greeting = greetings.NextConfirmation(action, "  María\tGarcía  ");
+                Equal(true, greeting.Salutation.Contains("María", StringComparison.Ordinal));
+                Equal(false, greeting.Salutation.Contains("García", StringComparison.Ordinal));
+                Equal(false, greeting.Message.Contains("María", StringComparison.Ordinal));
                 Equal(false, greeting == previous);
                 previous = greeting;
             }
@@ -389,32 +403,68 @@ internal static class Program
         Equal("Registro de asistencia", ((TextBlock)show.FindName("TitleText")).Text);
         show.ShowAttendanceReader(FlowState.Capturing);
         var prompt = (TextBlock)show.FindName("Prompt");
-        var confirmation = (TextBlock)show.FindName("ConfirmationLabel");
+        var confirmation = (AttendanceConfirmation)show.FindName("AttendanceReceipt");
+        var receipt = (TextBlock)confirmation.FindName("Receipt");
+        var salutation = (TextBlock)confirmation.FindName("Salutation");
         Equal("Coloca tu dedo en el lector", prompt.Text);
         Equal(false, ((Border)show.FindName("StatusBar")).IsVisible);
         Equal(false, ((Border)show.FindName("CaptureAside")).IsVisible);
         Equal(false, ((TextBlock)show.FindName("ScanDetail")).IsVisible);
         Snapshot(show, Path.Combine(destination, "registro-de-asistencia.png"), 1);
-        show.PresentAttendance(AttendanceAction.Entry, new Employee("ui-maria", "María"), isLocal: true);
-        Equal("Entrada · Prueba", confirmation.Text);
+        var danna = new Employee("ui-danna", "Danna Ruiz");
+        var sandy = new Employee("ui-sandy", "Sandy Morales");
+        var longName = new Employee("ui-long", "Mariana-Alejandra-del-Carmen Martínez");
+        var observedEntry = new DateTimeOffset(2026, 11, 16, 15, 0, 0, TimeSpan.Zero);
+        var observedExit = observedEntry.AddHours(9);
+        var local = new AttendanceResult(SyncStatus.LocalPending);
+        var officialExit = new AttendanceResult(SyncStatus.Confirmed, observedExit.AddMinutes(4));
+        var entry = new AttendanceEvent(Guid.NewGuid(), danna.Id, AttendanceAction.Entry, observedEntry);
+        var exit = new AttendanceEvent(Guid.NewGuid(), sandy.Id, AttendanceAction.Exit, observedExit);
+
+        show.PresentAttendance(entry, danna, new(SyncStatus.OutcomeUnknown));
+        show.PresentAttendance(entry, danna, new(SyncStatus.Unavailable));
+        show.PresentAttendance(entry, danna, new(SyncStatus.Confirmed));
+        Equal(false, confirmation.IsVisible);
+
+        CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-corta.png", maximumLength: 50);
+        Equal("Entrada de prueba · 09:00", receipt.Text);
         Equal(TimeSpan.FromSeconds(30), MainWindow.FeedbackDuration);
-        Equal(true, show.IsFeedbackForEmployee("ui-maria"));
-        Equal(false, show.IsFeedbackForEmployee("ui-other"));
-        Equal(true, prompt.Text.Contains("María", StringComparison.Ordinal));
+        Equal(true, show.IsFeedbackForEmployee(danna.Id));
+        Equal(false, show.IsFeedbackForEmployee(sandy.Id));
+        Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
+        Equal(false, salutation.Text.Contains("Ruiz", StringComparison.Ordinal));
         show.ShowAttendanceReader(FlowState.Capturing);
         show.ShowAttendanceReader(FlowState.Matching);
         show.ShowAttendanceReader(FlowState.WaitingForLift);
         show.ShowAttendanceReader(FlowState.QualityRejected);
         Equal(true, confirmation.IsVisible);
-        Equal(true, prompt.Text.Contains("María", StringComparison.Ordinal));
-        Snapshot(show, Path.Combine(destination, "bienvenida.png"), 1);
-        show.PresentAttendance(AttendanceAction.Entry, new Employee("ui-ana", "Ana"), isLocal: true);
-        Equal(true, show.IsFeedbackForEmployee("ui-ana"));
-        Equal(false, show.IsFeedbackForEmployee("ui-maria"));
-        Equal(true, prompt.Text.Contains("Ana", StringComparison.Ordinal));
+        Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
+        CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-larga.png", minimumLength: 120);
+
+        CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-corta.png", maximumLength: 50);
+        Equal("Salida registrada · 18:04", receipt.Text);
+        Equal(true, show.IsFeedbackForEmployee(sandy.Id));
+        Equal(false, show.IsFeedbackForEmployee(danna.Id));
+        Equal(true, salutation.Text.Contains("Sandy", StringComparison.Ordinal));
+        Equal(false, salutation.Text.Contains("Danna", StringComparison.Ordinal));
+        Equal(true, ((Grid)confirmation.FindName("ExitSymbol")).IsVisible);
+        CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-larga.png", minimumLength: 120);
+
+        show.WindowState = WindowState.Maximized;
+        PumpUntil(() => show.WindowState == WindowState.Maximized && show.ActualWidth > 1000);
+        CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "ventana-maximizada.png", minimumLength: 120);
+        show.WindowState = WindowState.Normal;
+        show.Width = 790;
+        show.Height = 515;
+        CaptureConfirmation(show, confirmation, entry with { EmployeeId = longName.Id }, longName, local,
+            destination, "ventana-compacta.png", minimumLength: 120);
+        Equal(true, salutation.Text.Contains("Mariana-Alejandra-del-Carmen", StringComparison.Ordinal));
+        Equal(false, salutation.Text.Contains("Martínez", StringComparison.Ordinal));
         show.ShowAttendanceReader(FlowState.Capturing, keepFeedback: false);
         Equal(false, confirmation.IsVisible);
         Equal("Coloca tu dedo en el lector", prompt.Text);
+        show.Width = 1180;
+        show.Height = 704;
 
         var navigation = (Button)show.FindName("NavButton");
         navigation.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -486,6 +536,25 @@ internal static class Program
         show.Close();
         PumpUntil(() => !show.IsVisible);
         Console.WriteLine("PASS WPF navigation, authorization, separate settings and enrollment, and snapshots");
+    }
+
+    private static void CaptureConfirmation(MainWindow window, AttendanceConfirmation view, AttendanceEvent attendance,
+        Employee employee, AttendanceResult result, string destination, string file, int minimumLength = 0,
+        int maximumLength = int.MaxValue)
+    {
+        var message = (TextBlock)view.FindName("Message");
+        for (var attempt = 0; attempt < 64; attempt++)
+        {
+            window.PresentAttendance(attendance, employee, result);
+            if (message.Text.Length >= minimumLength && message.Text.Length <= maximumLength)
+            {
+                PumpUntil(() => view.Opacity >= 0.999);
+                Equal(true, view.IsVisible);
+                Snapshot(window, Path.Combine(destination, file), 1);
+                return;
+            }
+        }
+        throw new InvalidOperationException("No confirmation text matched the requested length.");
     }
 
     private static void Click(Window window, string button) =>
