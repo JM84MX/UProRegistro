@@ -45,7 +45,13 @@ internal static class Program
                 ("Another moderate candidate makes a strong identification ambiguous", Ambiguity),
                 ("Several samples of the same enrolled finger are one candidate", SameFingerSamples),
                 ("Unanswered attendance is pending under the same ID until official confirmation", AttendanceReconciliation),
-                ("Unavailable and local-only submissions cannot acquire an official time", AttendanceLocal)
+                ("Unavailable and local-only submissions cannot acquire an official time", AttendanceLocal),
+                ("Each employee follows their own automatic four-step sequence", DailyWithBreak),
+                ("A new salon day starts with entry and no manual break carried over", DailyWithoutBreak),
+                ("Appointment threshold is strict and manual settings are respected", AppointmentThreshold),
+                ("Turning off breaks preserves a break already started", BreakAlreadyStarted),
+                ("A pending automatic punch is retried with its original ID", DailyRetry),
+                ("Every attendance action has 20 unique, personalized messages", GreetingCatalog)
             ];
 
             foreach (var (name, test) in tests)
@@ -199,6 +205,94 @@ internal static class Program
         Equal(request, submission.Pending.Single());
     }
 
+    private static readonly DateOnly TestDay = new(2026, 11, 16);
+
+    private static void DailyWithBreak()
+    {
+        var gateway = LocalGateway(5);
+        var daily = new DailyAttendance(new(gateway));
+        daily.SetBreak(TestDay, true);
+        Equal(AttendanceAction.Entry, Punch(daily, "A").Event!.Action);
+        Equal(AttendanceAction.Entry, Punch(daily, "B").Event!.Action);
+        Equal(AttendanceAction.BreakStart, Punch(daily, "A").Event!.Action);
+        Equal(AttendanceAction.BreakEnd, Punch(daily, "A").Event!.Action);
+        var exit = Punch(daily, "A");
+        Equal(AttendanceAction.Exit, exit.Event!.Action);
+        Equal<AttendanceAction?>(null, exit.Next);
+        Equal<AttendanceEvent?>(null, Punch(daily, "A").Event);
+        Equal(5, gateway.Requests.Count);
+    }
+
+    private static void DailyWithoutBreak()
+    {
+        var daily = new DailyAttendance(new(LocalGateway(3)));
+        daily.SetBreak(TestDay.AddDays(-1), true);
+        Equal(AttendanceAction.Entry, Punch(daily, "A").Event!.Action);
+        Equal(AttendanceAction.Exit, Punch(daily, "A").Event!.Action);
+        Equal(AttendanceAction.Entry, Punch(daily, "A", TestDay.AddDays(1)).Event!.Action);
+    }
+
+    private static void AppointmentThreshold()
+    {
+        var daily = new DailyAttendance(new(LocalGateway(0)));
+        daily.ApplyAppointmentHours(TestDay, TimeSpan.FromHours(6));
+        Equal(false, daily.HasBreak(TestDay));
+        daily.ApplyAppointmentHours(TestDay, TimeSpan.FromHours(6).Add(TimeSpan.FromMinutes(1)));
+        Equal(true, daily.HasBreak(TestDay));
+        daily.ApplyAppointmentHours(TestDay, null);
+        Equal(true, daily.HasBreak(TestDay));
+        daily.SetBreak(TestDay, false);
+        daily.ApplyAppointmentHours(TestDay, TimeSpan.FromHours(7));
+        Equal(false, daily.HasBreak(TestDay));
+    }
+
+    private static void BreakAlreadyStarted()
+    {
+        var daily = new DailyAttendance(new(LocalGateway(4)));
+        Equal(AttendanceAction.Entry, Punch(daily, "A").Event!.Action);
+        daily.SetBreak(TestDay, true);
+        Equal(AttendanceAction.BreakStart, Punch(daily, "A").Event!.Action);
+        daily.SetBreak(TestDay, false);
+        Equal(AttendanceAction.BreakEnd, Punch(daily, "A").Event!.Action);
+        Equal(AttendanceAction.Exit, Punch(daily, "A").Event!.Action);
+    }
+
+    private static void DailyRetry()
+    {
+        var gateway = new TestGateway(new(SyncStatus.Unavailable), null, new(SyncStatus.LocalPending));
+        var daily = new DailyAttendance(new(gateway));
+        Equal(AttendanceAction.Entry, Punch(daily, "A").Next);
+        var pending = Punch(daily, "A");
+        Equal(SyncStatus.OutcomeUnknown, pending.Result!.Status);
+        var retry = Punch(daily, "A");
+        Equal(pending.Event, retry.Event);
+        Equal(AttendanceAction.Exit, retry.Next);
+    }
+
+    private static TestGateway LocalGateway(int count) =>
+        new(Enumerable.Repeat<AttendanceResult?>(new(SyncStatus.LocalPending), count).ToArray());
+
+    private static void GreetingCatalog()
+    {
+        var greetings = new AttendanceGreetings();
+        foreach (var action in Enum.GetValues<AttendanceAction>())
+        {
+            var templates = AttendanceGreetings.Templates(action);
+            Equal(20, templates.Distinct(StringComparer.Ordinal).Count());
+            string? previous = null;
+            for (var i = 0; i < 30; i++)
+            {
+                var greeting = greetings.Next(action, "María");
+                Equal(true, greeting.Contains("María", StringComparison.Ordinal));
+                Equal(false, greeting == previous);
+                previous = greeting;
+            }
+        }
+    }
+
+    private static DailyPunch Punch(DailyAttendance daily, string employee, DateOnly? day = null) =>
+        daily.PunchAsync(day ?? TestDay, employee, DateTimeOffset.Now, default).GetAwaiter().GetResult();
+
     private sealed class TestGateway(params AttendanceResult?[] results) : IAttendanceGateway
     {
         public List<AttendanceEvent> Requests { get; } = [];
@@ -293,19 +387,80 @@ internal static class Program
         show.Show();
         PumpUntil(() => ((TextBlock)show.FindName("ReaderText")).Text != "Comprobando…");
         Equal("Registro de asistencia", ((TextBlock)show.FindName("TitleText")).Text);
-        Equal(false, ((Button)show.FindName("EntryButton")).IsEnabled);
+        show.ShowAttendanceReader(FlowState.Capturing);
+        var prompt = (TextBlock)show.FindName("Prompt");
+        var confirmation = (TextBlock)show.FindName("ConfirmationLabel");
+        Equal("Coloca tu dedo en el lector", prompt.Text);
+        Equal(false, ((Border)show.FindName("StatusBar")).IsVisible);
+        Equal(false, ((Border)show.FindName("CaptureAside")).IsVisible);
+        Equal(false, ((TextBlock)show.FindName("ScanDetail")).IsVisible);
         Snapshot(show, Path.Combine(destination, "registro-de-asistencia.png"), 1);
+        show.PresentAttendance(AttendanceAction.Entry, "María", isLocal: true);
+        Equal("Entrada · Prueba", confirmation.Text);
+        Equal(true, prompt.Text.Contains("María", StringComparison.Ordinal));
+        show.ShowAttendanceReader(FlowState.Capturing);
+        Equal(true, confirmation.IsVisible);
+        Snapshot(show, Path.Combine(destination, "bienvenida.png"), 1);
+        show.ShowAttendanceReader(FlowState.Capturing, keepFeedback: false);
+        Equal(false, confirmation.IsVisible);
+        Equal("Coloca tu dedo en el lector", prompt.Text);
 
         var navigation = (Button)show.FindName("NavButton");
         navigation.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        PumpUntil(() => ((TextBlock)show.FindName("TitleText")).Text == "Registrar huellas");
+        PumpUntil(() => ((Border)show.FindName("SignInPanel")).IsVisible);
+        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
         ((Button)show.FindName("AuthorizeButton")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         PumpUntil(() => ((TextBlock)show.FindName("AdminDetail")).Text.StartsWith("Acceso pendiente", StringComparison.Ordinal));
-        Equal(Visibility.Collapsed, ((StackPanel)show.FindName("EnrollForm")).Visibility);
-        Snapshot(show, Path.Combine(destination, "registrar-huellas.png"), 1);
+        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
+        Equal(false, ((Border)show.FindName("EnrollForm")).IsVisible);
+        Snapshot(show, Path.Combine(destination, "acceso-administrativo.png"), 1);
+        show.Close();
+        PumpUntil(() => !show.IsVisible);
+
+        var admin = new TestAdmin();
+        show = new MainWindow(false, admin, admin);
+        show.Show();
+        Click(show, "NavButton");
+        PumpUntil(() => ((Border)show.FindName("SignInPanel")).IsVisible);
+        Click(show, "AuthorizeButton");
+        PumpUntil(() => ((StackPanel)show.FindName("AdminHomePanel")).IsVisible);
+        Equal(0, admin.RosterReads);
+        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
+        Snapshot(show, Path.Combine(destination, "administracion.png"), 1);
+
+        Click(show, "SettingsButton");
+        var toggle = (CheckBox)show.FindName("BreakToggle");
+        Equal(true, toggle.IsVisible);
+        Equal(false, ((ComboBox)show.FindName("Employees")).IsVisible);
+        toggle.IsChecked = true;
+        toggle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Equal("Incluye inicio y fin de descanso.", ((TextBlock)show.FindName("BreakDescription")).Text);
+        Snapshot(show, Path.Combine(destination, "configuracion.png"), 1);
+
+        Click(show, "NavButton");
+        Click(show, "EmployeesButton");
+        PumpUntil(() => ((Border)show.FindName("EnrollForm")).IsVisible);
+        Equal(1, admin.RosterReads);
+        Equal(false, toggle.IsVisible);
+        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
+        var fingers = (ComboBox)show.FindName("Fingers");
+        Equal(false, fingers.IsVisible);
+        ((ComboBox)show.FindName("Employees")).SelectedIndex = 0;
+        Equal(true, fingers.IsVisible);
+        fingers.SelectedIndex = 1;
+        Equal(false, ((Grid)show.FindName("ScanPanel")).IsVisible);
+        Snapshot(show, Path.Combine(destination, "alta-empleado.png"), 1);
         show.Width = 820;
         show.Height = 525;
-        Snapshot(show, Path.Combine(destination, "registrar-huellas-alta-densidad.png"), 1.5);
+        Snapshot(show, Path.Combine(destination, "alta-empleado-alta-densidad.png"), 1.5);
+
+        Click(show, "NavButton");
+        Click(show, "SettingsButton");
+        Equal<bool?>(true, toggle.IsChecked);
+        Click(show, "NavButton");
+        Click(show, "NavButton");
+        PumpUntil(() => ((Grid)show.FindName("ScanPanel")).IsVisible);
+        Equal(false, toggle.IsVisible);
 
         // Render the same vector control alone at a known progress, without simulating authorization.
         var art = new Border
@@ -320,7 +475,24 @@ internal static class Program
         Snapshot(art, Path.Combine(destination, "progreso-vectorial-2-de-3.png"), 2);
         show.Close();
         PumpUntil(() => !show.IsVisible);
-        Console.WriteLine("PASS WPF navigation, fail-closed authorization, logo, and offscreen snapshots");
+        Console.WriteLine("PASS WPF navigation, authorization, separate settings and enrollment, and snapshots");
+    }
+
+    private static void Click(Window window, string button) =>
+        ((Button)window.FindName(button)).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+    private sealed class TestAdmin : IEnrollmentAuthorization, IEmployeeProvider
+    {
+        public int RosterReads { get; private set; }
+
+        public Task<IEnrollmentSession?> AuthenticateAsync(CancellationToken cancellation) =>
+            Task.FromResult<IEnrollmentSession?>(new TestSession());
+
+        public Task<IReadOnlyList<Employee>> GetEmployeesAsync(IEnrollmentSession session, CancellationToken cancellation)
+        {
+            RosterReads++;
+            return Task.FromResult<IReadOnlyList<Employee>>([new("ui-test", "Estilista de prueba")]);
+        }
     }
 
     private static void Snapshot(FrameworkElement visual, string path, double scale)

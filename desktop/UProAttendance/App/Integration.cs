@@ -3,8 +3,12 @@ using UProAttendance.Core;
 
 namespace UProAttendance;
 
-internal sealed class UnconfiguredUproApp : IEnrollmentAuthorization, IEmployeeProvider, IAttendanceGateway
+internal sealed class UnconfiguredUproApp : IEnrollmentAuthorization, IEmployeeProvider, IAttendanceGateway,
+    IAppointmentHoursProvider
 {
+    public Task<TimeSpan?> GetTotalAsync(DateOnly day, CancellationToken cancellation) =>
+        Task.FromResult<TimeSpan?>(null);
+
     public Task<IEnrollmentSession?> AuthenticateAsync(CancellationToken cancellation) =>
         Task.FromResult<IEnrollmentSession?>(null);
 

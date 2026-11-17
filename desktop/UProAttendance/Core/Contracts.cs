@@ -5,7 +5,7 @@ namespace UProAttendance.Core;
 public enum FlowState
 {
     Idle, Capturing, QualityRejected, Matching, Identified, EnrollmentInProgress,
-    Success, Failed, DeviceUnavailable
+    Success, Failed, DeviceUnavailable, WaitingForLift
 }
 
 public enum ReaderStatus { Ready, Absent, WindowsError, SdkMissing, SdkError, Busy }
@@ -68,7 +68,7 @@ public interface IEmployeeProvider
     Task<IReadOnlyList<Employee>> GetEmployeesAsync(IEnrollmentSession session, CancellationToken cancellation);
 }
 
-public enum AttendanceAction { Entry, Exit }
+public enum AttendanceAction { Entry, Exit, BreakStart, BreakEnd }
 public enum SyncStatus { Unavailable, LocalPending, OutcomeUnknown, Confirmed }
 public sealed record AttendanceEvent(Guid Id, string EmployeeId, AttendanceAction Action, DateTimeOffset ObservedOnDevice);
 public sealed record AttendanceResult(SyncStatus Status, DateTimeOffset? OfficialTime = null);

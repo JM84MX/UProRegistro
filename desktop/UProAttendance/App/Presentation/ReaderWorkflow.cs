@@ -7,16 +7,55 @@ namespace UProAttendance.Presentation;
 internal sealed class ReaderWorkflow(Biometrics biometrics)
 {
     private int lifts;
+    private int? attendanceLift;
 
     public void FingerLifted() => Interlocked.Increment(ref lifts);
 
-    public Task<IdentificationResult> IdentifyAsync(Action matching, Action qualityRejected, CancellationToken cancellation) =>
-        Task.Run(() =>
+    public Task WatchAttendanceAsync(IntPtr eventTarget, Action<FlowState> update,
+        Func<IdentificationResult, Task> identified, CancellationToken cancellation) =>
+        Task.Run(async () =>
         {
             using var reader = SecuGenReader.Open();
-            using var sample = ReadValid(reader, cancellation, _ => qualityRejected());
-            matching();
-            return biometrics.Identify(sample, reader, cancellation);
+            reader.EnableContactEvents(eventTarget);
+            if (attendanceLift is { } previous && Volatile.Read(ref lifts) == previous)
+                update(FlowState.WaitingForLift);
+
+            while (true)
+            {
+                if (attendanceLift is { } afterCapture)
+                {
+                    using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(200));
+                    var ticks = 0;
+                    while (Volatile.Read(ref lifts) == afterCapture)
+                    {
+                        await timer.WaitForNextTickAsync(cancellation).ConfigureAwait(false);
+                        if (++ticks % 10 == 0 && WindowsReader.IsStarted() == false)
+                            throw new ReaderFailure(new(ReaderStatus.Absent));
+                    }
+                    attendanceLift = null;
+                }
+
+                update(FlowState.Capturing);
+                Capture capture;
+                do
+                {
+                    capture = reader.Capture(cancellation);
+                    if (capture.Status == CaptureStatus.QualityRejected)
+                        update(FlowState.QualityRejected);
+                    if (capture.Status == CaptureStatus.TimedOut && WindowsReader.IsStarted() == false)
+                        throw new ReaderFailure(new(ReaderStatus.Absent));
+                }
+                while (capture.Template is null);
+
+                attendanceLift = Volatile.Read(ref lifts);
+                IdentificationResult result;
+                using (capture.Template)
+                {
+                    update(FlowState.Matching);
+                    result = biometrics.Identify(capture.Template, reader, cancellation);
+                }
+                await identified(result).ConfigureAwait(false);
+            }
         }, cancellation);
 
     public Task<EnrollmentStatus> EnrollAsync(Employee employee, Finger finger, IEnrollmentSession authorization,

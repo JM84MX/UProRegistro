@@ -1,6 +1,16 @@
 # UPro Attendance para Windows
 
-Aplicación WPF de escritorio para U Professional Hairstudio. Abre en **Registro de asistencia**. **Administración** abre **Registrar huellas** con acceso protegido. La solución usa .NET 10 y el logotipo oficial `public/logo.png` de la copia local de UProApp. La interfaz toma como referencia `app/webpage`, `PublicHeader` y `PreconsultaCTA`.
+Aplicación WPF de escritorio para U Professional Hairstudio. Abre en **Registro de asistencia**. **Administración** protege el acceso a **Configuración** y **Alta de empleado**. La solución usa .NET 10 y el logotipo oficial `public/logo.png` de la copia local de UProApp. La interfaz toma como referencia `app/webpage`, `PublicHeader` y `PreconsultaCTA`.
+
+## Marcaje automático
+
+Cada lectura identificada registra el siguiente movimiento de la estilista para el día de Ciudad de México. Con **Hay descanso hoy** desactivado, la secuencia es **Entrada → Salida**. Con el interruptor activado, es **Entrada → Inicio de descanso → Fin de descanso → Salida**. El lector espera que la persona retire el dedo antes de habilitar otro marcaje. Después de la salida, la jornada de esa estilista queda completada.
+
+La pantalla de espera muestra la huella y la instrucción para acercar el dedo. Tras registrar un movimiento, muestra brevemente su tipo y un mensaje personalizado para la estilista. En laboratorio, la confirmación lleva la etiqueta **Prueba**.
+
+El interruptor está disponible en **Administración → Verificar acceso → Configuración**. Cambia la jornada de quienes todavía no han iniciado su descanso ni registrado salida. Si una estilista ya empezó a descansar, su siguiente lectura sigue registrando el fin de descanso. En laboratorio, la configuración y los marcajes se conservan durante la sesión.
+
+Al abrir la aplicación, `IAppointmentHoursProvider` puede aportar el total diario de las citas para activar el descanso si supera seis horas. Con seis horas o menos queda desactivado. Un cambio manual prevalece ese día. El proveedor actual devuelve una agenda no disponible, por lo que el modo de laboratorio comienza sin descanso hasta activar el interruptor.
 
 ## Ejecutar en la Huawei
 
@@ -36,8 +46,8 @@ dotnet build UProAttendance.slnx -m:1 -nodeReuse:false
 .\App\bin\Debug\net10.0-windows\UProAttendance.exe --laboratorio
 ```
 
-1. En **Administración**, verifica el acceso, selecciona la estilista de prueba y el dedo. Captura tres impresiones levantando el dedo entre muestras.
-2. Regresa a **Registro de asistencia**. Presenta un dedo enrolado y comprueba la identidad y la etiqueta. Pulsa explícitamente **Entrada** o **Salida**. La hora local es provisional y los marcajes de laboratorio se mantienen en memoria durante la sesión.
+1. En **Administración**, verifica el acceso y entra a **Alta de empleado**. Selecciona la estilista de prueba y el dedo, y pulsa **Iniciar captura**. Captura tres impresiones levantando el dedo entre muestras. El alta registra huellas para una estilista existente.
+2. Ajusta **Hay descanso hoy** en **Configuración** y regresa a **Registro de asistencia**. Presenta un dedo enrolado y comprueba que la aplicación registre el movimiento correspondiente. Mantén el dedo apoyado tras ver la confirmación para comprobar que se registre un solo movimiento. Retíralo y vuelve a colocarlo para el siguiente. La hora local es provisional y los marcajes de laboratorio se mantienen en memoria durante la sesión.
 3. Para caracterizar el equipo, repite con posiciones centradas y ligeramente desplazadas. Registra intentos, coincidencias al primer intento y rechazos sin guardar imágenes o plantillas. Verifica un dedo sin enrolar, una muestra de otro dedo durante el enrolamiento, cancelación y desconexión.
 
 Un marcaje nuevo lleva un UUID. Una solicitud sin respuesta conserva el evento pendiente con el mismo UUID durante el proceso. El backend futuro debe deduplicar por ese UUID y devolver la hora oficial. La aplicación presenta las horas en `America/Mexico_City`. El diseño de almacenamiento duradero, la conciliación con un backend real y el acceso de producción quedan pendientes de aprobación e integración.
@@ -56,4 +66,4 @@ dotnet build UProAttendance.slnx -m:1 -nodeReuse:false
 
 Para los diagnósticos, coloca los mismos módulos FDx x64 junto al ejecutable de pruebas. `--probe` comprueba apertura, cancelación antes de la captura y reapertura del lector. `--capture` pide al operador colocar un dedo y reporta solo el estado de captura. `--fixture <ruta>` abre el lector para inicializar FDx y usa el archivo `raw2wsq_finger.raw` del ZIP oficial como entrada en memoria para ejercitar calidad, extracción y comparación. El SDK, la muestra del proveedor y los resultados de compilación se mantienen fuera del control de versiones.
 
-En el equipo de desarrollo Lenovo x64, pasaron las diez pruebas de lógica, la apertura y reapertura del U20 y la extracción y comparación de la muestra oficial. El diagnóstico con el sandbox de desarrollo devolvió código 2 en `SGFPM_OpenDevice`; el mismo diagnóstico abrió el lector al ejecutarse fuera de ese sandbox. El SDK reportó mensajes de configuración de liveness del controlador, por lo que esta prueba no valida antisuplantación. WPF verificó la pantalla inicial, la ruta administrativa, el bloqueo sin integración y el logotipo. Las capturas incluyen un diseño compacto renderizado a 144 DPI. Falta una sesión con operador para validar capturas físicas, eventos de retiro, reconocimiento con distintas colocaciones y operación en la Huawei.
+En el equipo de desarrollo Lenovo x64 se verificaron la apertura y reapertura del U20 y la extracción y comparación de la muestra oficial. El diagnóstico con el sandbox de desarrollo devolvió código 2 en `SGFPM_OpenDevice` y abrió el lector al ejecutarse fuera de ese sandbox. El SDK reportó mensajes de configuración de liveness del controlador. La prueba de operador confirmó enrolamiento e identificación en laboratorio. La secuencia automática y su rearme requieren una nueva prueba con operador.
