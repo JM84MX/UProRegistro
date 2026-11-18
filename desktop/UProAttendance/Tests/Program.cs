@@ -430,7 +430,7 @@ internal static class Program
 
         var shortEntry = CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-corta.png", maximumLength: 50);
         Equal("Entrada de prueba · 09:00", receipt.Text);
-        Equal(TimeSpan.FromSeconds(30), MainWindow.FeedbackDuration);
+        Equal(TimeSpan.FromSeconds(7), MainWindow.FeedbackDuration);
         Equal(true, show.IsFeedbackForEmployee(danna.Id));
         Equal(false, show.IsFeedbackForEmployee(sandy.Id));
         Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
@@ -443,15 +443,21 @@ internal static class Program
             ((TextBlock)confirmation.FindName("Message")).Text);
         FinishPresentation(show.RecordIdentificationAsync(
             new(IdentificationStatus.Accepted, new(danna, Finger.RightIndex)), default));
+        Equal(count, store.Rows().Length);
+        Equal(false, confirmation.IsVisible);
+        FinishPresentation(show.PresentAttendanceAsync(shortEntry, danna, local));
+        show.ShowAttendanceReader(FlowState.Capturing);
+        Equal(true, confirmation.IsVisible);
         FinishPresentation(show.RecordIdentificationAsync(new(IdentificationStatus.NoMatch), default));
         Equal(count, store.Rows().Length);
-        Equal(true, show.IsFeedbackForEmployee(danna.Id));
-        show.ShowAttendanceReader(FlowState.Capturing);
+        Equal(false, show.IsFeedbackForEmployee(danna.Id));
+        Equal(false, confirmation.IsVisible);
+        FinishPresentation(show.PresentAttendanceAsync(shortEntry, danna, local));
         show.ShowAttendanceReader(FlowState.Matching);
-        show.ShowAttendanceReader(FlowState.WaitingForLift);
+        Equal(false, confirmation.IsVisible);
+        FinishPresentation(show.PresentAttendanceAsync(shortEntry, danna, local));
         show.ShowAttendanceReader(FlowState.QualityRejected);
-        Equal(true, confirmation.IsVisible);
-        Equal(true, salutation.Text.Contains("Danna", StringComparison.Ordinal));
+        Equal(false, confirmation.IsVisible);
         CaptureConfirmation(show, confirmation, entry, danna, local, destination, "entrada-larga.png", minimumLength: 72);
 
         CaptureConfirmation(show, confirmation, exit, sandy, officialExit, destination, "salida-corta.png", maximumLength: 50);

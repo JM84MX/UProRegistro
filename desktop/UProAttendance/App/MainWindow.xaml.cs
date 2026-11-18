@@ -42,9 +42,10 @@ public partial class MainWindow : Window
     private readonly CancellationTokenSource lifetime = new();
     private readonly AttendanceGreetings greetings = new();
     private readonly EditorialMessages editorial;
-    internal static readonly TimeSpan FeedbackDuration = TimeSpan.FromSeconds(30);
+    internal static readonly TimeSpan FeedbackDuration = TimeSpan.FromSeconds(7);
     private readonly DispatcherTimer feedbackTimer = new() { Interval = FeedbackDuration };
     private string? feedbackEmployeeId;
+    private long feedbackStartedAt;
     private long feedbackSequence;
     private Task? screenWork;
     private CancellationTokenSource? screenCancellation;
@@ -157,8 +158,9 @@ public partial class MainWindow : Window
             var token = lifetime.Token;
             terminalWork = Task.Run(() => RunScreenWorkAsync(ct => terminal.RunAsync(Update, ct), token));
             PaintTerminal();
-            if (terminal.Device?.DeviceToken is null)
-                Dispatcher.BeginInvoke(() => OpenTerminalSetup(this, new RoutedEventArgs()));
+            if (terminal.Device?.DeviceToken is null
+                || Environment.GetCommandLineArgs().Contains("--recuperar-credencial", StringComparer.Ordinal))
+                Dispatcher.BeginInvoke(ShowTerminalSetup);
         }
     }
 
@@ -169,8 +171,10 @@ public partial class MainWindow : Window
         TerminalStatus.Text = terminal.Status;
         TerminalStatus.ToolTip = terminal.Incidents is { } incidents
             ? terminal.Status + Environment.NewLine + incidents : terminal.Status;
-        TerminalSetupButton.Visibility = Visibility.Visible;
-        TerminalSetupButton.Content = terminal.Device?.DeviceToken is null ? "Configurar terminal" : "Credencial";
+        var canAdminister = terminal.CanAdminister;
+        NavButton.Visibility = TerminalSetupButton.Visibility =
+            canAdminister ? Visibility.Visible : Visibility.Collapsed;
+        TerminalSetupButton.Content = "Credencial";
         if (enrollmentSession is not { IsActive: true })
         {
             if (enrolling)
@@ -178,20 +182,53 @@ public partial class MainWindow : Window
             if (screen == Screen.Employee)
                 RefreshEnrollmentForm();
         }
+        if (!canAdminister && screen != Screen.Attendance && !navigating && !submitting)
+        {
+            _ = ReturnToAttendanceAsync();
+            return;
+        }
         if (screen == Screen.AdminHome && !navigating)
         {
-            SettingsButton.IsEnabled = EmployeesButton.IsEnabled = terminal.CanAdminister;
+            SettingsButton.IsEnabled = EmployeesButton.IsEnabled = canAdminister;
             if (enrollmentSession is not { IsActive: true })
             {
-                AdminHomeStatus.Text = terminal.CanAdminister ? "" : "Administración requiere autorización en línea.";
-                AdminHomeStatus.Visibility = terminal.CanAdminister ? Visibility.Collapsed : Visibility.Visible;
+                AdminHomeStatus.Text = canAdminister ? "" : "Administración requiere autorización en línea.";
+                AdminHomeStatus.Visibility = canAdminister ? Visibility.Collapsed : Visibility.Visible;
             }
         }
         if (screen == Screen.Settings)
             BreakToggle.IsEnabled = enrollmentSession is { IsActive: true };
     }
 
+    private async Task ReturnToAttendanceAsync()
+    {
+        navigating = true;
+        try
+        {
+            await DrainScreenAsync();
+            if (closing)
+                return;
+            enrollmentSession?.Dispose();
+            enrollmentSession = null;
+            Employees.ItemsSource = null;
+            ShowPage(Screen.Attendance);
+            StartScreenWork(AttendanceLoopAsync);
+        }
+        finally
+        {
+            navigating = false;
+            NavButton.IsEnabled = !closing;
+            PaintTerminal();
+        }
+    }
+
     private void OpenTerminalSetup(object sender, RoutedEventArgs e)
+    {
+        if (terminal?.CanAdminister == true)
+            ShowTerminalSetup();
+    }
+
+    private void ShowTerminalSetup()
     {
         if (terminal is not null && !closing)
         {
@@ -237,7 +274,8 @@ public partial class MainWindow : Window
 
     private async void Navigate(object sender, RoutedEventArgs e)
     {
-        if (navigating || closing || submitting)
+        if (navigating || closing || submitting
+            || (screen == Screen.Attendance && terminal is not null && !terminal.CanAdminister))
             return;
 
         navigating = true;
@@ -283,6 +321,7 @@ public partial class MainWindow : Window
         {
             navigating = false;
             NavButton.IsEnabled = !closing;
+            PaintTerminal();
         }
     }
 
@@ -292,6 +331,8 @@ public partial class MainWindow : Window
         ConfirmationLabel.Visibility = Visibility.Collapsed;
         AttendanceReceipt.Visibility = Visibility.Collapsed;
         screen = next;
+        if (terminal is not null)
+            NavButton.Visibility = terminal.CanAdminister ? Visibility.Visible : Visibility.Collapsed;
         var attendanceScreen = next == Screen.Attendance;
         var showsScanner = next is Screen.Attendance or Screen.Capture;
         ContentRoot.VerticalAlignment = showsScanner ? VerticalAlignment.Center : VerticalAlignment.Top;
@@ -394,12 +435,11 @@ public partial class MainWindow : Window
 
     internal void ShowAttendanceReader(FlowState state, bool keepFeedback = true)
     {
-        if (keepFeedback && feedbackTimer.IsEnabled)
+        // Waiting for contact is not a new reading. A captured or rejected sample is.
+        if (keepFeedback && feedbackTimer.IsEnabled
+            && (state is FlowState.Capturing or FlowState.WaitingForLift))
         {
-            if (state is FlowState.Matching or FlowState.WaitingForLift)
-                waitingForLift = true;
-            else if (state == FlowState.Capturing)
-                waitingForLift = false;
+            waitingForLift = state == FlowState.WaitingForLift;
             return;
         }
 
@@ -525,6 +565,7 @@ public partial class MainWindow : Window
             navigating = false;
             NavButton.IsEnabled = !closing;
             SettingsButton.IsEnabled = EmployeesButton.IsEnabled = !closing && enrollmentSession is { IsActive: true };
+            PaintTerminal();
         }
     }
 
@@ -551,6 +592,12 @@ public partial class MainWindow : Window
         navigating = false;
         if (closing)
             return;
+        if (terminal is not null && !session.IsActive)
+        {
+            enrolling = false;
+            await ReturnToAttendanceAsync();
+            return;
+        }
         CaptureEmployee.Text = employee.Name;
         CaptureFinger.Text = finger.Label;
         CaptureBackButton.Content = "Cancelar captura";
@@ -713,19 +760,19 @@ public partial class MainWindow : Window
         cancellation.ThrowIfCancellationRequested();
         if (identification.Identity is not { } identity)
         {
-            await AuditAsync("LECTURA_HUELLA", "RECHAZADO", null, "NO_RECONOCIDA", cancellation);
-            if (feedbackTimer.IsEnabled)
-                return;
             ShowScan(FlowState.Failed, "No se identificó la huella",
                 identification.Status == IdentificationStatus.Ambiguous
                     ? "Retira el dedo y vuelve a colocarlo para verificar la coincidencia."
                     : "Retira el dedo y prueba con uno registrado.");
+            await AuditAsync("LECTURA_HUELLA", "RECHAZADO", null, "NO_RECONOCIDA", cancellation);
             return;
         }
 
-        // Prevent an accidental second punch while the same employee's greeting is visible.
-        if (IsFeedbackForEmployee(identity.Employee.Id))
+        // Keep the duplicate-reading cooldown independent of the visible greeting.
+        if (feedbackEmployeeId == identity.Employee.Id
+            && System.Diagnostics.Stopwatch.GetElapsedTime(feedbackStartedAt) < FeedbackDuration)
         {
+            ShowAttendanceReader(FlowState.WaitingForLift, keepFeedback: false);
             if (terminal?.FindEmployee(identity.Employee.Id) is { } repeated)
                 await AuditAsync("LECTURA_HUELLA", "EXITOSO", repeated.Id, null, cancellation);
             return;
@@ -733,8 +780,8 @@ public partial class MainWindow : Window
 
         var observedAt = DateTimeOffset.Now;
         var day = SalonDay(observedAt);
-        if (feedbackTimer.IsEnabled && terminal?.FindEmployee(identity.Employee.Id) is not null)
-            ShowScan(FlowState.Matching, "Verificando huella", "");
+        if (feedbackTimer.IsEnabled)
+            ShowAttendanceReader(FlowState.Matching, keepFeedback: false);
         submitting = true;
         NavButton.IsEnabled = false;
         try
@@ -801,6 +848,7 @@ public partial class MainWindow : Window
         var test = local && !result.Operational;
         var sequence = ++feedbackSequence;
         feedbackEmployeeId = employee.Id;
+        feedbackStartedAt = System.Diagnostics.Stopwatch.GetTimestamp();
         if (action is AttendanceAction.Entry or AttendanceAction.Exit)
         {
             var instant = local ? attendanceEvent.ObservedOnDevice : result.OfficialTime!.Value;
