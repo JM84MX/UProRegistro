@@ -105,7 +105,9 @@ public sealed class Biometrics(ITemplateGallery gallery)
 
                 if (accepted.Count + 1 == SampleCount)
                 {
-                    owner.gallery.Add(new(Identity, [.. accepted, sample]));
+                    if (!await authorization.CommitEnrollmentAsync(Identity.Employee.Id,
+                        () => owner.gallery.Add(new(Identity, [.. accepted, sample])), cancellation).ConfigureAwait(false))
+                        return EnrollmentStatus.Denied;
                     accepted.Clear();
                     closed = true;
                 }

@@ -6,7 +6,10 @@ public interface IAppointmentHoursProvider
     Task<TimeSpan?> GetTotalAsync(DateOnly day, CancellationToken cancellation);
 }
 
-public sealed record DailyPunch(AttendanceEvent? Event, AttendanceResult? Result, AttendanceAction? Next);
+public sealed record DailyPunch(AttendanceEvent? Event, AttendanceResult? Result, AttendanceAction? Next)
+{
+    public bool Provisional { get; init; }
+}
 
 public sealed class DailyAttendance(AttendanceSubmission submission)
 {

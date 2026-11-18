@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -26,7 +27,11 @@ public partial class MainWindow : Window
         (Finger.LeftRing, "Anular izquierdo"), (Finger.LeftLittle, "Meñique izquierdo")
     ];
 
-    private readonly SessionTemplateGallery gallery = new();
+    private readonly ITemplateGallery gallery;
+    private readonly OperationalTerminal? terminal;
+    private readonly HttpClient? terminalHttp;
+    private Task? terminalWork;
+    private bool readerUnavailableReported;
     private readonly Biometrics biometrics;
     private readonly ReaderWorkflow workflow;
     private readonly IEnrollmentAuthorization authorization;
@@ -55,18 +60,29 @@ public partial class MainWindow : Window
     private bool closing;
     private bool allowClose;
 
-    public MainWindow(bool laboratory) : this(laboratory, null, null)
+    public MainWindow(bool laboratory) : this(laboratory, null, null, activateTerminal: true)
     {
     }
 
     internal MainWindow(bool laboratory, IEnrollmentAuthorization? authorizationOverride, IEmployeeProvider? employeesOverride,
-        EditorialMessages? editorialOverride = null)
+        EditorialMessages? editorialOverride = null, bool activateTerminal = false)
     {
         this.laboratory = laboratory;
+        if (activateTerminal && !laboratory)
+        {
+            terminalHttp = UproCheckApi.CreateHttpClient();
+            try { terminal = new(TerminalFiles.OperationalDirectory(), new(terminalHttp)); }
+            catch
+            {
+                terminalHttp.Dispose();
+                throw;
+            }
+        }
+        gallery = terminal?.Gallery ?? (ITemplateGallery)new SessionTemplateGallery();
         biometrics = new(gallery);
         workflow = new(biometrics);
         var integration = new UnconfiguredUproApp();
-        appointmentHours = integration;
+        appointmentHours = (IAppointmentHoursProvider?)terminal ?? integration;
 #if DEBUG
         if (laboratory)
         {
@@ -78,8 +94,8 @@ public partial class MainWindow : Window
         else
 #endif
         {
-            authorization = integration;
-            employees = integration;
+            authorization = (IEnrollmentAuthorization?)terminal ?? integration;
+            employees = (IEmployeeProvider?)terminal ?? integration;
             attendance = new(new(integration));
         }
 
@@ -134,6 +150,54 @@ public partial class MainWindow : Window
         windowSource = (HwndSource)PresentationSource.FromVisual(this);
         windowSource.AddHook(ReadDeviceMessage);
         StartScreenWork(AttendanceLoopAsync);
+        if (terminal is not null)
+        {
+            void Update() => PostToScreen(lifetime.Token, PaintTerminal);
+            terminal.AccessChanged += Update;
+            var token = lifetime.Token;
+            terminalWork = Task.Run(() => RunScreenWorkAsync(ct => terminal.RunAsync(Update, ct), token));
+            PaintTerminal();
+            if (terminal.Device?.DeviceToken is null)
+                Dispatcher.BeginInvoke(() => OpenTerminalSetup(this, new RoutedEventArgs()));
+        }
+    }
+
+    private void PaintTerminal()
+    {
+        if (terminal is null || closing)
+            return;
+        TerminalStatus.Text = terminal.Status;
+        TerminalStatus.ToolTip = terminal.Incidents is { } incidents
+            ? terminal.Status + Environment.NewLine + incidents : terminal.Status;
+        TerminalSetupButton.Visibility = Visibility.Visible;
+        TerminalSetupButton.Content = terminal.Device?.DeviceToken is null ? "Configurar terminal" : "Credencial";
+        if (enrollmentSession is not { IsActive: true })
+        {
+            if (enrolling)
+                screenCancellation?.Cancel();
+            if (screen == Screen.Employee)
+                RefreshEnrollmentForm();
+        }
+        if (screen == Screen.AdminHome && !navigating)
+        {
+            SettingsButton.IsEnabled = EmployeesButton.IsEnabled = terminal.CanAdminister;
+            if (enrollmentSession is not { IsActive: true })
+            {
+                AdminHomeStatus.Text = terminal.CanAdminister ? "" : "Administración requiere autorización en línea.";
+                AdminHomeStatus.Visibility = terminal.CanAdminister ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+        if (screen == Screen.Settings)
+            BreakToggle.IsEnabled = enrollmentSession is { IsActive: true };
+    }
+
+    private void OpenTerminalSetup(object sender, RoutedEventArgs e)
+    {
+        if (terminal is not null && !closing)
+        {
+            TerminalSetup.Show(this, terminal, lifetime.Token);
+            PaintTerminal();
+        }
     }
 
     private IntPtr ReadDeviceMessage(IntPtr window, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -278,6 +342,7 @@ public partial class MainWindow : Window
                 var status = await Task.Run(SecuGenReader.Probe, cancellation);
                 cancellation.ThrowIfCancellationRequested();
                 PaintReader(status);
+                await AuditReaderStatusAsync(status, cancellation);
                 if (!feedbackTimer.IsEnabled)
                     ShowScan(status.Status == ReaderStatus.Ready ? FlowState.Idle : FlowState.DeviceUnavailable,
                         status.Status == ReaderStatus.Ready ? "Aún no hay huellas registradas" : "Lector no disponible",
@@ -294,16 +359,37 @@ public partial class MainWindow : Window
                 await workflow.WatchAttendanceAsync(windowSource!.Handle,
                     state => PostToScreen(cancellation, () => ShowAttendanceReader(state)),
                     result => Dispatcher.InvokeAsync(() => RecordIdentificationAsync(result, cancellation)).Task.Unwrap(),
-                    cancellation);
+                    cancellation, () => AuditAsync("LECTURA_HUELLA", "RECHAZADO", null, "CAPTURA_FALLIDA", cancellation));
             }
             catch (ReaderFailure failure)
             {
                 PaintReader(failure.Reader);
+                await AuditReaderStatusAsync(failure.Reader, cancellation);
                 if (!feedbackTimer.IsEnabled)
                     ShowScan(FlowState.DeviceUnavailable, "Lector no disponible", ReaderInstruction(failure.Reader));
                 await Task.Delay(TimeSpan.FromSeconds(2), cancellation);
             }
         }
+    }
+
+    private Task AuditReaderStatusAsync(ReaderState status, CancellationToken cancellation)
+    {
+        if (status.Status == ReaderStatus.Ready)
+            readerUnavailableReported = false;
+        else if (!readerUnavailableReported)
+        {
+            readerUnavailableReported = true;
+            return AuditAsync("LECTURA_HUELLA", "ERROR", null, "LECTOR_NO_DISPONIBLE", cancellation);
+        }
+        return Task.CompletedTask;
+    }
+
+    private async Task AuditAsync(string type, string result, string? id, string? reason, CancellationToken cancellation)
+    {
+        if (terminal is null)
+            return;
+        try { await Task.Run(() => terminal.RecordAudit(type, result, id, reason), cancellation); }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException) { }
     }
 
     internal void ShowAttendanceReader(FlowState state, bool keepFeedback = true)
@@ -320,6 +406,7 @@ public partial class MainWindow : Window
         switch (state)
         {
             case FlowState.Capturing:
+                readerUnavailableReported = false;
                 waitingForLift = false;
                 PaintReader(new(ReaderStatus.Ready));
                 PaintProgress(0);
@@ -351,7 +438,9 @@ public partial class MainWindow : Window
             {
                 AdminHomeStatus.Text = laboratory
                     ? "Acceso denegado. El laboratorio requiere una sesión elevada de administrador de Windows."
-                    : "Acceso pendiente. Todavía no está configurado el proveedor de autorización de UProApp.";
+                    : terminal is null
+                        ? "Acceso pendiente. Todavía no está configurado el proveedor de autorización de UProApp."
+                        : "Administración requiere autorización en línea.";
                 return;
             }
 
@@ -381,13 +470,16 @@ public partial class MainWindow : Window
         }
     }
 
-    private void OpenSettings(object sender, RoutedEventArgs e)
+    private async void OpenSettings(object sender, RoutedEventArgs e)
     {
+        if (terminal is not null && enrollmentSession is not { IsActive: true })
+            await AcquireOperationalSession();
         if (closing || navigating || screen != Screen.AdminHome || enrollmentSession is not { IsActive: true })
             return;
 
         var day = SalonDay(DateTimeOffset.Now);
-        BreakToggle.IsChecked = attendance.HasBreak(day);
+        BreakToggle.IsEnabled = true;
+        BreakToggle.IsChecked = terminal?.HasBreak(day) ?? attendance.HasBreak(day);
         PaintBreakSetting(day);
         ShowPage(Screen.Settings);
         BreakToggle.Focus();
@@ -395,6 +487,8 @@ public partial class MainWindow : Window
 
     private async void OpenEmployees(object sender, RoutedEventArgs e)
     {
+        if (terminal is not null && enrollmentSession is not { IsActive: true })
+            await AcquireOperationalSession();
         if (closing || navigating || screen != Screen.AdminHome || enrollmentSession is not { IsActive: true } session)
             return;
 
@@ -429,8 +523,17 @@ public partial class MainWindow : Window
         finally
         {
             navigating = false;
-            NavButton.IsEnabled = SettingsButton.IsEnabled = EmployeesButton.IsEnabled = !closing;
+            NavButton.IsEnabled = !closing;
+            SettingsButton.IsEnabled = EmployeesButton.IsEnabled = !closing && enrollmentSession is { IsActive: true };
         }
+    }
+
+    private async Task AcquireOperationalSession()
+    {
+        if (closing || navigating || terminal is null)
+            return;
+        enrollmentSession?.Dispose();
+        enrollmentSession = await terminal.AuthenticateAsync(lifetime.Token);
     }
 
     private async void Enroll(object sender, RoutedEventArgs e)
@@ -482,10 +585,13 @@ public partial class MainWindow : Window
             if (result == EnrollmentStatus.Completed)
             {
                 PaintProgress(Biometrics.SampleCount);
-                ShowScan(FlowState.Success, "Huella registrada", $"{employee.Name} · disponible durante esta sesión.");
+                ShowScan(FlowState.Success, "Huella registrada", terminal is null
+                    ? $"{employee.Name} · disponible durante esta sesión." : employee.Name);
             }
             else
             {
+                await AuditAsync("ALTA_HUELLA", "RECHAZADO", employee.Id,
+                    result == EnrollmentStatus.Denied ? "CANCELADO" : "CAPTURA_FALLIDA", lifetime.Token);
                 PaintProgress(0);
                 ShowScan(FlowState.Failed, "No se registró la huella", result switch
                 {
@@ -497,19 +603,29 @@ public partial class MainWindow : Window
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
         {
+            if (!closing)
+                await AuditAsync("ALTA_HUELLA", "RECHAZADO", employee.Id, "CANCELADO", lifetime.Token);
             PaintProgress(0);
             ShowScan(FlowState.Idle, "Captura cancelada", "Puedes iniciar un registro nuevo.");
         }
         catch (ReaderFailure failure)
         {
+            await AuditAsync("ALTA_HUELLA", "ERROR", employee.Id, "CAPTURA_FALLIDA", lifetime.Token);
             PaintProgress(0);
             PaintReader(failure.Reader);
             ShowScan(FlowState.DeviceUnavailable, "Lector no disponible", ReaderInstruction(failure.Reader));
         }
         catch (TimeoutException error)
         {
+            await AuditAsync("ALTA_HUELLA", "ERROR", employee.Id, "CAPTURA_FALLIDA", lifetime.Token);
             PaintProgress(0);
             ShowScan(FlowState.Failed, "Captura interrumpida", error.Message);
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            await AuditAsync("ALTA_HUELLA", "ERROR", employee.Id, "FALLO_LOCAL", lifetime.Token);
+            PaintProgress(0);
+            ShowScan(FlowState.Failed, "No se guardó la huella", "Revisa el almacenamiento de la terminal.");
         }
         finally
         {
@@ -525,7 +641,8 @@ public partial class MainWindow : Window
         if (EnrollButton is null)
             return;
 
-        Employees.IsEnabled = Fingers.IsEnabled = !enrolling;
+        Employees.IsEnabled = Fingers.IsEnabled = !enrolling
+            && (terminal is null || enrollmentSession is { IsActive: true });
         if (enrolling)
         {
             EnrollButton.IsEnabled = false;
@@ -536,7 +653,7 @@ public partial class MainWindow : Window
         FingerFields.Visibility = selection is null ? Visibility.Collapsed : Visibility.Visible;
         var registered = selection is null
             ? [] : gallery.Enrollments.Where(item => item.Identity.Employee.Id == selection.Id).ToArray();
-        EnrollmentInventory.Text = selection is null ? "" : $"{registered.Length} de hasta 3 dedos registrados en esta sesión.";
+        EnrollmentInventory.Text = selection is null ? "" : $"{registered.Length} de hasta 3 dedos registrados.";
         EnrollButton.IsEnabled = reader.Status == ReaderStatus.Ready && selection is not null
             && enrollmentSession is { IsActive: true } && registered.Length < 3
             && Fingers.SelectedItem is FingerOption finger && registered.All(item => item.Identity.Finger != finger.Finger);
@@ -550,12 +667,25 @@ public partial class MainWindow : Window
 
     private void FingerChanged(object sender, SelectionChangedEventArgs e) => RefreshEnrollmentForm();
 
-    private void ChangeBreak(object sender, RoutedEventArgs e)
+    private async void ChangeBreak(object sender, RoutedEventArgs e)
     {
         if (screen == Screen.Settings && enrollmentSession is { IsActive: true })
         {
             var day = SalonDay(DateTimeOffset.Now);
-            attendance.SetBreak(day, BreakToggle.IsChecked == true);
+            if (terminal is null)
+                attendance.SetBreak(day, BreakToggle.IsChecked == true);
+            else
+            {
+                var enabled = BreakToggle.IsChecked == true;
+                BreakToggle.IsEnabled = false;
+                try { await Task.Run(() => terminal.SetBreakAsync(day, enabled, lifetime.Token), lifetime.Token); }
+                catch (OperationCanceledException) when (closing) { return; }
+                catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+                {
+                    BreakToggle.IsChecked = terminal.HasBreak(day);
+                }
+                PaintTerminal();
+            }
             PaintBreakSetting(day);
         }
     }
@@ -573,7 +703,7 @@ public partial class MainWindow : Window
 
     private void PaintBreakSetting(DateOnly day)
     {
-        BreakDescription.Text = attendance.HasBreak(day)
+        BreakDescription.Text = (terminal?.HasBreak(day) ?? attendance.HasBreak(day))
             ? "Incluye inicio y fin de descanso."
             : "Solo entrada y salida.";
     }
@@ -583,6 +713,7 @@ public partial class MainWindow : Window
         cancellation.ThrowIfCancellationRequested();
         if (identification.Identity is not { } identity)
         {
+            await AuditAsync("LECTURA_HUELLA", "RECHAZADO", null, "NO_RECONOCIDA", cancellation);
             if (feedbackTimer.IsEnabled)
                 return;
             ShowScan(FlowState.Failed, "No se identificó la huella",
@@ -594,25 +725,47 @@ public partial class MainWindow : Window
 
         // Prevent an accidental second punch while the same employee's greeting is visible.
         if (IsFeedbackForEmployee(identity.Employee.Id))
+        {
+            if (terminal?.FindEmployee(identity.Employee.Id) is { } repeated)
+                await AuditAsync("LECTURA_HUELLA", "EXITOSO", repeated.Id, null, cancellation);
             return;
+        }
 
         var observedAt = DateTimeOffset.Now;
         var day = SalonDay(observedAt);
+        if (feedbackTimer.IsEnabled && terminal?.FindEmployee(identity.Employee.Id) is not null)
+            ShowScan(FlowState.Matching, "Verificando huella", "");
         submitting = true;
         NavButton.IsEnabled = false;
         try
         {
             await RefreshScheduleAsync(day, cancellation);
-            var punch = await attendance.PunchAsync(day, identity.Employee.Id, observedAt, cancellation);
+            var currentEmployee = terminal is null ? identity.Employee : terminal.FindEmployee(identity.Employee.Id);
+            if (currentEmployee is null)
+            {
+                await AuditAsync("LECTURA_HUELLA", "EXITOSO", identity.Employee.Id, null, cancellation);
+                ShowScan(FlowState.Failed, "Empleado no disponible", "Retira el dedo.");
+                return;
+            }
+            var punch = terminal is null
+                ? await attendance.PunchAsync(day, identity.Employee.Id, observedAt, cancellation)
+                : await Task.Run(() => terminal.PunchAsync(identity.Employee.Id, observedAt, cancellation), cancellation);
+            if (terminal is not null && punch.Result?.Status == SyncStatus.Unavailable)
+            {
+                ShowScan(FlowState.Failed, "Marcaje no disponible", "Retira el dedo. Revisa el estado de la terminal.");
+                return;
+            }
             if (punch.Event is not { } request || punch.Result is not { } result)
             {
-                ShowScan(FlowState.Identified, $"{identity.Employee.Name}, tu salida de hoy ya está registrada.", "Retira el dedo.");
+                ShowScan(FlowState.Identified, $"{currentEmployee.GreetingName}, tu salida de hoy ya está registrada.", "Retira el dedo.");
                 return;
             }
 
             if (result.Status is SyncStatus.Confirmed or SyncStatus.LocalPending)
             {
-                _ = PresentAttendanceAsync(request, identity.Employee, result);
+                if (punch.Provisional)
+                    TerminalStatus.Text = "Jornada provisional · pendiente de verificación";
+                _ = PresentAttendanceAsync(request, terminal?.FindEmployee(identity.Employee.Id) ?? currentEmployee, result);
             }
             else if (result.Status == SyncStatus.OutcomeUnknown)
             {
@@ -620,8 +773,12 @@ public partial class MainWindow : Window
             }
             else
             {
-                ShowScan(FlowState.Failed, "Marcaje no disponible", "Retira el dedo. La integración con UProApp sigue pendiente.");
+                ShowScan(FlowState.Failed, "Marcaje no disponible", "Retira el dedo. Revisa el estado de la terminal.");
             }
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            ShowScan(FlowState.Failed, "No se pudo guardar el marcaje", "Revisa el almacenamiento de la terminal.");
         }
         finally
         {
@@ -641,24 +798,25 @@ public partial class MainWindow : Window
 
         var action = attendanceEvent.Action;
         var local = result.Status == SyncStatus.LocalPending;
+        var test = local && !result.Operational;
         var sequence = ++feedbackSequence;
         feedbackEmployeeId = employee.Id;
         if (action is AttendanceAction.Entry or AttendanceAction.Exit)
         {
             var instant = local ? attendanceEvent.ObservedOnDevice : result.OfficialTime!.Value;
             var time = TimeZoneInfo.ConvertTime(instant, MexicoCity).ToString("HH:mm", CultureInfo.InvariantCulture);
-            var receipt = local ? $"{ActionName(action)} de prueba · {time}" : $"{ActionName(action)} registrada · {time}";
+            var receipt = test ? $"{ActionName(action)} de prueba · {time}" : $"{ActionName(action)} registrada · {time}";
             ShowScan(FlowState.Success, "", "");
             ScanPanel.Visibility = Visibility.Collapsed;
             AttendanceReceipt.Visibility = Visibility.Visible;
             AttendanceReceipt.Present(action == AttendanceAction.Exit, receipt,
-                AttendanceGreetings.ConfirmationSalutation(action, employee.Name));
+                AttendanceGreetings.ConfirmationSalutation(action, employee));
         }
         else
         {
             PaintProgress(Biometrics.SampleCount);
-            ShowScan(FlowState.Success, greetings.NextBreak(action, employee.Name), "");
-            ConfirmationLabel.Text = local ? $"{ActionName(action)} · Prueba" : ActionName(action);
+            ShowScan(FlowState.Success, greetings.NextBreak(action, employee.GreetingName), "");
+            ConfirmationLabel.Text = test ? $"{ActionName(action)} · Prueba" : ActionName(action);
             ConfirmationLabel.Visibility = Visibility.Visible;
         }
         feedbackTimer.Start();
@@ -680,8 +838,7 @@ public partial class MainWindow : Window
         _ => "Salida"
     };
 
-    private static DateOnly SalonDay(DateTimeOffset instant) =>
-        DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(instant, MexicoCity).DateTime);
+    private static DateOnly SalonDay(DateTimeOffset instant) => TerminalClock.Day(instant);
 
     private void PaintProgress(int count)
     {
@@ -751,9 +908,14 @@ public partial class MainWindow : Window
         feedbackTimer.Stop();
         lifetime.Cancel();
         await DrainScreenAsync();
+        if (terminalWork is not null)
+            await terminalWork;
         windowSource?.RemoveHook(ReadDeviceMessage);
         enrollmentSession?.Dispose();
-        gallery.Dispose();
+        if (terminal is null)
+            (gallery as IDisposable)?.Dispose();
+        terminal?.Dispose();
+        terminalHttp?.Dispose();
         lifetime.Dispose();
         allowClose = true;
         await Dispatcher.InvokeAsync(Close);

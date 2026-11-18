@@ -131,6 +131,10 @@
                        RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="U Professional Hairstudio"/>
                 <Button x:Name="NavButton" DockPanel.Dock="Right" VerticalAlignment="Center" MinHeight="38"
                         Content="Administración  →" Click="Navigate"/>
+                <Button x:Name="TerminalSetupButton" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                        Visibility="Collapsed" Content="Configurar terminal" Click="OpenTerminalSetup"/>
+                <TextBlock x:Name="TerminalStatus" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                           MaxWidth="220" TextTrimming="CharacterEllipsis" Style="{StaticResource Caption}"/>
             </DockPanel>
         </Border>
 

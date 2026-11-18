@@ -36,6 +36,8 @@ public enum EmployeePosition { Unknown, Stylist, Receptionist, Assistant, Appren
 public sealed record Employee(string Id, string Name)
 {
     public EmployeePosition Position { get; init; }
+    public string? Alias { get; init; }
+    public string GreetingName => string.IsNullOrWhiteSpace(Alias) ? Name : Alias.Trim();
 }
 public sealed record Identification(Employee Employee, Finger Finger);
 public sealed record FingerEnrollment(Identification Identity, IReadOnlyList<FingerprintTemplate> Samples);
@@ -66,6 +68,14 @@ public interface IEnrollmentSession : IDisposable
 {
     bool IsActive { get; }
     Task<bool> CanEnrollAsync(string employeeId, CancellationToken cancellation);
+    Task<bool> CommitEnrollmentAsync(string employeeId, Action save, CancellationToken cancellation)
+    {
+        cancellation.ThrowIfCancellationRequested();
+        if (!IsActive)
+            return Task.FromResult(false);
+        save();
+        return Task.FromResult(true);
+    }
 }
 
 public interface IEmployeeProvider
@@ -76,7 +86,10 @@ public interface IEmployeeProvider
 public enum AttendanceAction { Entry, Exit, BreakStart, BreakEnd }
 public enum SyncStatus { Unavailable, LocalPending, OutcomeUnknown, Confirmed }
 public sealed record AttendanceEvent(Guid Id, string EmployeeId, AttendanceAction Action, DateTimeOffset ObservedOnDevice);
-public sealed record AttendanceResult(SyncStatus Status, DateTimeOffset? OfficialTime = null);
+public sealed record AttendanceResult(SyncStatus Status, DateTimeOffset? OfficialTime = null)
+{
+    public bool Operational { get; init; }
+}
 
 public interface IAttendanceGateway
 {

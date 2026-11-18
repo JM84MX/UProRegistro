@@ -23,6 +23,7 @@ internal static class EditorialTests
         ("A malformed or missing primary is preserved until explicit recovery", ControlledRecovery),
         ("Concurrent writers serialize and deduplicate the same accepted mark", ConcurrentWriters),
         ("Laboratory and operational histories never share an assignment", EnvironmentsIsolated),
+        ("An offline operational mark reuses its editorial assignment after confirmation", OfflineAssignment),
         ("Windows history directories and files use only the current SID and SYSTEM", WindowsPermissions)
     ];
 
@@ -262,6 +263,17 @@ internal static class EditorialTests
         Check("Segunda", messages.Select(Mark(employee), employee, Local));
         foreach (var file in directory.EnumerateFiles())
             Check(true, ReadSids(file.GetAccessControl()).SequenceEqual(expected));
+    }
+
+    private static void OfflineAssignment()
+    {
+        using var store = new TemporaryEditorialStore();
+        var catalog = Catalog(Entry("a", "Primera"), Entry("b", "Segunda"));
+        var mark = Mark(Stylist);
+        Check("Primera", store.Service(catalog).Select(mark, Stylist, Local with { Operational = true }));
+        Check("Primera", store.Service(catalog).Select(mark, Stylist, Official));
+        Check(1, store.Rows(EditorialEnvironment.Operational).Length);
+        Check(0, store.Rows(EditorialEnvironment.Laboratory).Length);
     }
 
     private static IEnumerable<string> ReadSids(FileSystemSecurity security) =>

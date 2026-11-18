@@ -8,9 +8,35 @@ Cada lectura identificada registra el siguiente movimiento de la estilista para 
 
 La pantalla de espera muestra la huella y la instrucción para acercar el dedo. En entrada y salida, la confirmación separa la hora, el saludo por nombre de pila, el mensaje y el cierre opcional. La hora se muestra en el horario de Ciudad de México. En laboratorio, el registro lleva la etiqueta **de prueba** y muestra la hora observada en el equipo. La confirmación dura hasta 30 segundos. Un marcaje válido de otra persona la sustituye de inmediato. La relectura de la misma persona durante ese periodo conserva la confirmación vigente.
 
-El interruptor está disponible en **Administración → Configuración**. Cambia la jornada de quienes todavía no han iniciado su descanso ni registrado salida. Si una estilista ya empezó a descansar, su siguiente lectura sigue registrando el fin de descanso. En laboratorio, la configuración y los marcajes se conservan durante la sesión.
+El interruptor está disponible en **Administración → Configuración**. Cambia la jornada de quienes todavía no han iniciado su descanso ni registrado salida. Si una estilista ya empezó a descansar, su siguiente lectura sigue registrando el fin de descanso. En operación, el ajuste se guarda en la terminal por fecha civil de Ciudad de México. En laboratorio, la configuración y los marcajes se conservan durante la sesión.
 
-Al abrir la aplicación, `IAppointmentHoursProvider` puede aportar el total diario de las citas para activar el descanso si supera seis horas. Con seis horas o menos queda desactivado. Un cambio manual prevalece ese día. El proveedor actual devuelve una agenda no disponible, por lo que el modo de laboratorio comienza sin descanso hasta activar el interruptor.
+`IAppointmentHoursProvider` conserva el punto de integración para el total de citas. En esta fase la jornada empieza con el descanso desactivado hasta que un operador cambie el ajuste manual.
+
+## Configuración inicial y credenciales
+
+1. En UProApp, un operador autorizado genera un token de registro de un solo uso, válido durante diez minutos. Confirma con el administrador el origen HTTPS exacto del entorno antes de introducir el token.
+2. Abre el ejecutable con la cuenta Windows asignada a la terminal. En **Configurar terminal**, introduce el origen HTTPS, un nombre descriptivo y el token temporal. El origen queda asociado al UUID que se guarda antes de enviar el alta.
+3. UProCheck guarda la credencial individual devuelta y comprueba el acceso con heartbeat. Los siguientes arranques usan el mismo UUID y la credencial guardada. El indicador de cabecera distingue la conexión, las incidencias y los movimientos pendientes.
+4. Si se pierde la respuesta, consulta en UProApp el UUID visible en **Configurar terminal**. Si existe y está activo, rota la credencial en UProApp. Si está revocado y corresponde reactivarlo, reactívalo en UProApp. Si el UUID no existe, emite otro token temporal y repite el alta. La terminal conserva el UUID al reintentar.
+5. Introduce la nueva credencial mediante **Credencial** o marca **Usar credencial individual emitida por UProApp** si el alta quedó sin respuesta. UProCheck verifica la credencial con el origen guardado antes de reemplazarla. Si también se pierde la respuesta de una rotación, vuelve a rotar en UProApp.
+
+La configuración de identidad está disponible antes del primer heartbeat. **Administración** requiere que el servidor confirme `registroHuellaAdmon` y que la comunicación siga vigente. El alta comprueba la autorización del empleado al iniciar, al aceptar muestras y justo antes de guardar las tres plantillas junto con su auditoría.
+
+## Almacenamiento y recuperación
+
+La instalación operativa usa `%LOCALAPPDATA%\UProRegistro\Terminal\Operacion`. Su ACL concede acceso a la cuenta Windows operativa y a SYSTEM. La aplicación cifra los archivos versionados con DPAPI de usuario, obtiene un bloqueo exclusivo por instalación y confirma las escrituras mediante un temporal y reemplazo con escritura directa a disco. La estructura principal incluye `device.upc`, `employees.upc`, `gallery.upc`, `breaks.upc` y archivos `day-*.upc`, `punch-*.upc` y `audit-*.upc`. El historial editorial conserva su formato y ubicación. El laboratorio mantiene su galería y sus marcajes en memoria y su historial editorial en la carpeta de laboratorio. Para verificar la integración HTTP con un laboratorio, asigna una cuenta Windows distinta y usa un origen HTTPS de integración desechable.
+
+Los archivos se validan al arrancar. Si falla la validación o se pierde acceso, cierra la aplicación y conserva los archivos actuales para identificar la incidencia. Para recuperar un archivo, conserva primero una copia del estado actual y restaura únicamente el archivo identificado desde una copia válida de la misma instalación. Para la cola, incorpora los archivos ausentes por UUID y conserva la versión más reciente de cada UUID. Cada marcaje tiene un archivo independiente, por lo que recuperar un archivo antiguo de un UUID deja intactos los posteriores. Sustituir la carpeta por una copia completa antigua podría eliminar archivos creados después del respaldo. Conserva también esos archivos antes de cualquier restauración.
+
+El cifrado depende del perfil y de las claves DPAPI de la cuenta Windows que guardó los datos. Otra cuenta obtiene una instalación local distinta. Reinstalar Windows o trasladar un respaldo a otro equipo puede impedir el descifrado. Antes de una migración, sincroniza la cola y coordina con el administrador la recuperación de la identidad, la rotación o revocación correspondiente y un nuevo enrolamiento cuando se pierdan las claves o la galería.
+
+## Operación fuera de línea y reconciliación
+
+Un empleado activo en el último directorio válido puede marcar durante una interrupción. Se conserva el instante original de Windows y se muestra la confirmación después de persistir el movimiento. La hora oficial se utiliza en la confirmación cuando UProApp la devuelve durante el marcaje. Si falta una jornada sincronizada, el indicador señala que la jornada es provisional. El dispositivo queda bloqueado para asistencia desde que conoce una revocación o una credencial inválida. Los marcajes previos quedan disponibles para sincronizar con una credencial autorizada.
+
+La sincronización conserva UUID, hora, modalidad y prueba original. Cuando un envío queda sin respuesta, consulta su UUID y reenvía el cuerpo original si UProApp responde que no existe. Confirma primero los movimientos anteriores de cada empleado. Un conflicto de secuencia se vuelve a comprobar con la jornada vigente. Una colisión de UUID o una prueba firmada inválida requiere intervención. El texto emergente del indicador de conexión muestra códigos y UUID de incidencias recientes. Usa esos UUID para investigar en UProApp y conserva el archivo original mientras se acuerda la reconciliación.
+
+Varias terminales desconectadas pueden proponer movimientos incompatibles para una misma persona. Al reconectar, los movimientos vigentes y las correcciones de UProApp determinan la jornada conocida por la terminal. Los conflictos quedan registrados localmente para revisión y la sincronización sigue con los demás empleados. La sincronización posterior de un marcaje no vuelve a mostrar el saludo ni selecciona otro mensaje.
 
 ## Compilaciones de desarrollo
 
@@ -45,7 +71,7 @@ Si falla el catálogo o el historial, la aplicación muestra el saludo y la conf
    dotnet publish App/UProAttendance.csproj -c Release -r win-x64 --self-contained false -m:1 -o .local/publish/win-x64
    ```
 
-5. Ejecuta `UProAttendance.exe` desde la carpeta publicada o descomprimida. El paquete requiere .NET Desktop Runtime 10 x64. Para una compilación de diagnóstico x86, usa `-r win-x86 -p:PlatformTarget=x86`, Desktop Runtime x86 y los módulos de `bin\i386`. Mantén la arquitectura de los módulos igual a la del proceso. Esta entrega valida y publica x64.
+5. Ejecuta `UProAttendance.exe` desde la carpeta publicada o descomprimida con la cuenta Windows asignada. Completa la configuración inicial indicada arriba. Para una compilación de diagnóstico x86, usa `-r win-x86 -p:PlatformTarget=x86`, Desktop Runtime x86 y los módulos de `bin\i386`. Mantén la arquitectura de los módulos igual a la del proceso.
 
 [Controladores y diagnóstico SecuGen](https://secugen.com/drivers/) · [Solicitud de SDK oficial](https://secugen.com/request-free-software/) · [Descarga de FDx 4.21 de SecuGen India](https://www.secugenindia.com/download)
 
@@ -54,12 +80,12 @@ Si falla el catálogo o el historial, la aplicación muestra el saludo y la conf
 - La detección del lector usa el estado PnP del dispositivo presente. La disponibilidad requiere que FDx abra el dispositivo y devuelva dimensiones y tamaño de plantilla válidos.
 - Captura y comparación usan la API C de FDx 4.21, contrastada con `Inc/sgfplib.h`, el manual SG1-0030A-025 y los ejemplos oficiales C# y C++. Las llamadas de captura nativa usan intervalos de 1,5 s. El flujo permite aproximadamente 18 s por muestra y hasta 10 s para recibir el evento Auto-On de retiro. Los errores reportan la operación y el código en el diagnóstico.
 - El umbral inicial de `GetImageEx` y el de `GetImageQuality` son 50 en ambas operaciones. El primero mide la proporción de imagen ocupada por la huella y el segundo también considera calidad de crestas. Son valores de arranque basados en el manual. La consistencia entre las tres muestras usa `SL_HIGH`. Para detección de duplicidades y candidatos se usa `SL_NORMAL`. La identificación exige un único dedo candidato y al menos una comparación `SL_HIGH`. Estas configuraciones quedan sujetas a pruebas en el salón.
-- Cada dedo conserva tres plantillas SG400 separadas en memoria. El manual documenta funciones de combinación ANSI 378 e ISO 19794 de múltiples vistas. Esta solución emplea comparación 1:1 de FDx contra la galería local y agrupa por empleado y dedo. SecuSearch Pro 3 ofrece búsqueda indexada y listas de candidatos para galerías mayores. El proveedor publica ejemplos en C# y un límite de 1.000 plantillas sin archivo de licencia. La compatibilidad efectiva de SecuSearch en la Huawei requiere validación por separado. [FDx SDK Pro](https://secugen.com/products/sdk/) · [SecuSearch Pro 3](https://secugen.com/products/secusearch/)
+- Cada dedo conserva tres plantillas SG400 separadas. La galería operativa se guarda cifrada y se carga en memoria para comparación 1:1 de FDx por empleado y dedo. [FDx SDK Pro](https://secugen.com/products/sdk/)
 - La huella vectorial oscurece los trazos desde el centro una vez aceptada cada muestra. La barra cuenta muestras. La guía de variar ligeramente la posición se muestra después de recibir el evento de retiro. La etiqueta del dedo proviene de la selección durante el enrolamiento.
 
 ## Acceso y marcajes
 
-En Release, **Registrar huellas** exige un proveedor autorizado de UProApp. La composición actual carece de ese proveedor y el formulario permanece cerrado. El programa prepara contratos para autorización administrativa, alcance por empleado, listado de empleados, galería de plantillas y envío de asistencia. Las plantillas de la galería son locales. Las imágenes se eliminan de los búferes de aplicación y las muestras en memoria se limpian al cancelar o cerrar.
+En operación, **Registrar huellas** exige autorización de UProApp. Las plantillas de la galería son locales. Las imágenes se eliminan de los búferes de aplicación y las muestras en memoria se limpian al cancelar o cerrar.
 
 Para una prueba de extremo a extremo con hardware, compila en **Debug**, coloca los módulos FDx junto al ejecutable Debug y abre PowerShell como administrador de Windows. Los nombres son ejemplos y el acceso al enrolamiento comprueba el token real de Windows. Esta opción está excluida del ejecutable Release.
 
@@ -72,7 +98,13 @@ dotnet build UProAttendance.slnx -m:1 -nodeReuse:false
 2. Ajusta **Hay descanso hoy** en **Configuración** y regresa a **Registro de asistencia**. Presenta un dedo enrolado y comprueba que la aplicación registre el movimiento correspondiente. Mantén el dedo apoyado tras ver la confirmación para comprobar que se registre un solo movimiento. Retíralo y vuelve a colocarlo para el siguiente. La hora local es provisional y los marcajes de laboratorio se mantienen en memoria durante la sesión.
 3. Para caracterizar el equipo, repite con posiciones centradas y ligeramente desplazadas. Registra intentos, coincidencias al primer intento y rechazos sin guardar imágenes o plantillas. Verifica un dedo sin enrolar, una muestra de otro dedo durante el enrolamiento, cancelación y desconexión.
 
-Un marcaje nuevo lleva un UUID. Una solicitud sin respuesta conserva el evento pendiente con el mismo UUID durante el proceso. El backend futuro debe deduplicar por ese UUID y devolver la hora oficial. La aplicación presenta las horas en `America/Mexico_City`. El diseño de almacenamiento duradero, la conciliación con un backend real y el acceso de producción quedan pendientes de aprobación e integración.
+### Plan manual en la Huawei
+
+1. Usa una cuenta Windows de pruebas, empleados ficticios y un entorno HTTPS desechable. Completa el alta y reinicia Windows. Comprueba que se conserva el UUID sin volver a introducir el token.
+2. Con el SecuGen U20 y FDx 4.21 x64, activa el permiso remoto y enrola tres muestras por dedo. Verifica calidad, retiro, huella duplicada, ambigüedad y límite de tres dedos. Reinicia UProCheck y prueba la identificación con la galería recargada.
+3. Desactiva el permiso remoto y desconecta la red en ensayos separados durante la captura. Comprueba que el alta se interrumpe y que las plantillas no confirmadas quedan fuera de la galería. Desconecta y reconecta también el lector y comprueba que la auditoría no satura la cola.
+4. Prueba las dos secuencias de asistencia. Verifica los saludos, la protección contra relectura, la interrupción al identificar a otra persona y la duración máxima de 30 segundos. Desconecta la red, marca, reinicia y vuelve a conectar. Compara UUID y hora original con las confirmaciones del servidor.
+5. Prueba la rotación, revocación y reactivación. Simula una corrección de jornada, desactiva un empleado y ensaya un conflicto con dos terminales de laboratorio. Verifica que una jornada corregida se refresque, que el empleado desactivado no genere marcajes y que el conflicto no detenga a los demás.
 
 ## Estructura y pruebas
 
@@ -81,8 +113,10 @@ Un marcaje nuevo lleva un UUID. Una solicitud sin respuesta conserva el evento p
 - `Tests/` contiene pruebas ejecutables sin paquetes externos, diagnóstico FDx y generación de capturas WPF.
 
 ```powershell
-dotnet build UProAttendance.slnx -m:1 -nodeReuse:false
-.\Tests\bin\Debug\net10.0-windows\UProAttendance.Tests.exe
+dotnet build UProAttendance.slnx -c Debug
+dotnet run --project Tests/UProAttendance.Tests.csproj -c Debug
+dotnet build UProAttendance.slnx -c Release
+dotnet run --project Tests/UProAttendance.Tests.csproj -c Release
 .\Tests\bin\Debug\net10.0-windows\UProAttendance.Tests.exe --screenshots .local\screenshots
 ```
 

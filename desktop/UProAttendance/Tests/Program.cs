@@ -10,6 +10,7 @@ using UProAttendance.Core;
 using UProAttendance.Core.Editorial;
 using UProAttendance.Hardware;
 using UProAttendance.Presentation;
+using UProAttendance.Tests;
 
 internal static class Program
 {
@@ -53,7 +54,8 @@ internal static class Program
                 ("Turning off breaks preserves a break already started", BreakAlreadyStarted),
                 ("A pending automatic punch is retried with its original ID", DailyRetry),
                 ("Confirmation salutations use first names and break greetings are preserved", GreetingCatalog),
-                .. EditorialTests.All
+                .. EditorialTests.All,
+                .. TerminalTests.All
             ];
 
             foreach (var (name, test) in tests)

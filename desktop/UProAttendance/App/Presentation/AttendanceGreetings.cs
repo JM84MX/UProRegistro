@@ -18,8 +18,16 @@ internal sealed class AttendanceGreetings
         var trimmed = name.AsSpan().Trim();
         var separator = trimmed.IndexOfAny(" \t\r\n".AsSpan());
         var firstName = (separator < 0 ? trimmed : trimmed[..separator]).ToString();
+        return Greet(action, firstName);
+    }
+
+    public static string ConfirmationSalutation(AttendanceAction action, Employee employee) =>
+        string.IsNullOrWhiteSpace(employee.Alias) ? ConfirmationSalutation(action, employee.Name) : Greet(action, employee.Alias.Trim());
+
+    private static string Greet(AttendanceAction action, string name)
+    {
         var greeting = action == AttendanceAction.Entry ? "Qué gusto verte" : "Gracias por hoy";
-        return string.IsNullOrEmpty(firstName) ? $"{greeting}." : $"{greeting}, {firstName}.";
+        return string.IsNullOrEmpty(name) ? $"{greeting}." : $"{greeting}, {name}.";
     }
 
     private int NextIndex(AttendanceAction action, int count)

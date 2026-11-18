@@ -6,8 +6,8 @@
     <PlatformTarget Condition="'$(PlatformTarget)' == ''">x64</PlatformTarget>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <!-- Increase the fourth version component and update the summary for each development delivery. -->
-    <Version>1.0.0.2</Version>
-    <DevelopmentChangeSummary>Catálogo e historial de mensajes</DevelopmentChangeSummary>
+    <Version>1.0.0.3</Version>
+    <DevelopmentChangeSummary>Integración de la terminal con UProCheck</DevelopmentChangeSummary>
     <ShowDevelopmentBuildStamp Condition="'$(ShowDevelopmentBuildStamp)' == ''">true</ShowDevelopmentBuildStamp>
   </PropertyGroup>
   <ItemGroup Condition="'$(ShowDevelopmentBuildStamp)' == 'true'">

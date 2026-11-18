@@ -12,7 +12,7 @@ internal sealed class ReaderWorkflow(Biometrics biometrics)
     public void FingerLifted() => Interlocked.Increment(ref lifts);
 
     public Task WatchAttendanceAsync(IntPtr eventTarget, Action<FlowState> update,
-        Func<IdentificationResult, Task> identified, CancellationToken cancellation) =>
+        Func<IdentificationResult, Task> identified, CancellationToken cancellation, Func<Task>? qualityFailed = null) =>
         Task.Run(async () =>
         {
             using var reader = SecuGenReader.Open();
@@ -37,11 +37,19 @@ internal sealed class ReaderWorkflow(Biometrics biometrics)
 
                 update(FlowState.Capturing);
                 Capture capture;
+                var reportedQualityFailure = false;
                 do
                 {
                     capture = reader.Capture(cancellation);
                     if (capture.Status == CaptureStatus.QualityRejected)
+                    {
                         update(FlowState.QualityRejected);
+                        if (!reportedQualityFailure && qualityFailed is not null)
+                        {
+                            await qualityFailed().ConfigureAwait(false);
+                            reportedQualityFailure = true;
+                        }
+                    }
                     if (capture.Status == CaptureStatus.TimedOut && WindowsReader.IsStarted() == false)
                         throw new ReaderFailure(new(ReaderStatus.Absent));
                 }

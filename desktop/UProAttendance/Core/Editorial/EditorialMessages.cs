@@ -25,7 +25,7 @@ public sealed class EditorialMessages(
             || result is not ({ Status: SyncStatus.LocalPending } or { Status: SyncStatus.Confirmed, OfficialTime: not null }))
             return null;
 
-        var environment = result.Status == SyncStatus.LocalPending
+        var environment = result.Status == SyncStatus.LocalPending && !result.Operational
             ? EditorialEnvironment.Laboratory : EditorialEnvironment.Operational;
         MessageCatalog available;
         try
